@@ -26,14 +26,14 @@ test("uses built-in defaults without an env file", async () => {
   assert.equal(config.version, DEFAULT_CONFIG.DESKTOP_APP_VERSION);
   assert.equal(config.displayVersion, `v${DEFAULT_CONFIG.DESKTOP_APP_VERSION}`);
   assert.equal(config.windowTitle, `${DEFAULT_CONFIG.DESKTOP_APP_NAME} v${DEFAULT_CONFIG.DESKTOP_APP_VERSION}`);
-  assert.equal(config.repository, "https://github.com/deepseek-desktop/deepseek-desktop");
+  assert.equal(config.repository, "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop");
   assert.equal(config.harness.repository, DEFAULT_CONFIG.HARNESS_REPOSITORY);
   assert.equal(config.harness.ref, "");
   assert.deepEqual(config.harnessUpdate, {
     manifestUrl: "",
     channel: "stable",
     autoUpdate: false,
-    publisher: "deepseek-desktop",
+    publisher: "xingyunxunzhi-desktop",
     publicKey: "",
     desktopProtocolVersion: 1,
     harnessProtocolVersion: 1,
@@ -54,7 +54,7 @@ test("environment values override env file values", () => {
 });
 
 test("loads every declared value from an env file before applying environment overrides", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-desktop-config-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-desktop-config-"));
   const envFile = join(directory, ".env");
   await writeFile(envFile, [
     "DESKTOP_APP_NAME=定制桌面",
@@ -65,7 +65,7 @@ test("loads every declared value from an env file before applying environment ov
     "DESKTOP_APP_AUTHORS=Alice, Bob",
     "DESKTOP_APP_REPOSITORY=https://git.example.com/team/desktop.git",
     "DESKTOP_APP_ICON=src-tauri/icons/icon.png",
-    "HARNESS_REPOSITORY=git@github.com:example/deepseek-harness.git",
+    "HARNESS_REPOSITORY=git@github.com:example/xingyunxunzhi-harness.git",
     "HARNESS_REF=release-candidate",
     "HARNESS_UPDATE_MANIFEST_URL=https://updates.example.com/harness/manifest.json",
     "HARNESS_UPDATE_CHANNEL=preview",
@@ -88,7 +88,7 @@ test("loads every declared value from an env file before applying environment ov
     assert.equal(config.slug, "custom-desktop");
     assert.deepEqual(config.authors, ["Alice", "Bob"]);
     assert.equal(config.repository, "https://git.example.com/team/desktop");
-    assert.equal(config.harness.repository, "git@github.com:example/deepseek-harness.git");
+    assert.equal(config.harness.repository, "git@github.com:example/xingyunxunzhi-harness.git");
     assert.equal(config.harness.ref, "release-candidate");
     assert.equal(config.harnessUpdate.manifestUrl, "https://updates.example.com/harness/manifest.json");
     assert.equal(config.harnessUpdate.channel, "preview");
@@ -188,16 +188,16 @@ test("accepts empty Harness ref and Desktop repository for automatic resolution"
 
 test("normalizes common Git remotes into browser repository URLs", () => {
   assert.equal(
-    normalizePublicRepository("git@github.com:deepseek-desktop/deepseek-desktop.git"),
-    "https://github.com/deepseek-desktop/deepseek-desktop"
+    normalizePublicRepository("git@github.com:xingyunxunzhi/xingyunxunzhi-desktop.git"),
+    "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop"
   );
   assert.equal(
-    normalizePublicRepository("git+https://github.com/deepseek-desktop/deepseek-desktop.git"),
-    "https://github.com/deepseek-desktop/deepseek-desktop"
+    normalizePublicRepository("git+https://github.com/xingyunxunzhi/xingyunxunzhi-desktop.git"),
+    "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop"
   );
   assert.equal(
-    normalizePublicRepository("ssh://git@github.com/deepseek-desktop/deepseek-desktop.git"),
-    "https://github.com/deepseek-desktop/deepseek-desktop"
+    normalizePublicRepository("ssh://git@github.com/xingyunxunzhi/xingyunxunzhi-desktop.git"),
+    "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop"
   );
 });
 
@@ -206,15 +206,15 @@ test("uses GitHub Actions repository metadata before a temporary clone origin", 
     environment: {
       GITHUB_ACTIONS: "true",
       GITHUB_SERVER_URL: "https://github.example.com/",
-      GITHUB_REPOSITORY: "desktop/deepseek-desktop"
+      GITHUB_REPOSITORY: "desktop/xingyunxunzhi-desktop"
     },
     envFile: resolve(root, "target/missing.env")
   });
-  assert.equal(config.repository, "https://github.example.com/desktop/deepseek-desktop");
+  assert.equal(config.repository, "https://github.example.com/desktop/xingyunxunzhi-desktop");
 });
 
 test("ignores a local clone origin and falls back to the manifest repository", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-desktop-local-origin-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-desktop-local-origin-"));
   await writeFile(join(directory, "package.json"), JSON.stringify({
     repository: "git+https://github.com/example/desktop.git"
   }));
@@ -264,11 +264,11 @@ test("accepts spaces, Chinese text, and Windows separators in relative paths", a
 
 test("rejects repository URLs containing embedded credentials", async () => {
   await assert.rejects(loadBuildConfig(root, {
-    environment: { HARNESS_REPOSITORY: "https://token@example.com/deepseek-harness.git" },
+    environment: { HARNESS_REPOSITORY: "https://token@example.com/xingyunxunzhi-harness.git" },
     envFile: resolve(root, "target/missing.env")
   }), /must not contain embedded credentials/u);
   assert.throws(
-    () => normalizePublicRepository("https://token@example.com/deepseek-desktop.git"),
+    () => normalizePublicRepository("https://token@example.com/xingyunxunzhi-desktop.git"),
     /must not contain embedded credentials/u
   );
 });

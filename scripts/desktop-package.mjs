@@ -79,9 +79,9 @@ async function sha256(path) {
 
 const packageStartedAt = Date.now();
 const timings = {};
-const preparedRoot = process.env.DEEPSEEK_DESKTOP_PREPARED_ROOT?.trim() || "";
-const preparedDescriptorText = process.env.DEEPSEEK_DESKTOP_PREPARED_DESCRIPTOR?.trim() || "";
-const releasePlanText = process.env.DEEPSEEK_DESKTOP_RELEASE_PLAN?.trim() || "";
+const preparedRoot = process.env.XINGYUNXUNZHI_DESKTOP_PREPARED_ROOT?.trim() || "";
+const preparedDescriptorText = process.env.XINGYUNXUNZHI_DESKTOP_PREPARED_DESCRIPTOR?.trim() || "";
+const releasePlanText = process.env.XINGYUNXUNZHI_DESKTOP_RELEASE_PLAN?.trim() || "";
 const preparedValueCount = [preparedRoot, preparedDescriptorText, releasePlanText].filter(Boolean).length;
 if (preparedValueCount !== 0 && preparedValueCount !== 3) {
   throw new Error("prepared packaging requires a cache root, descriptor, and controller release plan together");
@@ -117,7 +117,7 @@ if (preparedMode) {
 const config = JSON.parse(await readFile(join(root, "target/generated/app-config.json"), "utf8"));
 const harness = JSON.parse(await readFile(join(root, "target/generated/harness-lock.json"), "utf8"));
 const harnessSource = JSON.parse(await readFile(join(root, "target/generated/harness-source.json"), "utf8"));
-const cargoCacheRoot = resolve(process.env.DEEPSEEK_DESKTOP_CARGO_CACHE_ROOT?.trim() || join(root, "src-tauri", "target"));
+const cargoCacheRoot = resolve(process.env.XINGYUNXUNZHI_DESKTOP_CARGO_CACHE_ROOT?.trim() || join(root, "src-tauri", "target"));
 const cargoCacheKey = createHash("sha256").update(JSON.stringify({
   target: target.triple,
   nodeVersion: toolchainLock.node.version,
@@ -129,7 +129,7 @@ const cargoCacheKey = createHash("sha256").update(JSON.stringify({
   rustPathRemapVersion: RUST_PATH_REMAP_VERSION,
   profile: "release"
 })).digest("hex").slice(0, 20);
-const cargoTargetDir = process.env.DEEPSEEK_DESKTOP_CARGO_CACHE_ROOT?.trim()
+const cargoTargetDir = process.env.XINGYUNXUNZHI_DESKTOP_CARGO_CACHE_ROOT?.trim()
   ? join(cargoCacheRoot, target.triple, cargoCacheKey)
   : cargoCacheRoot;
 process.env.CARGO_TARGET_DIR = cargoTargetDir;
@@ -233,7 +233,7 @@ await writeFile(buildInfoPath, `${JSON.stringify({
     schemaVersion: 1,
     timings,
     harnessCache,
-    cargoCache: { key: cargoCacheKey, persistent: Boolean(process.env.DEEPSEEK_DESKTOP_CARGO_CACHE_ROOT?.trim()) }
+    cargoCache: { key: cargoCacheKey, persistent: Boolean(process.env.XINGYUNXUNZHI_DESKTOP_CARGO_CACHE_ROOT?.trim()) }
   },
   harnessUpdate: {
     enabled: Boolean(config.harnessUpdate.manifestUrl && config.harnessUpdate.publicKey),

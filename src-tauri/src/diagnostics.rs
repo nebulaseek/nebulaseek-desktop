@@ -58,7 +58,7 @@ impl Diagnostics {
     ) -> DesktopResult<PathBuf> {
         let _guard = self.write_lock.lock()?;
         let filename = format!(
-            "deepseek-desktop-diagnostics-{}.json",
+            "xingyunxunzhi-desktop-diagnostics-{}.json",
             Utc::now().format("%Y%m%dT%H%M%SZ")
         );
         let path = self.paths.diagnostics_dir.join(filename);
@@ -68,9 +68,9 @@ impl Diagnostics {
         redacted_settings.harness_update_repository = None;
         let document = DiagnosticDocument {
             generated_at: Utc::now().to_rfc3339(),
-            desktop_version: env!("DEEPSEEK_DESKTOP_APP_VERSION"),
+            desktop_version: env!("XINGYUNXUNZHI_DESKTOP_APP_VERSION"),
             harness_version: harness_update.current_version.clone(),
-            target: env!("DEEPSEEK_DESKTOP_TARGET"),
+            target: env!("XINGYUNXUNZHI_DESKTOP_TARGET"),
             status: redacted_status,
             harness_update: harness_update.clone(),
             settings: redacted_settings,
@@ -83,7 +83,7 @@ impl Diagnostics {
     pub fn export_logs(&self) -> DesktopResult<PathBuf> {
         let _guard = self.write_lock.lock()?;
         let filename = format!(
-            "deepseek-desktop-logs-{}.log",
+            "xingyunxunzhi-desktop-logs-{}.log",
             Utc::now().format("%Y%m%dT%H%M%SZ")
         );
         let path = self.paths.diagnostics_dir.join(filename);
@@ -432,7 +432,7 @@ mod tests {
         ]));
         let redacted = redact_roots(
             "harness=C:\\Users\\zhang\\Documents\\work; cache=C:\\Users\\zhang\\AppData\\Local\\npm",
-            "C:\\Users\\zhang\\AppData\\Roaming\\deepseek.desktop",
+            "C:\\Users\\zhang\\AppData\\Roaming\\xingyunxunzhi.desktop",
             &homes,
         );
         assert!(!redacted.contains("zhang"), "{redacted}");
@@ -442,8 +442,8 @@ mod tests {
     fn redacts_windows_user_profile_paths() {
         let homes = ["C:\\Users\\zhang".to_owned()];
         let redacted = redact_roots(
-            "harness=C:\\Users\\zhang\\AppData\\Roaming\\deepseek.desktop\\logs; project=C:\\Users\\zhang\\work",
-            "C:\\Users\\zhang\\AppData\\Roaming\\deepseek.desktop",
+            "harness=C:\\Users\\zhang\\AppData\\Roaming\\xingyunxunzhi.desktop\\logs; project=C:\\Users\\zhang\\work",
+            "C:\\Users\\zhang\\AppData\\Roaming\\xingyunxunzhi.desktop",
             &homes,
         );
         assert!(!redacted.contains("zhang"), "{redacted}");
@@ -455,8 +455,8 @@ mod tests {
     fn redacts_windows_paths_case_insensitively_with_either_separator() {
         let homes = ["C:\\Users\\Zhang".to_owned()];
         let redacted = redact_roots(
-            "harness=c:/users/zhang/appdata/roaming/deepseek.desktop/logs; project=C:/USERS/ZHANG/work",
-            "C:\\Users\\Zhang\\AppData\\Roaming\\deepseek.desktop",
+            "harness=c:/users/zhang/appdata/roaming/xingyunxunzhi.desktop/logs; project=C:/USERS/ZHANG/work",
+            "C:\\Users\\Zhang\\AppData\\Roaming\\xingyunxunzhi.desktop",
             &homes,
         );
         assert!(
@@ -470,7 +470,7 @@ mod tests {
     #[test]
     fn redacts_application_data_paths() {
         let root = std::env::temp_dir().join(format!(
-            "deepseek-desktop-diagnostics-{}",
+            "xingyunxunzhi-desktop-diagnostics-{}",
             std::process::id()
         ));
         let paths = AppPaths {
@@ -498,7 +498,7 @@ mod tests {
     #[test]
     fn exports_redacted_plain_text_logs() {
         let root = std::env::temp_dir().join(format!(
-            "deepseek-desktop-log-export-{}",
+            "xingyunxunzhi-desktop-log-export-{}",
             std::process::id()
         ));
         let paths = AppPaths {
@@ -530,7 +530,7 @@ mod tests {
     #[test]
     fn omits_the_custom_harness_repository_from_diagnostics() {
         let root = std::env::temp_dir().join(format!(
-            "deepseek-desktop-update-source-diagnostics-{}",
+            "xingyunxunzhi-desktop-update-source-diagnostics-{}",
             std::process::id()
         ));
         let paths = AppPaths {
@@ -567,7 +567,7 @@ mod tests {
     #[test]
     fn reads_a_utf8_safe_tail_from_a_large_log() {
         let root =
-            std::env::temp_dir().join(format!("deepseek-desktop-utf8-tail-{}", std::process::id()));
+            std::env::temp_dir().join(format!("xingyunxunzhi-desktop-utf8-tail-{}", std::process::id()));
         let paths = AppPaths {
             data_dir: root.join("data"),
             dsh_home: root.join("data/dsh"),
@@ -594,7 +594,7 @@ mod tests {
     #[test]
     fn rotates_and_exports_all_five_archives() {
         let root = std::env::temp_dir().join(format!(
-            "deepseek-desktop-log-rotation-{}",
+            "xingyunxunzhi-desktop-log-rotation-{}",
             std::process::id()
         ));
         let paths = AppPaths {

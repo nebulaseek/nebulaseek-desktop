@@ -108,11 +108,11 @@ pub const fn current_settings_schema_version() -> u8 {
 }
 
 fn default_harness_update_channel() -> String {
-    env!("DEEPSEEK_DESKTOP_HARNESS_UPDATE_CHANNEL").to_owned()
+    env!("XINGYUNXUNZHI_DESKTOP_HARNESS_UPDATE_CHANNEL").to_owned()
 }
 
 fn default_harness_update_mode() -> String {
-    if env!("DEEPSEEK_DESKTOP_HARNESS_AUTO_UPDATE") == "true" {
+    if env!("XINGYUNXUNZHI_DESKTOP_HARNESS_AUTO_UPDATE") == "true" {
         "automatic".to_owned()
     } else {
         "notify".to_owned()

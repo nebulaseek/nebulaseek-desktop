@@ -98,7 +98,7 @@ pub async fn check(app: &AppHandle, settings: &DesktopSettings) -> DesktopResult
     Ok(select_release(
         releases,
         settings,
-        env!("DEEPSEEK_DESKTOP_APP_VERSION"),
+        env!("XINGYUNXUNZHI_DESKTOP_APP_VERSION"),
     ))
 }
 
@@ -153,9 +153,9 @@ async fn check_signed_update(
     settings: &DesktopSettings,
 ) -> DesktopResult<UpdateStatus> {
     let endpoint =
-        option_env!("DEEPSEEK_DESKTOP_UPDATER_ENDPOINT").filter(|value| !value.is_empty());
+        option_env!("XINGYUNXUNZHI_DESKTOP_UPDATER_ENDPOINT").filter(|value| !value.is_empty());
     let public_key =
-        option_env!("DEEPSEEK_DESKTOP_UPDATER_PUBKEY").filter(|value| !value.is_empty());
+        option_env!("XINGYUNXUNZHI_DESKTOP_UPDATER_PUBKEY").filter(|value| !value.is_empty());
     let (Some(endpoint), Some(public_key)) = (endpoint, public_key) else {
         return Ok(empty_status(settings, "signed-updater-not-configured"));
     };
@@ -174,7 +174,7 @@ async fn check_signed_update(
     Ok(UpdateStatus {
         enabled: true,
         channel: settings.update_channel.clone(),
-        current_version: env!("DEEPSEEK_DESKTOP_APP_VERSION").to_owned(),
+        current_version: env!("XINGYUNXUNZHI_DESKTOP_APP_VERSION").to_owned(),
         available_version: update.as_ref().map(|release| release.version.clone()),
         release_tag: None,
         published_at: None,
@@ -191,7 +191,7 @@ async fn check_signed_update(
 }
 
 fn official_github_repository() -> DesktopResult<GithubRepository> {
-    parse_github_repository(env!("DEEPSEEK_DESKTOP_APP_REPOSITORY"))
+    parse_github_repository(env!("XINGYUNXUNZHI_DESKTOP_APP_REPOSITORY"))
 }
 
 fn parse_github_repository(value: &str) -> DesktopResult<GithubRepository> {
@@ -269,8 +269,8 @@ fn fetch_trusted_bytes(url: &str, accept: &str) -> DesktopResult<Vec<u8>> {
         .redirect(Policy::none())
         .timeout(Duration::from_secs(15))
         .user_agent(concat!(
-            "DeepSeek-Desktop/",
-            env!("DEEPSEEK_DESKTOP_APP_VERSION")
+            "Xingyunxunzhi-Desktop/",
+            env!("XINGYUNXUNZHI_DESKTOP_APP_VERSION")
         ))
         .build()
         .map_err(|error| DesktopError::Other(error.to_string()))?;
@@ -562,7 +562,7 @@ fn empty_status(settings: &DesktopSettings, message: &str) -> UpdateStatus {
     UpdateStatus {
         enabled: settings.update_enabled && settings.update_channel == "stable",
         channel: settings.update_channel.clone(),
-        current_version: env!("DEEPSEEK_DESKTOP_APP_VERSION").to_owned(),
+        current_version: env!("XINGYUNXUNZHI_DESKTOP_APP_VERSION").to_owned(),
         available_version: None,
         release_tag: None,
         published_at: None,
@@ -636,11 +636,11 @@ mod tests {
             body: Some("Release notes".to_owned()),
             notes_format: ReleaseNotesFormat::Markdown,
             assets: [
-                "DeepSeek.Desktop_1.0.0_aarch64.dmg",
-                "DeepSeek.Desktop_1.0.0_x64.dmg",
-                "DeepSeek.Desktop_1.0.0_x64-setup.exe",
-                "DeepSeek.Desktop_1.0.0_amd64.AppImage",
-                "DeepSeek.Desktop_1.0.0_amd64.deb",
+                "Xingyunxunzhi_1.0.0_aarch64.dmg",
+                "Xingyunxunzhi_1.0.0_x64.dmg",
+                "Xingyunxunzhi_1.0.0_x64-setup.exe",
+                "Xingyunxunzhi_1.0.0_amd64.AppImage",
+                "Xingyunxunzhi_1.0.0_amd64.deb",
                 "SHA256SUMS",
             ]
             .into_iter()
@@ -770,11 +770,11 @@ mod tests {
               <link rel="alternate" href="https://github.com/example/desktop/releases/tag/v1.2.3"/>
               <content type="html">
                 &lt;p&gt;A complete release.&lt;/p&gt;
-                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/DeepSeek.Desktop_1.2.3_aarch64.dmg&quot;&gt;arm&lt;/a&gt;
-                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/DeepSeek.Desktop_1.2.3_x64.dmg&quot;&gt;intel&lt;/a&gt;
-                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/DeepSeek.Desktop_1.2.3_x64-setup.exe&quot;&gt;windows&lt;/a&gt;
-                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/DeepSeek.Desktop_1.2.3_amd64.AppImage&quot;&gt;appimage&lt;/a&gt;
-                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/DeepSeek.Desktop_1.2.3_amd64.deb&quot;&gt;deb&lt;/a&gt;
+                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/Xingyunxunzhi_1.2.3_aarch64.dmg&quot;&gt;arm&lt;/a&gt;
+                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/Xingyunxunzhi_1.2.3_x64.dmg&quot;&gt;intel&lt;/a&gt;
+                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/Xingyunxunzhi_1.2.3_x64-setup.exe&quot;&gt;windows&lt;/a&gt;
+                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/Xingyunxunzhi_1.2.3_amd64.AppImage&quot;&gt;appimage&lt;/a&gt;
+                &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/Xingyunxunzhi_1.2.3_amd64.deb&quot;&gt;deb&lt;/a&gt;
                 &lt;a href=&quot;https://github.com/example/desktop/releases/download/v1.2.3/SHA256SUMS&quot;&gt;hashes&lt;/a&gt;
               </content>
             </entry>

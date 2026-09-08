@@ -25,14 +25,14 @@ test("isolated workbench links reach the Rust navigation allowlist", async () =>
   assert.match(harness, /\.on_navigation\(/u);
   assert.match(harness, /\.on_new_window\(/u);
   assert.match(harness, /\.opener\(\)\s*\.open_url\(/u);
-  assert.doesNotMatch(harness, /WORKBENCH_MENU_SCRIPT|__deepseek_desktop_menu__/u);
+  assert.doesNotMatch(harness, /WORKBENCH_MENU_SCRIPT|__xingyunxunzhi_desktop_menu__/u);
   assert.match(app, /DesktopMenuBar/u);
   assert.match(lib, /desktop_menu_popup/u);
   assert.match(menu, /WINDOW_MENU_HEIGHT_LOGICAL/u);
   assert.match(menu, /popup_below_title\(&menu, &window, anchor_x\)/u);
   assert.match(menu, /#\[cfg\(not\(target_os = "macos"\)\)\][\s\S]*?menu\.popup_at\(/u);
   assert.match(harness, /DESKTOP_MENU_WEBVIEW_LABEL/u);
-  assert.match(harness, /__DEEPSEEK_DESKTOP_MENU_ONLY__/u);
+  assert.match(harness, /__XINGYUNXUNZHI_DESKTOP_MENU_ONLY__/u);
   assert.match(harness, /WebviewUrl::App\("index\.html"\.into\(\)\)/u);
   assert.match(harness, /Position::Logical/u);
   assert.match(harness, /window_size\.to_logical::<f64>\(scale_factor\)/u);

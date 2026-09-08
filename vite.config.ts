@@ -15,7 +15,7 @@ function loadAppConfig(): Record<string, unknown> {
 
 function appTitle(windowTitle: string): Plugin {
   return {
-    name: "deepseek-desktop-app-title",
+    name: "xingyunxunzhi-desktop-app-title",
     transformIndexHtml(html) {
       return html.replace(/<title>.*?<\/title>/u, `<title>${windowTitle}</title>`);
     }

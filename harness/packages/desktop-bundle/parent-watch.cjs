@@ -1,5 +1,5 @@
-const expectedParent = Number.parseInt(process.env.DEEPSEEK_DESKTOP_PARENT_PID || "", 10);
-delete process.env.DEEPSEEK_DESKTOP_PARENT_PID;
+const expectedParent = Number.parseInt(process.env.XINGYUNXUNZHI_DESKTOP_PARENT_PID || "", 10);
+delete process.env.XINGYUNXUNZHI_DESKTOP_PARENT_PID;
 
 // DSH Market re-invokes the current CLI with process.execArgv. Desktop-only
 // preloads must not cross that process boundary: the child is no longer a

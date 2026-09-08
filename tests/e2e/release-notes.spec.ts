@@ -1,11 +1,11 @@
 import { expect, test } from "@playwright/test";
 
 const releaseNotes = [
-  "# DeepSeek Desktop 社区版", "", "这是内置 **Harness** 的桌面发行版。", "",
+  "# 星云寻知社区版", "", "这是内置 **内核** 的桌面发行版。", "",
   "## 直接下载 / Direct downloads", "",
   "| 平台 | 安装包 |", "| --- | --- |", "| macOS | [DMG](https://example.com/app.dmg) |",
   "| Windows | EXE |", "| Linux | AppImage / DEB |", "",
-  "## 更新内容", "", "- 修复更新摘要渲染", "- 保留 **会话状态** 和 `Harness` 配置", "",
+  "## 更新内容", "", "- 修复更新摘要渲染", "- 保留 **会话状态** 和 `内核` 配置", "",
   "> 安装前请确认来源。", "", "```text", `checksum ${"a".repeat(160)}`, "```", "",
   ...Array.from({ length: 15 }, (_, i) => `${i + 1}. 更新说明 ${i + 1}：完整显示长内容。`), "",
   "[完整说明](https://example.com/notes)", "",
@@ -13,8 +13,8 @@ const releaseNotes = [
   "![tracking](https://tracker.example/image.png)", "", "摘要结束"
 ].join("\n");
 
-const feedNotes = `<div class="markdown-body"><h1>DeepSeek Desktop 社区版</h1>
-  <p>这是内置 <strong>Harness</strong> 的桌面发行版。</p>
+const feedNotes = `<div class="markdown-body"><h1>星云寻知社区版</h1>
+  <p>这是内置 <strong>内核</strong> 的桌面发行版。</p>
   <h2>直接下载 / Direct downloads</h2>
   <table><thead><tr><th>平台</th><th>安装包</th></tr></thead><tbody>
   <tr><td>macOS</td><td><a href="https://example.com/app.dmg">DMG</a></td></tr></tbody></table>
@@ -79,8 +79,8 @@ for (const variant of [
     await page.goto("/");
     const dialog = page.getByRole("alertdialog");
     const notes = dialog.getByRole("region", { name: "更新摘要" });
-    await expect(notes.getByRole("heading", { name: "DeepSeek Desktop 社区版" })).toBeVisible();
-    await expect(notes.locator("strong").first()).toHaveText("Harness");
+    await expect(notes.getByRole("heading", { name: "星云寻知社区版" })).toBeVisible();
+    await expect(notes.locator("strong").first()).toHaveText("内核");
     await expect(notes.getByRole("table")).toHaveCount(1);
     await expect(notes.locator("img,script,iframe")).toHaveCount(0);
     await page.screenshot({ path: testInfo.outputPath("release-notes.png") });

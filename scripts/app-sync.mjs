@@ -26,7 +26,7 @@ async function writeJson(path, value) {
 
 const config = await loadBuildConfig(root);
 const outputRoot = check
-  ? await mkdtemp(join(tmpdir(), "deepseek-desktop-app-sync-"))
+  ? await mkdtemp(join(tmpdir(), "xingyunxunzhi-desktop-app-sync-"))
   : join(root, "target", "generated");
 
 try {

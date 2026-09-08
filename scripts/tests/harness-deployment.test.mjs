@@ -172,7 +172,7 @@ test("build path sanitization preserves binary offsets while shrinking text path
 test("build path sanitization bounds longer replacements inside binaries", async t => {
   const root = await fixture(t);
   const source = "C:\\d";
-  const replacement = "/deepseek-desktop";
+  const replacement = "/xingyunxunzhi-desktop";
   const textPath = join(root, "metadata.txt");
   const binaryPath = join(root, "native.node");
   await writeFile(textPath, `source=${source}\n`);
@@ -189,7 +189,7 @@ test("build path sanitization bounds longer replacements inside binaries", async
   assert.equal(sanitizedText, `source=${replacement}\n`);
   assert.equal(sanitizedBinary.length, binary.length);
   assert.equal(sanitizedBinary.includes(Buffer.from(source)), false);
-  assert.equal(sanitizedBinary.subarray(3, 6).toString(), "/de");
+  assert.equal(sanitizedBinary.subarray(3, 6).toString(), "/xi");
   assert.equal(sanitizedBinary[6], 0);
   assert.deepEqual(result, { rewrittenFiles: 2, replacementCount: 2, resignedFiles: 0 });
 });

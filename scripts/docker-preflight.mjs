@@ -8,8 +8,8 @@ if (process.argv.length > 2) {
 }
 
 const platform = "linux/amd64";
-const image = "deepseek-desktop-ci-preflight:node24.20.0-playwright1.62.1-linux-amd64";
-const cachePrefix = "deepseek-desktop-ci-preflight-linux-amd64";
+const image = "xingyunxunzhi-desktop-ci-preflight:node24.20.0-playwright1.62.1-linux-amd64";
+const cachePrefix = "xingyunxunzhi-desktop-ci-preflight-linux-amd64";
 const emulatedAmd64 = process.arch === "arm64";
 
 function run(args) {
@@ -40,7 +40,7 @@ run([
   "--platform", platform,
   "--env", "CI=true",
   "--env", "PLAYWRIGHT_BROWSERS_PATH=/ms-playwright",
-  ...(emulatedAmd64 ? ["--env", "DEEPSEEK_DESKTOP_SKIP_HARNESS_SMOKE=true"] : []),
+  ...(emulatedAmd64 ? ["--env", "XINGYUNXUNZHI_DESKTOP_SKIP_HARNESS_SMOKE=true"] : []),
   "--volume", `${cachePrefix}-target:/workspace/target`,
   "--volume", `${cachePrefix}-rust-target:/workspace/src-tauri/target`,
   "--volume", `${cachePrefix}-pnpm:/root/.local/share/pnpm`,

@@ -36,10 +36,10 @@ const NODE_EXPOSE_INTERNALS_ARGUMENT: &str = "--expose-internals";
 const HEALTH_TIMEOUT: Duration = Duration::from_secs(2);
 const MONITOR_INTERVAL: Duration = Duration::from_millis(500);
 const MAX_RESTARTS: u8 = 2;
-const PROFILE_PACKAGE_DIGEST_FILE: &str = ".deepseek-desktop-source.sha256";
+const PROFILE_PACKAGE_DIGEST_FILE: &str = ".xingyunxunzhi-desktop-source.sha256";
 const READY_PREFIX: &str = "dsh web: http://127.0.0.1:";
 const DESKTOP_MENU_WEBVIEW_LABEL: &str = "desktop-menu";
-const DESKTOP_MENU_INITIALIZATION_SCRIPT: &str = "window.__DEEPSEEK_DESKTOP_MENU_ONLY__ = true;";
+const DESKTOP_MENU_INITIALIZATION_SCRIPT: &str = "window.__XINGYUNXUNZHI_DESKTOP_MENU_ONLY__ = true;";
 const DISABLE_TEXT_ASSISTANCE_SCRIPT: &str = r#"
 (() => {
   const selector = "input, textarea, [contenteditable='true'], [contenteditable='']";
@@ -577,8 +577,8 @@ impl HarnessSupervisor {
         }
         let dsh_entry = harness_dir.join(location.entry);
         let parent_watch =
-            harness_dir.join("node_modules/deepseek-desktop-bundle/parent-watch.cjs");
-        let locale_sync = harness_dir.join("node_modules/deepseek-desktop-bundle/locale-sync.cjs");
+            harness_dir.join("node_modules/xingyunxunzhi-desktop-bundle/parent-watch.cjs");
+        let locale_sync = harness_dir.join("node_modules/xingyunxunzhi-desktop-bundle/locale-sync.cjs");
         if !dsh_entry.is_file() {
             return self.fail(
                 restart_count,
@@ -1044,7 +1044,7 @@ fn recovery_event_is_current(inner: &HarnessInner, restart_count: u8) -> bool {
 
 pub(crate) fn smoke_harness_service(location: &HarnessLocation) -> DesktopResult<()> {
     let smoke_root = std::env::temp_dir().join(format!(
-        "deepseek-desktop-harness-smoke-{}-{}",
+        "xingyunxunzhi-desktop-harness-smoke-{}-{}",
         std::process::id(),
         Uuid::new_v4()
     ));
@@ -1081,13 +1081,13 @@ pub(crate) fn smoke_harness_service(location: &HarnessLocation) -> DesktopResult
         .arg(
             location
                 .harness_dir
-                .join("node_modules/deepseek-desktop-bundle/parent-watch.cjs"),
+                .join("node_modules/xingyunxunzhi-desktop-bundle/parent-watch.cjs"),
         )
         .arg("--require")
         .arg(
             location
                 .harness_dir
-                .join("node_modules/deepseek-desktop-bundle/locale-sync.cjs"),
+                .join("node_modules/xingyunxunzhi-desktop-bundle/locale-sync.cjs"),
         )
         .arg(entry)
         .args([
@@ -1220,24 +1220,24 @@ fn harness_environment(
     );
     environment.insert("DSH_TELEMETRY_DISABLED".to_owned(), "true".to_owned());
     environment.insert(
-        "DEEPSEEK_DESKTOP_PARENT_PID".to_owned(),
+        "XINGYUNXUNZHI_DESKTOP_PARENT_PID".to_owned(),
         std::process::id().to_string(),
     );
     environment.insert(
-        "DEEPSEEK_DESKTOP_HELPER_PATH".to_owned(),
+        "XINGYUNXUNZHI_DESKTOP_HELPER_PATH".to_owned(),
         helper.to_string_lossy().into_owned(),
     );
     environment.insert(
-        "DEEPSEEK_DESKTOP_DATA_DIR".to_owned(),
+        "XINGYUNXUNZHI_DESKTOP_DATA_DIR".to_owned(),
         paths.data_dir.to_string_lossy().into_owned(),
     );
-    environment.insert("DEEPSEEK_DESKTOP_LOCALE".to_owned(), locale.to_owned());
+    environment.insert("XINGYUNXUNZHI_DESKTOP_LOCALE".to_owned(), locale.to_owned());
     environment.insert(
-        "DEEPSEEK_DESKTOP_NODE_PATH".to_owned(),
+        "XINGYUNXUNZHI_DESKTOP_NODE_PATH".to_owned(),
         node.to_string_lossy().into_owned(),
     );
     environment.insert(
-        "DEEPSEEK_DESKTOP_PNPM_CLI".to_owned(),
+        "XINGYUNXUNZHI_DESKTOP_PNPM_CLI".to_owned(),
         harness_dir
             .join("node_modules/pnpm/bin/pnpm.cjs")
             .to_string_lossy()
@@ -1273,8 +1273,8 @@ fn prepare_harness_profile(paths: &AppPaths, harness_dir: &Path, node: &Path) ->
         )?;
     }
     for package in [
-        "deepseek-desktop-bundle",
-        "deepseek-desktop-credentials-vault",
+        "xingyunxunzhi-desktop-bundle",
+        "xingyunxunzhi-desktop-credentials-vault",
         "dshmarket",
     ] {
         sync_profile_package(
@@ -1297,7 +1297,7 @@ fn prepare_package_manager(paths: &AppPaths, harness_dir: &Path, node: &Path) ->
     #[cfg(windows)]
     fs::write(
         harness_bin.join("pnpm.cmd"),
-        "@echo off\r\n\"%DEEPSEEK_DESKTOP_NODE_PATH%\" \"%DEEPSEEK_DESKTOP_PNPM_CLI%\" %*\r\n",
+        "@echo off\r\n\"%XINGYUNXUNZHI_DESKTOP_NODE_PATH%\" \"%XINGYUNXUNZHI_DESKTOP_PNPM_CLI%\" %*\r\n",
     )?;
     #[cfg(unix)]
     {
@@ -1306,7 +1306,7 @@ fn prepare_package_manager(paths: &AppPaths, harness_dir: &Path, node: &Path) ->
         let wrapper = harness_bin.join("pnpm");
         fs::write(
             &wrapper,
-            "#!/bin/sh\nexec \"$DEEPSEEK_DESKTOP_NODE_PATH\" \"$DEEPSEEK_DESKTOP_PNPM_CLI\" \"$@\"\n",
+            "#!/bin/sh\nexec \"$XINGYUNXUNZHI_DESKTOP_NODE_PATH\" \"$XINGYUNXUNZHI_DESKTOP_PNPM_CLI\" \"$@\"\n",
         )?;
         fs::set_permissions(&wrapper, fs::Permissions::from_mode(0o700))?;
     }
@@ -1764,7 +1764,7 @@ fn merge_profile_manifest(existing: Option<serde_json::Value>) -> serde_json::Va
     const BUILT_IN_BUNDLES: [&str; 4] = [
         "@deepseek-ai/dsh-base",
         "@deepseek-ai/dsh-web-app",
-        "deepseek-desktop-bundle",
+        "xingyunxunzhi-desktop-bundle",
         "dshmarket",
     ];
 
@@ -1779,7 +1779,7 @@ fn merge_profile_manifest(existing: Option<serde_json::Value>) -> serde_json::Va
     let object = manifest.as_object_mut().expect("profile manifest object");
     object
         .entry("name")
-        .or_insert_with(|| serde_json::json!("deepseek-desktop-web-profile"));
+        .or_insert_with(|| serde_json::json!("xingyunxunzhi-desktop-web-profile"));
     object.insert("private".to_owned(), serde_json::json!(true));
     if !object
         .get("dependencies")
@@ -2092,7 +2092,7 @@ mod tests {
             },
             "dsh": {
                 "profile": {
-                    "bundles": ["custom-plugin", "deepseek-desktop-bundle"]
+                    "bundles": ["custom-plugin", "xingyunxunzhi-desktop-bundle"]
                 }
             }
         })));
@@ -2104,7 +2104,7 @@ mod tests {
             serde_json::json!([
                 "@deepseek-ai/dsh-base",
                 "@deepseek-ai/dsh-web-app",
-                "deepseek-desktop-bundle",
+                "xingyunxunzhi-desktop-bundle",
                 "dshmarket",
                 "custom-plugin"
             ])
@@ -2119,7 +2119,7 @@ mod tests {
     #[test]
     fn copies_profile_packages_only_when_the_bundled_source_changes() {
         let root =
-            std::env::temp_dir().join(format!("deepseek-desktop-profile-sync-{}", Uuid::new_v4()));
+            std::env::temp_dir().join(format!("xingyunxunzhi-desktop-profile-sync-{}", Uuid::new_v4()));
         let source = root.join("source");
         let target = root.join("target");
         fs::create_dir_all(&source).unwrap();
@@ -2214,16 +2214,16 @@ mod tests {
     fn strips_windows_verbatim_prefixes_for_node_module_loading() {
         for (source, expected) in [
             (
-                r"\\?\C:\Program Files\DeepSeek Desktop\harness",
-                r"C:\Program Files\DeepSeek Desktop\harness",
+                r"\\?\C:\Program Files\Xingyunxunzhi\harness",
+                r"C:\Program Files\Xingyunxunzhi\harness",
             ),
             (
-                r"\\?\UNC\server\share\DeepSeek Desktop\harness",
-                r"\\server\share\DeepSeek Desktop\harness",
+                r"\\?\UNC\server\share\Xingyunxunzhi\harness",
+                r"\\server\share\Xingyunxunzhi\harness",
             ),
             (
-                r"C:\Users\developer\DeepSeek Desktop\harness",
-                r"C:\Users\developer\DeepSeek Desktop\harness",
+                r"C:\Users\developer\Xingyunxunzhi\harness",
+                r"C:\Users\developer\Xingyunxunzhi\harness",
             ),
         ] {
             let normalized =

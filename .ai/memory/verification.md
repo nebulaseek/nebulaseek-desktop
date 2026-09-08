@@ -1,5 +1,10 @@
 # 验证基线
 
+> 品牌迁移说明：以下所有记录都产生于品牌更名之前，产物名、Bundle Identifier、
+> 图标、环境变量前缀和菜单文案均为旧品牌 `DeepSeek Desktop` / `deepseek.desktop` /
+> `DEEPSEEK_DESKTOP_*`。更名为「星云寻知 / Xingyunxunzhi」后尚未重新执行任何
+> 构建、打包或安装验收，本基线在重新验证前不代表当前代码的可信状态。
+
 ## 容器发布身份检查
 
 2026-09-05：`v1.1.0` 的 Run `33969114177` 在 `shell-quality` 失败，未创建 Release。Checkout 日志确认其 `safe.directory` 只写入临时 HOME，后续 Playwright 容器步骤无法读取。工作流仅在该 Job 中登记实际 `GITHUB_WORKSPACE`；没有通配信任，也没有修改身份校验实现。

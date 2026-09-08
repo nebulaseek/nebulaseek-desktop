@@ -1,6 +1,6 @@
 # 更新日志
 
-DeepSeek Desktop 的重要变化记录如下。
+星云寻知的重要变化记录如下。
 
 ## 0.1.0-community.15 - 2026-08-27
 
@@ -63,7 +63,7 @@ DeepSeek Desktop 的重要变化记录如下。
 
 ## 0.1.0-community.6 - 2026-08-25
 
-- 完成产品文案、桌面自有包、图标、诊断和发行产物中的 DeepSeek Desktop 命名治理。
+- 完成产品文案、桌面自有包、图标、诊断和发行产物中的星云寻知命名治理。
 - 仓库文档以中文为主，同时保留桌面界面的三语支持。
 - 关闭自动依赖更新分支，使仓库只保留 `master` 分支。
 - Playwright 发布门禁改为验收生产构建预览，避免开发服务器冷转换影响跨架构 Windows 验收。
@@ -72,8 +72,8 @@ DeepSeek Desktop 的重要变化记录如下。
 
 ## 0.1.0-community.5 - 2026-08-25
 
-- 产品更名为 DeepSeek Desktop，安装包、桌面自有包、环境变量、诊断、应用标识和数据目录统一使用 `deepseek-desktop` / `deepseek.desktop`。
-- Harness 与桌面仓库引用迁移到 `deepseek-desktop` GitHub 组织。
+- 产品更名为星云寻知，安装包、桌面自有包、环境变量、诊断、应用标识和数据目录统一使用 `xingyunxunzhi-desktop` / `xingyunxunzhi.desktop`。
+- Harness 与桌面仓库引用迁移到 `xingyunxunzhi-desktop` GitHub 组织。
 - Windows 和 Linux 删除冗余产品名菜单，同时保留 macOS 标准应用菜单。
 - Windows 和 Linux 的“文件”菜单保留退出，“帮助”菜单保留关于，精简后仍具备完整原生操作。
 

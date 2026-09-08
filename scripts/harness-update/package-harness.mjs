@@ -32,7 +32,7 @@ const desktopDirty = Boolean(git(["status", "--porcelain", "--untracked-files=al
 
 const output = resolve(args.get("output") || join(root, "release/harness", lock.harness.version, target));
 await mkdir(output, { recursive: true });
-const temporary = await mkdtemp(join(tmpdir(), "deepseek-harness-update-"));
+const temporary = await mkdtemp(join(tmpdir(), "xingyunxunzhi-harness-update-"));
 try {
   const archiveRoot = join(temporary, "package");
   await mkdir(archiveRoot);
@@ -43,7 +43,7 @@ try {
   const nodeAbiResult = spawnSync(sidecar, ["-p", "process.versions.modules"], { encoding: "utf8" });
   if (nodeAbiResult.error) throw nodeAbiResult.error;
   if (nodeAbiResult.status !== 0) throw new Error(`could not inspect Node module ABI: ${nodeAbiResult.stderr}`);
-  const credential = JSON.parse(await readFile(join(harness, "node_modules/deepseek-desktop-credentials-vault/package.json"), "utf8"));
+  const credential = JSON.parse(await readFile(join(harness, "node_modules/xingyunxunzhi-desktop-credentials-vault/package.json"), "utf8"));
   const market = JSON.parse(await readFile(join(harness, "node_modules/dshmarket/package.json"), "utf8"));
   const metadata = {
     schemaVersion: 1,

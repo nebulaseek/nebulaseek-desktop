@@ -7,7 +7,7 @@ import { createRequire } from "node:module";
 import process from "node:process";
 
 const desktopRoot = resolve(import.meta.dirname, "..");
-const toolchainRoot = resolve(process.env.DEEPSEEK_DESKTOP_TOOLCHAIN_DIR || join(desktopRoot, "target/deepseek-desktop-toolchain"));
+const toolchainRoot = resolve(process.env.XINGYUNXUNZHI_DESKTOP_TOOLCHAIN_DIR || join(desktopRoot, "target/xingyunxunzhi-desktop-toolchain"));
 const cargoHome = join(toolchainRoot, "cargo");
 const rustupHome = join(toolchainRoot, "rustup");
 const executableSuffix = process.platform === "win32" ? ".exe" : "";

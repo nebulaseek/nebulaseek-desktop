@@ -112,7 +112,7 @@ export async function startReleaseServer({ service, host = "127.0.0.1", port = 4
     try {
       const url = new URL(request.url || "/", `${tls ? "https" : "http"}://${request.headers.host || "localhost"}`);
       if (request.method === "GET" && url.pathname === "/v1/health") {
-        sendJson(response, 200, { ok: true, service: "deepseek-desktop-release-controller", schemaVersion: 1 });
+        sendJson(response, 200, { ok: true, service: "xingyunxunzhi-desktop-release-controller", schemaVersion: 1 });
         return;
       }
       if (request.method === "POST" && url.pathname === "/v1/releases") {

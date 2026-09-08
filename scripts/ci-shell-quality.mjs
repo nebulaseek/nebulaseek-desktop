@@ -10,7 +10,7 @@ const commands = [
   ["test:e2e"]
 ];
 
-if (process.env.DEEPSEEK_DESKTOP_SKIP_HARNESS_SMOKE !== "true") {
+if (process.env.XINGYUNXUNZHI_DESKTOP_SKIP_HARNESS_SMOKE !== "true") {
   commands.push(["harness:smoke"]);
 } else {
   console.log("Skipping Harness smoke in an emulated Docker architecture; the native package preflight runs it next.");

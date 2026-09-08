@@ -1,5 +1,5 @@
 {
-  "name": "deepseek-desktop-bundle",
+  "name": "xingyunxunzhi-desktop-bundle",
   "version": "1.0.0",
   "private": true,
   "license": "Apache-2.0",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@deepseek-ai/dsh-web-search-follow-model": "workspace:*",
-    "deepseek-desktop-credentials-vault": "workspace:*",
+    "xingyunxunzhi-desktop-credentials-vault": "workspace:*",
     "yaml": "2.9.0"
   }
 }

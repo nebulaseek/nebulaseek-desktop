@@ -1,4 +1,4 @@
-# DeepSeek Desktop 发布工作流
+# 星云寻知发布工作流
 
 本文件是 AI Agent 和发布维护者的唯一发布运行手册。用户文档见 `docs/zh-CN/distributed-release.md`，工具链事实见 `harness/toolchain-lock.json`。
 

@@ -1016,7 +1016,7 @@ impl HarnessUpdateManager {
                     .trim()
                     .to_owned();
             let credential_provider_version = read_package_version(
-                &harness_dir.join("node_modules/deepseek-desktop-credentials-vault/package.json"),
+                &harness_dir.join("node_modules/xingyunxunzhi-desktop-credentials-vault/package.json"),
             )?;
             let market_version =
                 read_package_version(&harness_dir.join("node_modules/dshmarket/package.json"))?;
@@ -1030,7 +1030,7 @@ impl HarnessUpdateManager {
                 directory: directory.clone(),
                 harness_version,
                 harness_commit: release.commit.clone(),
-                target: env!("DEEPSEEK_DESKTOP_TARGET").to_owned(),
+                target: env!("XINGYUNXUNZHI_DESKTOP_TARGET").to_owned(),
                 entry: prepared.entry,
                 node_file: node_file.to_owned(),
                 node_version,
@@ -1109,7 +1109,7 @@ impl HarnessUpdateManager {
 
 impl HarnessUpdateConfig {
     fn from_build() -> DesktopResult<Self> {
-        let manifest_url = match env!("DEEPSEEK_DESKTOP_HARNESS_UPDATE_MANIFEST_URL") {
+        let manifest_url = match env!("XINGYUNXUNZHI_DESKTOP_HARNESS_UPDATE_MANIFEST_URL") {
             "" => None,
             value => Some(Url::parse(value).map_err(|error| {
                 DesktopError::InvalidConfiguration(format!(
@@ -1117,30 +1117,30 @@ impl HarnessUpdateConfig {
                 ))
             })?),
         };
-        let public_key = match env!("DEEPSEEK_DESKTOP_HARNESS_UPDATE_PUBLIC_KEY") {
+        let public_key = match env!("XINGYUNXUNZHI_DESKTOP_HARNESS_UPDATE_PUBLIC_KEY") {
             "" => None,
             value => Some(parse_public_key(value)?),
         };
         Ok(Self {
             manifest_url,
-            publisher: env!("DEEPSEEK_DESKTOP_HARNESS_UPDATE_PUBLISHER").to_owned(),
+            publisher: env!("XINGYUNXUNZHI_DESKTOP_HARNESS_UPDATE_PUBLISHER").to_owned(),
             public_key,
-            desktop_version: Version::parse(env!("DEEPSEEK_DESKTOP_APP_VERSION")).map_err(
+            desktop_version: Version::parse(env!("XINGYUNXUNZHI_DESKTOP_APP_VERSION")).map_err(
                 |error| {
                     DesktopError::InvalidConfiguration(format!(
                         "Desktop version is invalid: {error}"
                     ))
                 },
             )?,
-            target: env!("DEEPSEEK_DESKTOP_TARGET").to_owned(),
-            harness_repository: env!("DEEPSEEK_DESKTOP_HARNESS_REPOSITORY").to_owned(),
+            target: env!("XINGYUNXUNZHI_DESKTOP_TARGET").to_owned(),
+            harness_repository: env!("XINGYUNXUNZHI_DESKTOP_HARNESS_REPOSITORY").to_owned(),
             desktop_protocol_version: 1,
-            harness_protocol_version: env!("DEEPSEEK_DESKTOP_HARNESS_PROTOCOL_VERSION")
+            harness_protocol_version: env!("XINGYUNXUNZHI_DESKTOP_HARNESS_PROTOCOL_VERSION")
                 .parse()
                 .map_err(|_| {
                     DesktopError::InvalidConfiguration("Harness protocol is invalid".to_owned())
                 })?,
-            credential_protocol_version: env!("DEEPSEEK_DESKTOP_CREDENTIAL_PROTOCOL_VERSION")
+            credential_protocol_version: env!("XINGYUNXUNZHI_DESKTOP_CREDENTIAL_PROTOCOL_VERSION")
                 .parse()
                 .map_err(|_| {
                     DesktopError::InvalidConfiguration("credential protocol is invalid".to_owned())
@@ -1194,12 +1194,12 @@ impl HarnessUpdateConfig {
 
 fn bundled_location(app: &AppHandle) -> DesktopResult<HarnessLocation> {
     let harness_dir = if cfg!(debug_assertions) {
-        std::env::var_os("DEEPSEEK_DESKTOP_HARNESS_DIR")
+        std::env::var_os("XINGYUNXUNZHI_DESKTOP_HARNESS_DIR")
             .map(PathBuf::from)
             .unwrap_or_else(|| {
                 PathBuf::from(env!("CARGO_MANIFEST_DIR"))
                     .join("../harness/staging")
-                    .join(env!("DEEPSEEK_DESKTOP_TARGET"))
+                    .join(env!("XINGYUNXUNZHI_DESKTOP_TARGET"))
             })
     } else {
         let resource_dir = app
@@ -1208,22 +1208,22 @@ fn bundled_location(app: &AppHandle) -> DesktopResult<HarnessLocation> {
             .map_err(|error| DesktopError::Other(error.to_string()))?;
         node_compatible_path(&resource_dir)
             .join("harness/staging")
-            .join(env!("DEEPSEEK_DESKTOP_TARGET"))
+            .join(env!("XINGYUNXUNZHI_DESKTOP_TARGET"))
     };
     let node = bundled_node_binary()?;
     Ok(HarnessLocation {
         harness_dir,
         node,
-        entry: env!("DEEPSEEK_DESKTOP_HARNESS_ENTRY").to_owned(),
-        version: env!("DEEPSEEK_DESKTOP_HARNESS_VERSION").to_owned(),
-        commit: env!("DEEPSEEK_DESKTOP_HARNESS_COMMIT").to_owned(),
+        entry: env!("XINGYUNXUNZHI_DESKTOP_HARNESS_ENTRY").to_owned(),
+        version: env!("XINGYUNXUNZHI_DESKTOP_HARNESS_VERSION").to_owned(),
+        commit: env!("XINGYUNXUNZHI_DESKTOP_HARNESS_COMMIT").to_owned(),
         source: "bundled".to_owned(),
     })
 }
 
 fn bundled_node_binary() -> DesktopResult<PathBuf> {
     if cfg!(debug_assertions)
-        && let Some(path) = std::env::var_os("DEEPSEEK_DESKTOP_NODE_PATH")
+        && let Some(path) = std::env::var_os("XINGYUNXUNZHI_DESKTOP_NODE_PATH")
     {
         return Ok(PathBuf::from(path));
     }
@@ -1237,7 +1237,7 @@ fn bundled_node_binary() -> DesktopResult<PathBuf> {
             .join("binaries")
             .join(format!(
                 "node-{}{}",
-                env!("DEEPSEEK_DESKTOP_TARGET"),
+                env!("XINGYUNXUNZHI_DESKTOP_TARGET"),
                 suffix
             ));
         if development.is_file() {
@@ -1422,7 +1422,7 @@ fn validate_package_metadata(
     payload: &HarnessReleaseManifest,
 ) -> DesktopResult<()> {
     if metadata.schema_version != 1
-        || metadata.target != env!("DEEPSEEK_DESKTOP_TARGET")
+        || metadata.target != env!("XINGYUNXUNZHI_DESKTOP_TARGET")
         || metadata.harness_version != payload.harness_version
         || metadata.harness_commit != payload.harness_commit
         || metadata.node_version != payload.node_version
@@ -1448,7 +1448,7 @@ fn validate_harness_files(
     let entry = location.harness_dir.join(&pointer.entry);
     let credential = location
         .harness_dir
-        .join("node_modules/deepseek-desktop-credentials-vault/package.json");
+        .join("node_modules/xingyunxunzhi-desktop-credentials-vault/package.json");
     let market = location
         .harness_dir
         .join("node_modules/dshmarket/package.json");
@@ -2040,8 +2040,8 @@ fn http_client(timeout: Duration) -> DesktopResult<Client> {
         .timeout(timeout)
         .redirect(Policy::none())
         .user_agent(concat!(
-            "DeepSeek-Desktop/",
-            env!("DEEPSEEK_DESKTOP_APP_VERSION")
+            "Xingyunxunzhi-Desktop/",
+            env!("XINGYUNXUNZHI_DESKTOP_APP_VERSION")
         ))
         .build()
         .map_err(|error| DesktopError::Other(error.to_string()))
@@ -2192,13 +2192,13 @@ fn validate_pointer(pointer: &HarnessPointer) -> DesktopResult<()> {
     validate_sha256(&pointer.artifact_sha256)?;
     let expected_directory = version_directory(&pointer.harness_version, &pointer.harness_commit)?;
     if pointer.directory != expected_directory
-        || pointer.target != env!("DEEPSEEK_DESKTOP_TARGET")
+        || pointer.target != env!("XINGYUNXUNZHI_DESKTOP_TARGET")
         || pointer.harness_protocol_version
-            != env!("DEEPSEEK_DESKTOP_HARNESS_PROTOCOL_VERSION")
+            != env!("XINGYUNXUNZHI_DESKTOP_HARNESS_PROTOCOL_VERSION")
                 .parse::<u32>()
                 .unwrap_or(0)
         || pointer.credential_protocol_version
-            != env!("DEEPSEEK_DESKTOP_CREDENTIAL_PROTOCOL_VERSION")
+            != env!("XINGYUNXUNZHI_DESKTOP_CREDENTIAL_PROTOCOL_VERSION")
                 .parse::<u32>()
                 .unwrap_or(0)
         || Version::parse(&pointer.node_version).is_err()
@@ -2345,7 +2345,7 @@ mod tests {
             publisher: "test-publisher".to_owned(),
             public_key: Some(key.verifying_key()),
             desktop_version: Version::parse("1.0.0").unwrap(),
-            target: env!("DEEPSEEK_DESKTOP_TARGET").to_owned(),
+            target: env!("XINGYUNXUNZHI_DESKTOP_TARGET").to_owned(),
             harness_repository: "https://example.invalid/harness.git".to_owned(),
             desktop_protocol_version: 1,
             harness_protocol_version: 1,
@@ -2596,7 +2596,7 @@ mod tests {
             node_module_abi: "137".to_owned(),
             allowed_origins: Vec::new(),
             artifacts: HashMap::from([(
-                env!("DEEPSEEK_DESKTOP_TARGET").to_owned(),
+                env!("XINGYUNXUNZHI_DESKTOP_TARGET").to_owned(),
                 HarnessArtifact {
                     url: "harness.tar.gz".to_owned(),
                     size: 1,
@@ -2776,7 +2776,7 @@ mod tests {
             directory: "1.1.0-aaaaaaaaaaaa".to_owned(),
             harness_version: "1.1.0".to_owned(),
             harness_commit: "a".repeat(40),
-            target: env!("DEEPSEEK_DESKTOP_TARGET").to_owned(),
+            target: env!("XINGYUNXUNZHI_DESKTOP_TARGET").to_owned(),
             entry: "entry.js".to_owned(),
             node_file: "node".to_owned(),
             node_version: "24.20.0".to_owned(),
@@ -2844,7 +2844,7 @@ mod tests {
             directory: "1.1.0-aaaaaaaaaaaa".to_owned(),
             harness_version: "1.1.0".to_owned(),
             harness_commit: "a".repeat(40),
-            target: env!("DEEPSEEK_DESKTOP_TARGET").to_owned(),
+            target: env!("XINGYUNXUNZHI_DESKTOP_TARGET").to_owned(),
             entry: "entry.js".to_owned(),
             node_file: "node".to_owned(),
             node_version: "24.20.0".to_owned(),
@@ -2918,7 +2918,7 @@ mod tests {
             directory: "1.1.0-aaaaaaaaaaaa".to_owned(),
             harness_version: "1.1.0".to_owned(),
             harness_commit: "a".repeat(40),
-            target: env!("DEEPSEEK_DESKTOP_TARGET").to_owned(),
+            target: env!("XINGYUNXUNZHI_DESKTOP_TARGET").to_owned(),
             entry: "entry.js".to_owned(),
             node_file: "node".to_owned(),
             node_version: "24.20.0".to_owned(),

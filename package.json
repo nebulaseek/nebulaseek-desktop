@@ -1,15 +1,15 @@
 {
-  "name": "deepseek-desktop",
+  "name": "xingyunxunzhi-desktop",
   "version": "1.0.0",
   "private": true,
-  "description": "Standalone community distribution of DeepSeek Desktop",
+  "description": "Standalone community distribution of 星云寻知 (Xingyunxunzhi)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-desktop/deepseek-desktop.git"
+    "url": "git+https://github.com/xingyunxunzhi/xingyunxunzhi-desktop.git"
   },
-  "homepage": "https://github.com/deepseek-desktop/deepseek-desktop#readme",
+  "homepage": "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop#readme",
   "bugs": {
-    "url": "https://github.com/deepseek-desktop/deepseek-desktop/issues"
+    "url": "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop/issues"
   },
   "license": "Apache-2.0",
   "type": "module",

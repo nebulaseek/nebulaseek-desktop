@@ -1,6 +1,6 @@
 # 参与贡献
 
-感谢你帮助改进 DeepSeek Desktop。
+感谢你帮助改进星云寻知。
 
 ## 提交修改前
 
@@ -19,7 +19,7 @@ corepack pnpm@11.24.0 verify
 corepack pnpm@11.24.0 test:e2e
 ```
 
-`harness:sync` 会锁定 Harness 来源、构建生产 Harness 并生成完整性记录；`verify` 会在 Rust 检查前暂存并校验目标 Harness。仓库脚本将 Rust 安装到 `target/deepseek-desktop-toolchain/`，不会修改全局 Rust 环境。
+`harness:sync` 会锁定 Harness 来源、构建生产 Harness 并生成完整性记录；`verify` 会在 Rust 检查前暂存并校验目标 Harness。仓库脚本将 Rust 安装到 `target/xingyunxunzhi-desktop-toolchain/`，不会修改全局 Rust 环境。
 
 发布标签前，先使用 Docker 复现 GitHub 通用质量任务，再打包当前原生平台：
 

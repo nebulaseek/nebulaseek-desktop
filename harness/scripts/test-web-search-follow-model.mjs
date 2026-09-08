@@ -7,7 +7,7 @@ import { pathToFileURL } from "node:url";
 import { runInNewContext } from "node:vm";
 
 const desktopRoot = resolve(import.meta.dirname, "..", "..");
-const preparedRoot = resolve(desktopRoot, process.env.DEEPSEEK_DESKTOP_TEST_HARNESS_DIR || "target/generated/harness/prepared");
+const preparedRoot = resolve(desktopRoot, process.env.XINGYUNXUNZHI_DESKTOP_TEST_HARNESS_DIR || "target/generated/harness/prepared");
 const moduleUrl = pathToFileURL(resolve(
   preparedRoot,
   "node_modules/@deepseek-ai/dsh-web-search-follow-model/index.js"
@@ -408,7 +408,7 @@ test("declared routes reject ambiguity and incomplete connection metadata", asyn
 
 test("prepared Harness carries one public Provider selector without a duplicate model search control", async () => {
   const [bundle, modelsSettingsUi, pluginsSettingsUi] = await Promise.all([
-    readFile(resolve(preparedRoot, "node_modules/deepseek-desktop-bundle/cordis.patch.yml"), "utf8"),
+    readFile(resolve(preparedRoot, "node_modules/xingyunxunzhi-desktop-bundle/cordis.patch.yml"), "utf8"),
     readFile(resolve(preparedRoot, "node_modules/@deepseek-ai/dsh-client-ui-settings-models/lib/client.js"), "utf8"),
     readFile(resolve(preparedRoot, "node_modules/@deepseek-ai/dsh-web-search-follow-model/client.js"), "utf8")
   ]);

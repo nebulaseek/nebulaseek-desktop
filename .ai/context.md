@@ -2,9 +2,19 @@
 
 ## 项目定位
 
-DeepSeek Desktop 是 DeepSeek Harness 的独立社区桌面发行版。它使用 Tauri 2 管理本地 Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
+星云寻知是内置本地 Harness 运行时的独立社区桌面发行版；该运行时来自相邻的 `xingyunxunzhi-harness` 仓库，是 DeepSeek Harness 的下游发行版。它使用 Tauri 2 管理本地 Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
 
-本仓库是独立 Git 仓库。虽然当前目录位于 SpringOpen 的 `views/` 下，但不得从 SpringOpen 父仓库接管、暂存或提交本仓库文件，也不得修改相邻的 `views/deepseek-harness`。
+本仓库是独立 Git 仓库。虽然当前目录位于 SpringOpen 的 `views/` 下，但不得从 SpringOpen 父仓库接管、暂存或提交本仓库文件，也不得修改相邻的 `views/xingyunxunzhi-harness`。
+
+## 品牌
+
+2026-09-08 完成品牌更名，产品名从 `DeepSeek Desktop` 改为「星云寻知」。命名分层如下，改动集中在 `scripts/lib/build-config.mjs` 的 `DEFAULT_CONFIG` 与 `.env.example`：
+
+- 用户可见名：zh-CN `星云寻知`、zh-TW `星雲尋知`、en-US `Xingyunxunzhi`（原生菜单三语分别硬编码，见 `src-tauri/src/native_menu.rs`）。
+- `DESKTOP_APP_NAME=Xingyunxunzhi`：保持 ASCII，因为它同时决定 deb 包名、DMG/NSIS 产物名和 macOS `.app` 名；中文名只出现在展示层。
+- `DESKTOP_APP_SLUG=xingyunxunzhi-desktop`、`DESKTOP_APP_IDENTIFIER=xingyunxunzhi.desktop`、环境变量前缀 `XINGYUNXUNZHI_DESKTOP_*`。
+- 图标源为 `src-tauri/icons/icon.png`（1024×1024），Shell 品牌图形为 `src/assets/xingyunxunzhi-desktop.svg`；两者均为自有资产，不再包含上游鱼形几何（`NOTICE` 已同步）。
+- 保留不改：`@deepseek-ai/*` 包名、`deepseek-official` / `llm-deepseek` / `web-search-deepseek` / `DEEPSEEK_API_KEY` 等 DeepSeek 模型服务标识，以及 `github.com/deepseek-ai/deepseek-harness` 上游仓库地址。
 
 ## 当前边界
 

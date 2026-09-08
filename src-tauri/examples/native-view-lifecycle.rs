@@ -16,7 +16,7 @@ fn main() {
     use tauri_plugin_dialog::{DialogExt, MessageDialogButtons};
 
     let mut context = tauri::generate_context!();
-    context.config_mut().identifier = "deepseek.desktop.lifecycle-probe".into();
+    context.config_mut().identifier = "xingyunxunzhi.desktop.lifecycle-probe".into();
     context.config_mut().app.windows.clear();
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())

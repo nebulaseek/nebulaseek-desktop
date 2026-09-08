@@ -130,7 +130,7 @@ async function createCommand(parsed) {
     channel,
     signed,
     sourceRepository: option(parsed, "source"),
-    productName: option(parsed, "product-name", "DeepSeek Desktop"),
+    productName: option(parsed, "product-name", "Xingyunxunzhi"),
     requestedTargetIds: options(parsed, "target"),
     trustedNodes,
     prepared
@@ -210,9 +210,9 @@ function defaultNodeId(targetId) {
 function preparedEnvironment(plan, preparedRoot) {
   if (!plan.prepared || !preparedRoot) return {};
   return {
-    DEEPSEEK_DESKTOP_PREPARED_ROOT: preparedRoot,
-    DEEPSEEK_DESKTOP_PREPARED_DESCRIPTOR: JSON.stringify(plan.prepared),
-    DEEPSEEK_DESKTOP_RELEASE_PLAN: JSON.stringify(preparedPlanIdentity(plan))
+    XINGYUNXUNZHI_DESKTOP_PREPARED_ROOT: preparedRoot,
+    XINGYUNXUNZHI_DESKTOP_PREPARED_DESCRIPTOR: JSON.stringify(plan.prepared),
+    XINGYUNXUNZHI_DESKTOP_RELEASE_PLAN: JSON.stringify(preparedPlanIdentity(plan))
   };
 }
 
@@ -287,7 +287,7 @@ async function workerCommand(parsed) {
   if (!task || task.targetId !== target.id || task.triple !== target.triple) {
     throw new Error("claimed task does not match detected worker target");
   }
-  const workRoot = resolve(option(parsed, "work-root", join(tmpdir(), "deepseek-desktop-release-worker")));
+  const workRoot = resolve(option(parsed, "work-root", join(tmpdir(), "xingyunxunzhi-desktop-release-worker")));
   const preparedRoot = option(parsed, "prepared-root") ? resolve(option(parsed, "prepared-root")) : "";
   const checkout = join(workRoot, claim.taskId, "source");
   const keepWork = flag(parsed, "keep-work");

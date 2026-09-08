@@ -22,7 +22,7 @@ pub struct AppPaths {
 
 impl AppPaths {
     pub fn resolve(app: &AppHandle) -> DesktopResult<Self> {
-        let data_dir = debug_override("DEEPSEEK_DESKTOP_DATA_DIR")
+        let data_dir = debug_override("XINGYUNXUNZHI_DESKTOP_DATA_DIR")
             .map(PathBuf::from)
             .map(Ok)
             .unwrap_or_else(|| {
@@ -417,7 +417,7 @@ mod tests {
     fn accepts_a_custom_harness_repository_without_update_service_fields() {
         let settings = DesktopSettings {
             harness_update_repository: Some(
-                "https://git.example.com/harness/deepseek-harness.git".to_owned(),
+                "https://git.example.com/harness/xingyunxunzhi-harness.git".to_owned(),
             ),
             ..DesktopSettings::default()
         };
@@ -437,7 +437,7 @@ mod tests {
     #[test]
     fn writes_atomic_settings_with_current_schema() {
         let root =
-            std::env::temp_dir().join(format!("deepseek-desktop-settings-{}", std::process::id()));
+            std::env::temp_dir().join(format!("xingyunxunzhi-desktop-settings-{}", std::process::id()));
         let _ = fs::remove_dir_all(&root);
         let path = root.join("settings.json");
         write_json_atomic(&path, &DesktopSettings::default()).unwrap();
@@ -451,7 +451,7 @@ mod tests {
     #[test]
     fn quarantines_corrupt_settings_and_restores_defaults() {
         let root = std::env::temp_dir().join(format!(
-            "deepseek-desktop-corrupt-settings-{}",
+            "xingyunxunzhi-desktop-corrupt-settings-{}",
             std::process::id()
         ));
         let _ = fs::remove_dir_all(&root);
@@ -485,7 +485,7 @@ mod tests {
     #[test]
     fn quarantines_settings_from_a_future_schema() {
         let root = std::env::temp_dir().join(format!(
-            "deepseek-desktop-future-settings-{}",
+            "xingyunxunzhi-desktop-future-settings-{}",
             std::process::id()
         ));
         let _ = fs::remove_dir_all(&root);
@@ -516,7 +516,7 @@ mod tests {
     #[test]
     fn clears_recovery_notice_after_settings_are_saved() {
         let root = std::env::temp_dir().join(format!(
-            "deepseek-desktop-recovered-settings-{}",
+            "xingyunxunzhi-desktop-recovered-settings-{}",
             std::process::id()
         ));
         let _ = fs::remove_dir_all(&root);
@@ -542,7 +542,7 @@ mod tests {
     #[test]
     fn serializes_concurrent_settings_writes() {
         let root = std::env::temp_dir().join(format!(
-            "deepseek-desktop-concurrent-settings-{}",
+            "xingyunxunzhi-desktop-concurrent-settings-{}",
             std::process::id()
         ));
         let _ = fs::remove_dir_all(&root);

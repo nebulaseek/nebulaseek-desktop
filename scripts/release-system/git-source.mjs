@@ -47,7 +47,7 @@ async function assertBundle(path) {
   const bundle = resolve(path);
   const info = await stat(bundle);
   if (!info.isFile()) throw new Error("local source bundle must be a regular file");
-  const verificationRepository = await mkdtemp(join(tmpdir(), "deepseek-bundle-verify-"));
+  const verificationRepository = await mkdtemp(join(tmpdir(), "xingyunxunzhi-bundle-verify-"));
   try {
     await runGit(["init", "--bare", verificationRepository]);
     await runGit(["bundle", "verify", bundle], { cwd: verificationRepository });
@@ -59,7 +59,7 @@ async function assertBundle(path) {
 
 export async function resolveBundledTag(path, tag) {
   const bundle = await assertBundle(path);
-  const verificationRepository = await mkdtemp(join(tmpdir(), "deepseek-bundle-tag-"));
+  const verificationRepository = await mkdtemp(join(tmpdir(), "xingyunxunzhi-bundle-tag-"));
   try {
     await runGit(["init", "--bare", verificationRepository]);
     try {

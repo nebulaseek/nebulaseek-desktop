@@ -22,7 +22,7 @@ const cli = findCliPackage(workspace);
 await stat(join(cli.directory, cli.entry));
 await deployHarnessClosure(source, workspace, cli, destination, runPnpm);
 await mergeDesktopClosure(desktop, destination, [
-  "deepseek-desktop-bundle", "deepseek-desktop-credentials-vault",
+  "xingyunxunzhi-desktop-bundle", "xingyunxunzhi-desktop-credentials-vault",
   "@deepseek-ai/dsh-web-search-follow-model", "dshmarket", "pnpm"
 ]);
 const entry = join("node_modules", ...cli.manifest.name.split("/"), cli.entry).split(sep).join("/");

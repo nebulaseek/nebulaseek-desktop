@@ -1,13 +1,13 @@
-# Harness 独立更新指南
+# 内核独立更新指南
 
-DeepSeek Desktop 把稳定桌面外壳与 Harness 分开。用户只需更换一个 Git 仓库地址，就能改变 Desktop 下次运行的 Harness；Tauri、原生菜单、凭据边界和桌面设置仍由原来的 Desktop 外壳提供。
+星云寻知把稳定桌面外壳与内核分开。用户只需更换一个 Git 仓库地址，就能改变 Desktop 下次运行的内核；Tauri、原生菜单、凭据边界和桌面设置仍由原来的 Desktop 外壳提供。
 
 ## 普通用户
 
-Harness 更新页始终显示当前桌面包的默认仓库。社区版默认使用：
+内核更新页始终显示当前桌面包的默认仓库。社区版默认使用：
 
 ```text
-https://github.com/deepseek-desktop/deepseek-harness.git
+https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git
 ```
 
 用户可以直接替换成官方上游仓库：
@@ -16,47 +16,47 @@ https://github.com/deepseek-desktop/deepseek-harness.git
 https://github.com/deepseek-ai/deepseek-harness.git
 ```
 
-也可以填写自己维护的兼容 fork。设置中只有一个“Harness 仓库”输入框，不需要另外填写更新清单、发布者或公钥。可用行为包括：
+也可以填写自己维护的兼容 fork。设置中只有一个“内核仓库”输入框，不需要另外填写更新清单、发布者或公钥。可用行为包括：
 
-- **自动下载，下次启动安装**：后台发现新 commit 后准备并验证，退出应用前不替换正在运行的 Harness。
+- **自动下载，下次启动安装**：后台发现新 commit 后准备并验证，退出应用前不替换正在运行的内核。
 - **发现后提醒（默认）**：只提示版本，由用户决定是否下载。
-- **仅手动检查**：只有点击“检查 Harness”时访问更新服务。
-- **固定当前 Harness**：停止检查、下载和待安装切换，直到取消固定。
-- **恢复内置 Harness**：停止当前 Harness，并把下次启动恢复到安装包内置版本。
+- **仅手动检查**：只有点击“检查内核”时访问更新服务。
+- **固定当前内核**：停止检查、下载和待安装切换，直到取消固定。
+- **恢复内置内核**：停止当前内核，并把下次启动恢复到安装包内置版本。
 
-点击“检查 Harness”后，Desktop 用 Git 读取所选仓库默认分支的 `HEAD`。发现 commit 变化后，用户确认准备，Desktop 会在应用数据目录中浅克隆仓库，复用内置的 Node `24.20.0` 和 pnpm 安装锁定依赖，优先执行仓库的 `build:official`，没有该命令时执行 `build`。随后复用桌面打包的生产依赖收集逻辑，补齐桌面凭据代理、搜索插件和市场组件及其依赖，保留新 Harness 自身的核心服务。用户不需要单独安装 Node 或 pnpm，但系统需要能够执行 Git；私有仓库的访问权限由用户自己的 Git 环境负责。
+点击“检查内核”后，Desktop 用 Git 读取所选仓库默认分支的 `HEAD`。发现 commit 变化后，用户确认准备，Desktop 会在应用数据目录中浅克隆仓库，复用内置的 Node `24.20.0` 和 pnpm 安装锁定依赖，优先执行仓库的 `build:official`，没有该命令时执行 `build`。随后复用桌面打包的生产依赖收集逻辑，补齐桌面凭据代理、搜索插件和市场组件及其依赖，保留新内核自身的核心服务。用户不需要单独安装 Node 或 pnpm，但系统需要能够执行 Git；私有仓库的访问权限由用户自己的 Git 环境负责。
 
 填写仓库地址表示信任该仓库中的代码和依赖安装脚本在本机运行。建议只使用自己确认过的仓库，不要使用聊天消息或身份不明页面临时提供的地址。Desktop 不把仓库地址、Git 凭据、模型密钥或构建输出写入诊断包，也不会把一个仓库的凭据转发给另一个仓库。
 
-更新失败不会覆盖当前可用版本。源码候选只有在依赖安装、构建、Node/ABI 检查、Harness CLI 检查、桌面辅助包检查和真实本地服务 readiness smoke 全部通过后，才写入待切换指针。下次启动再次 smoke 后原子切换 `current`；新版本启动失败或连续恢复失败时自动回滚上一版，上一版也不可用时使用安装包内置 Harness。Desktop 不调用 Harness 私有工作区接口，项目目录仍由工作台自行管理。更新器只保留 `current`、`previous` 和 `pending` 引用的版本，启动和失败清理会移除 staging 与孤立目录。
+更新失败不会覆盖当前可用版本。源码候选只有在依赖安装、构建、Node/ABI 检查、内核 CLI 检查、桌面辅助包检查和真实本地服务 readiness smoke 全部通过后，才写入待切换指针。下次启动再次 smoke 后原子切换 `current`；新版本启动失败或连续恢复失败时自动回滚上一版，上一版也不可用时使用安装包内置内核。Desktop 不调用内核私有工作区接口，项目目录仍由工作台自行管理。更新器只保留 `current`、`previous` 和 `pending` 引用的版本，启动和失败清理会移除 staging 与孤立目录。
 
-离线环境可以长期使用当前或内置 Harness。断网、Git 不可用、依赖下载失败、构建失败或启动验证失败只会记录脱敏状态，不会影响当前 Harness。诊断包包含当前版本、commit、来源和更新阶段，但不包含仓库地址、Git 凭据、令牌或模型密钥。
+离线环境可以长期使用当前或内置内核。断网、Git 不可用、依赖下载失败、构建失败或启动验证失败只会记录脱敏状态，不会影响当前内核。诊断包包含当前版本、commit、来源和更新阶段，但不包含仓库地址、Git 凭据、令牌或模型密钥。
 
-如果提示“Harness 仓库连接超时”，请检查网络或代理，再点击“检查 Harness”。macOS 会为仓库检查和拉取自动使用系统已开启的静态代理，并遵守系统绕过规则；已有 Git 或环境代理设置仍优先，不需要修改全局 Git 配置。PAC 自动代理、Windows/Linux 以及依赖下载继续使用各工具已有的网络配置。检查失败不会替换或停止当前 Harness。
+如果提示“内核仓库连接超时”，请检查网络或代理，再点击“检查内核”。macOS 会为仓库检查和拉取自动使用系统已开启的静态代理，并遵守系统绕过规则；已有 Git 或环境代理设置仍优先，不需要修改全局 Git 配置。PAC 自动代理、Windows/Linux 以及依赖下载继续使用各工具已有的网络配置。检查失败不会替换或停止当前内核。
 
 ## 构建配置
 
 ### 自定义仓库契约
 
-兼容仓库应保留 Harness workspace 和 Python SDK 的部署聚合包，并且只暴露一个 `bin.dsh` CLI 入口。更新器从该入口读取实际路径和版本，不假定源码目录就是可运行安装目录。候选需要提供桌面扩展声明的核心 peer 服务；缺失服务时停止准备，不从旧内核补入另一份核心。
+兼容仓库应保留内核 workspace 和 Python SDK 的部署聚合包，并且只暴露一个 `bin.dsh` CLI 入口。更新器从该入口读取实际路径和版本，不假定源码目录就是可运行安装目录。候选需要提供桌面扩展声明的核心 peer 服务；缺失服务时停止准备，不从旧内核补入另一份核心。
 
-桌面扩展通过公共设置服务和凭据引用对接新 Harness。更新到未经桌面补丁加工的仓库时，功能细节以该仓库实现为准；未知模型协议仍不会盲目探测。关闭设置不会清理页面数据；只有 Harness 重启并重新导航工作台时，外壳才重置其本地会话认证 Cookie，避免多次更新积累请求头而导致插件加载失败。
+桌面扩展通过公共设置服务和凭据引用对接新内核。更新到未经桌面补丁加工的仓库时，功能细节以该仓库实现为准；未知模型协议仍不会盲目探测。关闭设置不会清理页面数据；只有内核重启并重新导航工作台时，外壳才重置其本地会话认证 Cookie，避免多次更新积累请求头而导致插件加载失败。
 
 ### 命名切换
 
-项目自有配置、命令和目录统一使用 Harness：来源变量为 `HARNESS_REPOSITORY` / `HARNESS_REF`，源码目录为 `harness/`，验证命令为 `harness:smoke`。桌面设置、更新清单、制品元数据、IPC 和日志事件采用同一套新契约，不提供历史名称别名或配置迁移逻辑；请以 `.env.example` 和本文示例为准。
+项目自有配置、命令和目录统一使用内核：来源变量为 `HARNESS_REPOSITORY` / `HARNESS_REF`，源码目录为 `harness/`，验证命令为 `harness:smoke`。桌面设置、更新清单、制品元数据、IPC 和日志事件采用同一套新契约，不提供历史名称别名或配置迁移逻辑；请以 `.env.example` 和本文示例为准。
 
-第三方 API、依赖包名和上游目录维持其真实名称。普通用户的模型配置、凭据与会话由 Harness 管理，不属于本次命名调整范围。
+第三方 API、依赖包名和上游目录维持其真实名称。普通用户的模型配置、凭据与会话由内核管理，不属于本次命名调整范围。
 
 ```dotenv
 HARNESS_UPDATE_MANIFEST_URL=https://updates.example.com/harness/stable/manifest.json
 HARNESS_UPDATE_CHANNEL=stable
 HARNESS_AUTO_UPDATE=false
-HARNESS_UPDATE_PUBLISHER=deepseek-desktop
+HARNESS_UPDATE_PUBLISHER=xingyunxunzhi-desktop
 HARNESS_UPDATE_PUBLIC_KEY=<Ed25519 原始 32 字节公钥的 Base64>
 ```
 
-配置优先级仍为“环境变量 > `.env` > 内置默认值”。`HARNESS_REPOSITORY` 同时决定打包时使用的 Harness 来源和设置页显示的默认仓库；普通用户填写其他仓库时只保存这一项覆盖值。`HARNESS_REF` 非空表示开发者明确固定构建期 Harness，此时默认关闭自动准备，避免联调版本被仓库默认分支替换。用户仍可在设置页切换提醒或手动模式。
+配置优先级仍为“环境变量 > `.env` > 内置默认值”。`HARNESS_REPOSITORY` 同时决定打包时使用的内核来源和设置页显示的默认仓库；普通用户填写其他仓库时只保存这一项覆盖值。`HARNESS_REF` 非空表示开发者明确固定构建期内核，此时默认关闭自动准备，避免联调版本被仓库默认分支替换。用户仍可在设置页切换提醒或手动模式。
 
 `HARNESS_UPDATE_MANIFEST_URL`、`HARNESS_UPDATE_PUBLIC_KEY` 和 `HARNESS_UPDATE_PUBLISHER` 是发行维护者可选的预构建签名制品通道，不出现在普通用户设置中。三项未配置时直接使用仓库源码准备；三项完整时，未覆盖仓库的用户继续使用签名制品通道，填写其他仓库后则切换为本机源码准备。
 
@@ -79,7 +79,7 @@ corepack pnpm@11.24.0 harness:update:package -- \
   --output /shared/releases/harness/1.0.0
 ```
 
-Worker 自动识别 macOS arm64、macOS x64、Windows x64 或 Linux x64，只生成本机原生目标。该命令复用 `app:sync`、`harness:sync` 和 `harness:stage`，输出生产 Harness、Node sidecar、`harness-package.json`、目标描述和 SHA-256。使用这一可选签名制品通道的用户机器不执行源码构建；直接配置 Git 仓库的用户则按“普通用户”一节在本机准备 Harness。共享目录可位于本地 filesystem 或 NAS。
+Worker 自动识别 macOS arm64、macOS x64、Windows x64 或 Linux x64，只生成本机原生目标。该命令复用 `app:sync`、`harness:sync` 和 `harness:stage`，输出生产内核、Node sidecar、`harness-package.json`、目标描述和 SHA-256。使用这一可选签名制品通道的用户机器不执行源码构建；直接配置 Git 仓库的用户则按“普通用户”一节在本机准备内核。共享目录可位于本地 filesystem 或 NAS。
 
 四个平台描述和制品齐全后，发布维护者签名统一清单：
 
@@ -94,7 +94,7 @@ corepack pnpm@11.24.0 harness:update:manifest -- \
   --base-url https://updates.example.com/harness/stable/
 ```
 
-默认要求四个平台目标齐全、Desktop 与 Harness 源码干净、四个描述的 Desktop commit、Harness commit、仓库、协议、Node ABI、凭据插件和 DSH Market 版本完全一致，并重新读取每个制品核对大小与 SHA-256。需要在单一平台做内部测试时可显式传入 `--targets <target>`；这不应冒充完整公开发布。
+默认要求四个平台目标齐全、Desktop 与内核源码干净、四个描述的 Desktop commit、内核 commit、仓库、协议、Node ABI、凭据插件和 DSH Market 版本完全一致，并重新读取每个制品核对大小与 SHA-256。需要在单一平台做内部测试时可显式传入 `--targets <target>`；这不应冒充完整公开发布。
 
 清单和制品可以发布到静态文件服务器、filesystem/NAS、GitHub、GitLab、Gitee、Gitea 或自建服务。构建、签名和上传彼此解耦，不使用 GitHub Release API 作为运行前提。外部平台只承载已生成文件，不参与客户端信任判断。
 
@@ -105,7 +105,7 @@ corepack pnpm@11.24.0 harness:update:manifest -- \
 ```json
 {
   "schemaVersion": 1,
-  "publisher": "deepseek-desktop",
+  "publisher": "xingyunxunzhi-desktop",
   "issuedAt": "2026-01-01T00:00:00.000Z",
   "expiresAt": "2026-01-08T00:00:00.000Z",
   "harnessVersion": "1.0.0",
@@ -125,7 +125,7 @@ corepack pnpm@11.24.0 harness:update:manifest -- \
   "allowedOrigins": [],
   "artifacts": {
     "aarch64-apple-darwin": {
-      "url": "deepseek-harness_1.0.0_aarch64-apple-darwin.tar.gz",
+      "url": "xingyunxunzhi-harness_1.0.0_aarch64-apple-darwin.tar.gz",
       "size": 123,
       "sha256": "<64 位 SHA-256>"
     }
@@ -133,16 +133,16 @@ corepack pnpm@11.24.0 harness:update:manifest -- \
 }
 ```
 
-客户端只接受当前平台制品、受信任发布者和配置公钥。清单必须在签名覆盖的 `issuedAt` 与 `expiresAt` 有效期内，签发时间最多允许 15 分钟时钟偏差；客户端按频道持久化已接受的最高版本、签发时间和 commit，拒绝旧版本、旧签发时间以及同版本替换 commit 的重放。`stable` 拒绝预发布 SemVer，但允许带构建元数据的稳定版本；候选版本必须高于当前版本，并落在 Desktop 兼容范围内。Harness、Desktop 和凭据协议必须精确匹配，Harness 仓库必须与安装包内置来源一致。压缩包拒绝绝对路径、父目录逃逸、重复路径、符号链接、特殊文件、超量文件和超限解压大小。
+客户端只接受当前平台制品、受信任发布者和配置公钥。清单必须在签名覆盖的 `issuedAt` 与 `expiresAt` 有效期内，签发时间最多允许 15 分钟时钟偏差；客户端按频道持久化已接受的最高版本、签发时间和 commit，拒绝旧版本、旧签发时间以及同版本替换 commit 的重放。`stable` 拒绝预发布 SemVer，但允许带构建元数据的稳定版本；候选版本必须高于当前版本，并落在 Desktop 兼容范围内。内核、Desktop 和凭据协议必须精确匹配，内核仓库必须与安装包内置来源一致。压缩包拒绝绝对路径、父目录逃逸、重复路径、符号链接、特殊文件、超量文件和超限解压大小。
 
 ## 故障恢复
 
-- **下载或验签失败**：保留当前 Harness，删除不完整 `.part` 文件后重试。
-- **仓库拉取、依赖安装或构建失败**：删除源码 staging，继续使用当前 Harness；修复网络、Git 权限或仓库构建后重新检查。
-- **启动 smoke 失败**：删除待安装指针和孤立版本目录，继续使用当前 Harness。
+- **下载或验签失败**：保留当前内核，删除不完整 `.part` 文件后重试。
+- **仓库拉取、依赖安装或构建失败**：删除源码 staging，继续使用当前内核；修复网络、Git 权限或仓库构建后重新检查。
+- **启动 smoke 失败**：删除待安装指针和孤立版本目录，继续使用当前内核。
 - **切换后启动失败**：原子切回上一版并重新启动。
-- **上一版不可用**：删除外部 current 指针，恢复安装包内置 Harness。
+- **上一版不可用**：删除外部 current 指针，恢复安装包内置内核。
 - **固定版本**：取消固定前不应用已下载版本；取消后重新检查可获得最新可信版本。
-- **完全离线恢复**：在更新页点击“恢复内置 Harness”，不需要访问网络或重新安装桌面应用。
+- **完全离线恢复**：在更新页点击“恢复内置内核”，不需要访问网络或重新安装桌面应用。
 
-Harness 数据只写入系统应用数据目录的 `updates/harness/`，不会修改 macOS `.app`、Windows 安装目录或 Linux 应用映像。Windows 下载 smoke、替换和 Harness 启动均使用无控制台进程标志，不会额外弹出终端窗口。
+内核数据只写入系统应用数据目录的 `updates/harness/`，不会修改 macOS `.app`、Windows 安装目录或 Linux 应用映像。Windows 下载 smoke、替换和内核启动均使用无控制台进程标志，不会额外弹出终端窗口。

@@ -45,7 +45,7 @@ function Get-InstalledEntry {
   )
   foreach ($root in $roots) {
     $entry = Get-ItemProperty -Path $root -ErrorAction SilentlyContinue |
-      Where-Object { $_.DisplayName -eq "DeepSeek Desktop" } |
+      Where-Object { $_.DisplayName -eq "Xingyunxunzhi" } |
       Select-Object -First 1
     if ($null -ne $entry) {
       return $entry
@@ -135,7 +135,7 @@ function Activate-App {
 
   $shell = New-Object -ComObject WScript.Shell
   if (-not $shell.AppActivate($Process.Id)) {
-    throw "could not activate DeepSeek Desktop"
+    throw "could not activate Xingyunxunzhi"
   }
   Start-Sleep -Milliseconds 300
 }
@@ -252,7 +252,7 @@ function Write-AppUiDiagnostic {
     foreach ($name in ($names | Select-Object -First 40)) { Write-Host "  $name" }
   } catch { Write-Host "automation enumeration failed: $($_.Exception.Message)" }
 
-  foreach ($relative in @("deepseek.desktop\logs\desktop.log", "deepseek.desktop\logs\harness.log")) {
+  foreach ($relative in @("xingyunxunzhi.desktop\logs\desktop.log", "xingyunxunzhi.desktop\logs\harness.log")) {
     $logPath = Join-Path $env:APPDATA $relative
     if (Test-Path -LiteralPath $logPath) {
       Write-Host "--- tail $logPath ---"
@@ -301,7 +301,7 @@ try {
     $installedEntry = Get-InstalledEntry
     if ($null -ne $installedEntry) {
       $installLocation = [System.IO.Path]::GetFullPath($installedEntry.InstallLocation.Trim().Trim('"'))
-      $candidate = Join-Path $installLocation "deepseek-desktop.exe"
+      $candidate = Join-Path $installLocation "xingyunxunzhi-desktop.exe"
       if (Test-Path -LiteralPath $candidate) {
         $installedExecutable = $candidate
         break
@@ -310,17 +310,17 @@ try {
     Start-Sleep -Milliseconds 500
   } while ([DateTime]::UtcNow -lt $deadline)
   if (-not $installedExecutable) {
-    throw "installed DeepSeek Desktop executable was not found"
+    throw "installed Xingyunxunzhi executable was not found"
   }
 
   Assert-Pe -Path $installedExecutable -AllowedMachines @(0x8664)
   $appProcess = Start-Process -FilePath $installedExecutable -PassThru
-  $expectedTitle = "DeepSeek Desktop v$ExpectedVersion"
+  $expectedTitle = "Xingyunxunzhi v$ExpectedVersion"
   $deadline = [DateTime]::UtcNow.AddSeconds(120)
   do {
     $appProcess.Refresh()
     if ($appProcess.HasExited) {
-      throw "DeepSeek Desktop exited before its main window was ready"
+      throw "Xingyunxunzhi exited before its main window was ready"
     }
     if ($appProcess.MainWindowHandle -ne 0 -and $appProcess.MainWindowTitle -eq $expectedTitle) {
       break
@@ -369,10 +369,10 @@ try {
   $confirm = Wait-AppUiElement -Names @("关闭", "關閉", "Close") -RootProcessId $appProcess.Id -TimeoutSeconds 15
   Invoke-UiElement -Element $confirm
   if (-not $appProcess.WaitForExit(30000)) {
-    throw "DeepSeek Desktop did not exit after close confirmation"
+    throw "Xingyunxunzhi did not exit after close confirmation"
   }
   if ($appProcess.ExitCode -ne 0) {
-    throw "DeepSeek Desktop exited with code $($appProcess.ExitCode)"
+    throw "Xingyunxunzhi exited with code $($appProcess.ExitCode)"
   }
   $deadline = [DateTime]::UtcNow.AddSeconds(20)
   do {
@@ -388,7 +388,7 @@ try {
     throw "orphan child processes remained after exit: $($remainingChildren -join ', ')"
   }
 
-  Write-Output "Windows x64 installation acceptance passed for DeepSeek Desktop $ExpectedVersion."
+  Write-Output "Windows x64 installation acceptance passed for Xingyunxunzhi $ExpectedVersion."
 } finally {
   if ($null -ne $appProcess -and -not $appProcess.HasExited) {
     Stop-Process -Id $appProcess.Id -Force -ErrorAction SilentlyContinue
@@ -419,6 +419,6 @@ try {
     Start-Sleep -Milliseconds 500
   }
   if ($null -ne (Get-InstalledEntry)) {
-    throw "DeepSeek Desktop remained installed after acceptance cleanup"
+    throw "Xingyunxunzhi remained installed after acceptance cleanup"
   }
 }

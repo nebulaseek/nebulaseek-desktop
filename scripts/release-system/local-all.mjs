@@ -27,8 +27,8 @@ import { ReleaseStateStore } from "./state-store.mjs";
 import { createLockedSourceBundle, resolveBundledTag } from "./git-source.mjs";
 
 const root = resolve(import.meta.dirname, "../..");
-const defaultConfigPath = join(root, ".deepseek-release.local.json");
-const defaultImage = "deepseek-desktop-local-linux-x64:1.0.0";
+const defaultConfigPath = join(root, ".xingyunxunzhi-release.local.json");
+const defaultImage = "xingyunxunzhi-desktop-local-linux-x64:1.0.0";
 const allTargetIds = ["macos-arm64", "macos-x64", "windows-x64", "linux-x64"];
 const allowedOptions = new Set([
   "channel",
@@ -156,7 +156,7 @@ function defaultConfig() {
       vm: "",
       controllerHost: "10.211.55.2",
       autoStart: true,
-      workRoot: "C:\\DeepSeekDesktopRelease",
+      workRoot: "C:\\XingyunxunzhiDesktopRelease",
       sharedHome: "\\\\Mac\\Home"
     },
     destination: join(root, "release", "local-all")
@@ -339,7 +339,7 @@ async function ensureDockerImage(config, rebuild) {
   if (exists && !rebuild && !config.rebuild) {
     try {
       const inspection = JSON.parse(runSync(docker, ["image", "inspect", config.image], { quiet: true }));
-      const actualContract = inspection[0]?.Config?.Labels?.["dev.deepseek.desktop.release-image-contract"];
+      const actualContract = inspection[0]?.Config?.Labels?.["dev.xingyunxunzhi.desktop.release-image-contract"];
       const actualIdentity = runSync(docker, [
         "run", "--rm", "--platform", "linux/amd64", config.image,
         "node", "-p", "[process.versions.node,process.versions.modules,process.arch].join('|')"
@@ -356,7 +356,7 @@ async function ensureDockerImage(config, rebuild) {
     ]);
   }
   const inspection = JSON.parse(runSync(docker, ["image", "inspect", config.image], { quiet: true }));
-  const actualContract = inspection[0]?.Config?.Labels?.["dev.deepseek.desktop.release-image-contract"];
+  const actualContract = inspection[0]?.Config?.Labels?.["dev.xingyunxunzhi.desktop.release-image-contract"];
   if (actualContract !== expectedContract) {
     throw new Error(`Linux release image contract mismatch: expected ${expectedContract}, got ${actualContract || "missing"}`);
   }
@@ -472,10 +472,10 @@ async function writeWindowsScripts(runRoot, settings) {
   await writeFile(workerPath, [
     "$ErrorActionPreference = 'Stop'",
     `$env:NODE_EXTRA_CA_CERTS = ${powershellLiteral(ca)}`,
-    `$env:DEEPSEEK_DESKTOP_TOOLCHAIN_DIR = ${powershellLiteral(`${settings.workRoot}\\toolchain`)}`,
+    `$env:XINGYUNXUNZHI_DESKTOP_TOOLCHAIN_DIR = ${powershellLiteral(`${settings.workRoot}\\toolchain`)}`,
     `$env:PLAYWRIGHT_BROWSERS_PATH = ${powershellLiteral(`${settings.workRoot}\\playwright`)}`,
-    `$env:DEEPSEEK_DESKTOP_CARGO_CACHE_ROOT = ${powershellLiteral(`${settings.workRoot}\\cargo`)}`,
-    `$env:DEEPSEEK_DESKTOP_HARNESS_TARGET_CACHE_ROOT = ${powershellLiteral(`${settings.workRoot}\\harness-target-cache`)}`,
+    `$env:XINGYUNXUNZHI_DESKTOP_CARGO_CACHE_ROOT = ${powershellLiteral(`${settings.workRoot}\\cargo`)}`,
+    `$env:XINGYUNXUNZHI_DESKTOP_HARNESS_TARGET_CACHE_ROOT = ${powershellLiteral(`${settings.workRoot}\\harness-target-cache`)}`,
     `$env:Path = ${powershellLiteral(`${nodeToolchain.installationRoot};`)} + $env:Path`,
     `$vswhere = ${powershellLiteral(vsWhere)}`,
     "$install = (& $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath).Trim()",
@@ -506,7 +506,7 @@ async function createTlsBundle(runRoot, hosts) {
   const sans = uniqueHosts.map((host, index) => `${isIP(host) ? "IP" : "DNS"}.${index + 1} = ${host}`).join("\n");
   await writeFile(extension, `[v3_server]\nbasicConstraints = CA:FALSE\nkeyUsage = digitalSignature, keyEncipherment\nextendedKeyUsage = serverAuth\nsubjectAltName = @alt_names\n[alt_names]\n${sans}\n`);
   runSync(openssl, ["genpkey", "-algorithm", "RSA", "-pkeyopt", "rsa_keygen_bits:2048", "-out", caKey], { quiet: true });
-  runSync(openssl, ["req", "-x509", "-new", "-sha256", "-days", "2", "-key", caKey, "-subj", "/CN=DeepSeek Desktop Local Release CA", "-out", caCert], { quiet: true });
+  runSync(openssl, ["req", "-x509", "-new", "-sha256", "-days", "2", "-key", caKey, "-subj", "/CN=Xingyunxunzhi Local Release CA", "-out", caCert], { quiet: true });
   runSync(openssl, ["genpkey", "-algorithm", "RSA", "-pkeyopt", "rsa_keygen_bits:2048", "-out", serverKey], { quiet: true });
   runSync(openssl, ["req", "-new", "-sha256", "-key", serverKey, "-subj", "/CN=localhost", "-out", serverCsr], { quiet: true });
   runSync(openssl, ["x509", "-req", "-sha256", "-days", "2", "-in", serverCsr, "-CA", caCert, "-CAkey", caKey, "-CAcreateserial", "-extfile", extension, "-extensions", "v3_server", "-out", serverCert], { quiet: true });
@@ -524,10 +524,10 @@ function workerEnvironment(caCert, targetId, nodeBin = "") {
   return {
     ...process.env,
     NODE_EXTRA_CA_CERTS: caCert,
-    DEEPSEEK_DESKTOP_TOOLCHAIN_DIR: join(root, "target", "local-release", "toolchains", `rust-${targetId}`),
+    XINGYUNXUNZHI_DESKTOP_TOOLCHAIN_DIR: join(root, "target", "local-release", "toolchains", `rust-${targetId}`),
     PLAYWRIGHT_BROWSERS_PATH: join(root, "target", "local-release", "playwright"),
-    DEEPSEEK_DESKTOP_CARGO_CACHE_ROOT: join(root, "target", "local-release", "cargo"),
-    DEEPSEEK_DESKTOP_HARNESS_TARGET_CACHE_ROOT: join(root, "target", "local-release", "harness-target-cache"),
+    XINGYUNXUNZHI_DESKTOP_CARGO_CACHE_ROOT: join(root, "target", "local-release", "cargo"),
+    XINGYUNXUNZHI_DESKTOP_HARNESS_TARGET_CACHE_ROOT: join(root, "target", "local-release", "harness-target-cache"),
     ...(nodeBin ? { PATH: `${dirname(nodeBin)}:${process.env.PATH || ""}` } : {})
   };
 }
@@ -536,16 +536,16 @@ export function dockerBaseArgs(config, caCert) {
   return [
     "run", "--rm", "--platform", "linux/amd64", "--interactive",
     "--env", "NODE_EXTRA_CA_CERTS=/local-release/ca.crt",
-    "--env", "DEEPSEEK_DESKTOP_TOOLCHAIN_DIR=/local-release/toolchain",
+    "--env", "XINGYUNXUNZHI_DESKTOP_TOOLCHAIN_DIR=/local-release/toolchain",
     "--env", "PLAYWRIGHT_BROWSERS_PATH=/ms-playwright",
-    "--env", "DEEPSEEK_DESKTOP_CARGO_CACHE_ROOT=/local-release/cargo",
-    "--env", "DEEPSEEK_DESKTOP_HARNESS_TARGET_CACHE_ROOT=/local-release/harness-target-cache",
+    "--env", "XINGYUNXUNZHI_DESKTOP_CARGO_CACHE_ROOT=/local-release/cargo",
+    "--env", "XINGYUNXUNZHI_DESKTOP_HARNESS_TARGET_CACHE_ROOT=/local-release/harness-target-cache",
     "--volume", `${root}:/orchestrator:ro`,
     "--volume", `${caCert}:/local-release/ca.crt:ro`,
-    "--volume", "deepseek-desktop-local-release-toolchain:/local-release/toolchain",
-    "--volume", "deepseek-desktop-local-release-pnpm:/root/.local/share/pnpm",
-    "--volume", "deepseek-desktop-local-release-cargo:/local-release/cargo",
-    "--volume", "deepseek-desktop-local-release-harness-target-cache:/local-release/harness-target-cache",
+    "--volume", "xingyunxunzhi-desktop-local-release-toolchain:/local-release/toolchain",
+    "--volume", "xingyunxunzhi-desktop-local-release-pnpm:/root/.local/share/pnpm",
+    "--volume", "xingyunxunzhi-desktop-local-release-cargo:/local-release/cargo",
+    "--volume", "xingyunxunzhi-desktop-local-release-harness-target-cache:/local-release/harness-target-cache",
     config.image
   ];
 }
@@ -570,11 +570,11 @@ export async function main() {
   }
 
   const arm64Node = await ensureMacNode("aarch64-apple-darwin", "arm64");
-  if (process.env.DEEPSEEK_DESKTOP_RELEASE_NODE !== arm64Node) {
+  if (process.env.XINGYUNXUNZHI_DESKTOP_RELEASE_NODE !== arm64Node) {
     runSync(arm64Node, [fileURLToPath(import.meta.url), ...process.argv.slice(2)], {
       env: {
         ...process.env,
-        DEEPSEEK_DESKTOP_RELEASE_NODE: arm64Node,
+        XINGYUNXUNZHI_DESKTOP_RELEASE_NODE: arm64Node,
         PATH: `${dirname(arm64Node)}:${process.env.PATH || ""}`
       }
     });

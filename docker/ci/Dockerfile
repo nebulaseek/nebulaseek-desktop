@@ -4,7 +4,7 @@ ARG NODE_VERSION=24.20.0
 ARG TARGETARCH
 ARG BUILD_IMAGE_CONTRACT
 
-LABEL dev.deepseek.desktop.release-image-contract="${BUILD_IMAGE_CONTRACT}"
+LABEL dev.xingyunxunzhi.desktop.release-image-contract="${BUILD_IMAGE_CONTRACT}"
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \

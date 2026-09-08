@@ -11,7 +11,7 @@ import { artifactName, assertSemVer, compareSemVer, hostTarget, isPrereleaseSemV
 const root = resolve(import.meta.dirname, "../..");
 
 test("signing key creation never overwrites an existing private key", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-keygen-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-keygen-"));
   try {
     const path = join(directory, "signing.pem");
     const run = () => spawnSync(process.execPath, ["scripts/harness-update/keygen.mjs", path], { cwd: root, encoding: "utf8" });
@@ -37,7 +37,7 @@ test("maps only native Harness update targets", () => {
 test("builds stable artifact names and validates SemVer", () => {
   assert.equal(
     artifactName("1.0.0", "x86_64-unknown-linux-gnu"),
-    "deepseek-harness_1.0.0_x86_64-unknown-linux-gnu.tar.gz"
+    "xingyunxunzhi-harness_1.0.0_x86_64-unknown-linux-gnu.tar.gz"
   );
   assert.equal(assertSemVer("1.0.0-preview.1", "version"), "1.0.0-preview.1");
   assert.throws(() => assertSemVer("latest", "version"), /SemVer/u);
@@ -61,7 +61,7 @@ test("parses explicit maintainer arguments", () => {
 });
 
 test("creates a signed manifest only from a complete clean native target set", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-harness-manifest-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-harness-manifest-"));
   try {
     const { privateKey, publicKey } = generateKeyPairSync("ed25519");
     const key = join(directory, "signing.pem");

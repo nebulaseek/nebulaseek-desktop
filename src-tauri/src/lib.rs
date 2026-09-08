@@ -193,14 +193,14 @@ fn desktop_menu_popup(
 fn desktop_about(state: State<'_, AppState>) -> DesktopResult<DesktopAbout> {
     let harness = state.harness_updates.status()?;
     Ok(DesktopAbout {
-        desktop_version: env!("DEEPSEEK_DESKTOP_APP_VERSION").to_owned(),
+        desktop_version: env!("XINGYUNXUNZHI_DESKTOP_APP_VERSION").to_owned(),
         harness_version: harness.current_version,
         harness_commit: harness.current_commit,
-        node_version: env!("DEEPSEEK_DESKTOP_NODE_VERSION").to_owned(),
-        authors: env!("DEEPSEEK_DESKTOP_APP_AUTHORS").to_owned(),
-        repository: env!("DEEPSEEK_DESKTOP_APP_REPOSITORY").to_owned(),
-        channel: env!("DEEPSEEK_DESKTOP_RELEASE_CHANNEL").to_owned(),
-        signed_release: env!("DEEPSEEK_DESKTOP_SIGNED_RELEASE") == "true",
+        node_version: env!("XINGYUNXUNZHI_DESKTOP_NODE_VERSION").to_owned(),
+        authors: env!("XINGYUNXUNZHI_DESKTOP_APP_AUTHORS").to_owned(),
+        repository: env!("XINGYUNXUNZHI_DESKTOP_APP_REPOSITORY").to_owned(),
+        channel: env!("XINGYUNXUNZHI_DESKTOP_RELEASE_CHANNEL").to_owned(),
+        signed_release: env!("XINGYUNXUNZHI_DESKTOP_SIGNED_RELEASE") == "true",
     })
 }
 
@@ -242,7 +242,7 @@ async fn harness_update_restore_bundled(
 #[tauri::command]
 fn repository_open(app: tauri::AppHandle) -> DesktopResult<()> {
     app.opener()
-        .open_url(env!("DEEPSEEK_DESKTOP_APP_REPOSITORY"), None::<&str>)
+        .open_url(env!("XINGYUNXUNZHI_DESKTOP_APP_REPOSITORY"), None::<&str>)
         .map_err(|error| DesktopError::Other(error.to_string()))
 }
 
@@ -445,7 +445,7 @@ pub fn run() {
             }
             native_menu::DOCUMENTATION_MENU_ID => {
                 let _ = app.opener().open_url(
-                    concat!(env!("DEEPSEEK_DESKTOP_APP_REPOSITORY"), "#readme"),
+                    concat!(env!("XINGYUNXUNZHI_DESKTOP_APP_REPOSITORY"), "#readme"),
                     None::<&str>,
                 );
             }

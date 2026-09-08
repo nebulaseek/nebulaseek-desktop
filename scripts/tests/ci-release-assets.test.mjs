@@ -19,10 +19,10 @@ const toolchainLock = {
   }
 };
 const targets = new Map([
-  ["aarch64-apple-darwin", ["DeepSeek Desktop_1.0.0_aarch64.dmg"]],
-  ["x86_64-apple-darwin", ["DeepSeek Desktop_1.0.0_x64.dmg"]],
-  ["x86_64-pc-windows-msvc", ["DeepSeek Desktop_1.0.0_x64-setup.exe"]],
-  ["x86_64-unknown-linux-gnu", ["DeepSeek Desktop_1.0.0_amd64.AppImage", "DeepSeek Desktop_1.0.0_amd64.deb"]]
+  ["aarch64-apple-darwin", ["Xingyunxunzhi_1.0.0_aarch64.dmg"]],
+  ["x86_64-apple-darwin", ["Xingyunxunzhi_1.0.0_x64.dmg"]],
+  ["x86_64-pc-windows-msvc", ["Xingyunxunzhi_1.0.0_x64-setup.exe"]],
+  ["x86_64-unknown-linux-gnu", ["Xingyunxunzhi_1.0.0_amd64.AppImage", "Xingyunxunzhi_1.0.0_amd64.deb"]]
 ]);
 
 function hash(value) {
@@ -37,12 +37,12 @@ async function fixture(root, mutate = value => value) {
     const buildInfo = mutate({
       schemaVersion: 1,
       application: {
-        productName: "DeepSeek Desktop",
+        productName: "Xingyunxunzhi",
         version,
-        identifier: "deepseek.desktop",
-        slug: "deepseek-desktop",
+        identifier: "xingyunxunzhi.desktop",
+        slug: "xingyunxunzhi-desktop",
         description: "Local AI agent workspace",
-        authors: ["DeepSeek Desktop Contributors"],
+        authors: ["Xingyunxunzhi Contributors"],
         repository: "https://example.invalid/desktop"
       },
       desktop: { commit, dirty: false },
@@ -80,7 +80,7 @@ async function fixture(root, mutate = value => value) {
 }
 
 test("prepares exactly five public installers and one aggregate checksum file", async t => {
-  const root = await mkdtemp(join(tmpdir(), "deepseek-ci-release-assets-"));
+  const root = await mkdtemp(join(tmpdir(), "xingyunxunzhi-ci-release-assets-"));
   t.after(() => rm(root, { recursive: true, force: true }));
   await fixture(root);
   const output = join(root, "publish");
@@ -94,7 +94,7 @@ test("prepares exactly five public installers and one aggregate checksum file", 
 });
 
 test("accepts platform-specific Harness closure digests", async t => {
-  const root = await mkdtemp(join(tmpdir(), "deepseek-ci-release-closure-"));
+  const root = await mkdtemp(join(tmpdir(), "xingyunxunzhi-ci-release-closure-"));
   t.after(() => rm(root, { recursive: true, force: true }));
   await fixture(root, (buildInfo, target) => ({
     ...buildInfo,
@@ -111,7 +111,7 @@ test("accepts platform-specific Harness closure digests", async t => {
 });
 
 test("rejects a target built from another Harness commit", async t => {
-  const root = await mkdtemp(join(tmpdir(), "deepseek-ci-release-harness-"));
+  const root = await mkdtemp(join(tmpdir(), "xingyunxunzhi-ci-release-harness-"));
   t.after(() => rm(root, { recursive: true, force: true }));
   await fixture(root, (buildInfo, target) => target === "x86_64-apple-darwin"
     ? { ...buildInfo, harness: { ...buildInfo.harness, commit: "f".repeat(40) } }
@@ -125,7 +125,7 @@ test("rejects a target built from another Harness commit", async t => {
 test("rejects missing Harness and signature provenance even when every target omits it", async t => {
   for (const field of ["harness", "signed"]) {
     await t.test(field, async () => {
-      const root = await mkdtemp(join(tmpdir(), `deepseek-ci-release-missing-${field}-`));
+      const root = await mkdtemp(join(tmpdir(), `xingyunxunzhi-ci-release-missing-${field}-`));
       t.after(() => rm(root, { recursive: true, force: true }));
       await fixture(root, buildInfo => {
         const copy = { ...buildInfo };
@@ -141,7 +141,7 @@ test("rejects missing Harness and signature provenance even when every target om
 });
 
 test("rejects a target built with another toolchain identity", async t => {
-  const root = await mkdtemp(join(tmpdir(), "deepseek-ci-release-identity-"));
+  const root = await mkdtemp(join(tmpdir(), "xingyunxunzhi-ci-release-identity-"));
   t.after(() => rm(root, { recursive: true, force: true }));
   await fixture(root, (buildInfo, target) => target === "x86_64-unknown-linux-gnu"
     ? { ...buildInfo, application: { ...buildInfo.application, productName: "Other Desktop" } }
@@ -153,7 +153,7 @@ test("rejects a target built with another toolchain identity", async t => {
 });
 
 test("rejects a target built from another Desktop commit", async t => {
-  const root = await mkdtemp(join(tmpdir(), "deepseek-ci-release-source-"));
+  const root = await mkdtemp(join(tmpdir(), "xingyunxunzhi-ci-release-source-"));
   t.after(() => rm(root, { recursive: true, force: true }));
   await fixture(root, (buildInfo, target) => target === "x86_64-pc-windows-msvc"
     ? { ...buildInfo, desktop: { commit: "different", dirty: false } }

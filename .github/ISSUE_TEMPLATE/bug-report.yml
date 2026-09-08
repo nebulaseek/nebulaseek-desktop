@@ -1,5 +1,5 @@
 name: 问题报告
-description: 报告可复现的 DeepSeek Desktop 问题
+description: 报告可复现的 Xingyunxunzhi 问题
 title: "[Bug] "
 labels: [bug]
 body:
@@ -9,7 +9,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: DeepSeek Desktop 版本
+      label: Xingyunxunzhi 版本
       placeholder: 0.1.0-community.6
     validations:
       required: true
@@ -36,4 +36,4 @@ body:
     id: diagnostics
     attributes:
       label: 已脱敏诊断包
-      description: 确认不含私人数据后，仅附加由 DeepSeek Desktop 导出的诊断包。
+      description: 确认不含私人数据后，仅附加由 Xingyunxunzhi 导出的诊断包。

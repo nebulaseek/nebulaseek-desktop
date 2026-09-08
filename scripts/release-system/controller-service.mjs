@@ -175,7 +175,7 @@ export class ReleaseControllerService {
     const release = {
       id: releaseId,
       schemaVersion: 1,
-      productName: input.productName?.trim() || "DeepSeek Desktop",
+      productName: input.productName?.trim() || "Xingyunxunzhi",
       version,
       tag,
       channel,

@@ -130,13 +130,13 @@ const staging = options.directory ? resolve(options.directory) : join(harnessRoo
 const nodeSuffix = process.platform === "win32" ? ".exe" : "";
 const node = join(desktopRoot, "src-tauri", "binaries", `node-${target}${nodeSuffix}`);
 const dsh = join(staging, options.entry ?? lock.harness.entry);
-const parentWatch = join(staging, "node_modules", "deepseek-desktop-bundle", "parent-watch.cjs");
-const localeSync = join(staging, "node_modules", "deepseek-desktop-bundle", "locale-sync.cjs");
+const parentWatch = join(staging, "node_modules", "xingyunxunzhi-desktop-bundle", "parent-watch.cjs");
+const localeSync = join(staging, "node_modules", "xingyunxunzhi-desktop-bundle", "locale-sync.cjs");
 const pnpmCli = join(staging, "node_modules", "pnpm", "bin", "pnpm.cjs");
 const marketPackage = join(staging, "node_modules", "dshmarket", "package.json");
 await Promise.all([stat(node), stat(dsh), stat(parentWatch), stat(localeSync), stat(pnpmCli), stat(marketPackage)]);
 
-const smokeRoot = join(desktopRoot, "target", "deepseek-desktop-harness-smoke");
+const smokeRoot = join(desktopRoot, "target", "xingyunxunzhi-desktop-harness-smoke");
 const dshHome = join(smokeRoot, "home");
 const profile = join(dshHome, "profiles", "desktop-web");
 const desktopModules = join(profile, "node_modules");
@@ -155,20 +155,20 @@ else if (request.operation === "list-records") value = { records: [] };
 process.stdout.write(JSON.stringify({ ok: true, value }));
 `);
 await writeFile(join(profile, "package.json"), `${JSON.stringify({
-  name: "deepseek-desktop-web-profile",
+  name: "xingyunxunzhi-desktop-web-profile",
   private: true,
   dsh: { profile: { bundles: [
     "@deepseek-ai/dsh-base",
     "@deepseek-ai/dsh-web-app",
-    "deepseek-desktop-bundle",
+    "xingyunxunzhi-desktop-bundle",
     "dshmarket"
   ] } }
 }, null, 2)}\n`);
 await writeFile(join(profile, "cordis.patch.yml"), "[]\n");
 await writeFile(join(profile, "pnpm-workspace.yaml"), "packages:\n  - .\n\nnodeLinker: hoisted\n");
 for (const name of [
-  "deepseek-desktop-bundle",
-  "deepseek-desktop-credentials-vault",
+  "xingyunxunzhi-desktop-bundle",
+  "xingyunxunzhi-desktop-credentials-vault",
   "dshmarket",
   "@deepseek-ai/dsh-web-search-follow-model"
 ]) {
@@ -177,9 +177,9 @@ for (const name of [
 }
 const packageManager = process.platform === "win32" ? join(harnessBin, "pnpm.cmd") : join(harnessBin, "pnpm");
 if (process.platform === "win32") {
-  await writeFile(packageManager, "@echo off\r\n\"%DEEPSEEK_DESKTOP_NODE_PATH%\" \"%DEEPSEEK_DESKTOP_PNPM_CLI%\" %*\r\n");
+  await writeFile(packageManager, "@echo off\r\n\"%XINGYUNXUNZHI_DESKTOP_NODE_PATH%\" \"%XINGYUNXUNZHI_DESKTOP_PNPM_CLI%\" %*\r\n");
 } else {
-  await writeFile(packageManager, "#!/bin/sh\nexec \"$DEEPSEEK_DESKTOP_NODE_PATH\" \"$DEEPSEEK_DESKTOP_PNPM_CLI\" \"$@\"\n");
+  await writeFile(packageManager, "#!/bin/sh\nexec \"$XINGYUNXUNZHI_DESKTOP_NODE_PATH\" \"$XINGYUNXUNZHI_DESKTOP_PNPM_CLI\" \"$@\"\n");
   await chmod(packageManager, 0o700);
 }
 
@@ -190,13 +190,13 @@ const environment = {
   LANG: process.env.LANG,
   DSH_HOME: dshHome,
   DSH_TELEMETRY_DISABLED: "true",
-  DEEPSEEK_DESKTOP_HELPER_PATH: node,
-  DEEPSEEK_DESKTOP_HELPER_SCRIPT: credentialHelperScript,
-  DEEPSEEK_DESKTOP_DATA_DIR: join(smokeRoot, "data"),
-  DEEPSEEK_DESKTOP_PARENT_PID: String(process.pid),
-  DEEPSEEK_DESKTOP_LOCALE: "zh-TW",
-  DEEPSEEK_DESKTOP_NODE_PATH: node,
-  DEEPSEEK_DESKTOP_PNPM_CLI: pnpmCli,
+  XINGYUNXUNZHI_DESKTOP_HELPER_PATH: node,
+  XINGYUNXUNZHI_DESKTOP_HELPER_SCRIPT: credentialHelperScript,
+  XINGYUNXUNZHI_DESKTOP_DATA_DIR: join(smokeRoot, "data"),
+  XINGYUNXUNZHI_DESKTOP_PARENT_PID: String(process.pid),
+  XINGYUNXUNZHI_DESKTOP_LOCALE: "zh-TW",
+  XINGYUNXUNZHI_DESKTOP_NODE_PATH: node,
+  XINGYUNXUNZHI_DESKTOP_PNPM_CLI: pnpmCli,
   NO_PROXY: "127.0.0.1,localhost",
   no_proxy: "127.0.0.1,localhost"
 };
@@ -250,7 +250,7 @@ const dump = spawnSync(node, harnessArguments("--profile", "desktop-web", "--dum
   encoding: "utf8"
 });
 if (dump.status !== 0) throw new Error(`profile composition failed: ${dump.stderr || dump.stdout}`);
-if (!dump.stdout.includes("deepseek-desktop-credentials-vault")) {
+if (!dump.stdout.includes("xingyunxunzhi-desktop-credentials-vault")) {
   throw new Error("desktop encrypted credential provider is absent from the composed profile");
 }
 if (!dump.stdout.includes("dshmarket")) {
@@ -282,9 +282,9 @@ if (!/locale:\s+preference: zh/u.test(await readFile(join(dshHome, "settings.yam
   throw new Error("desktop locale bridge did not persist the mapped Harness locale");
 }
 
-const cycles = Number.parseInt(process.env.DEEPSEEK_DESKTOP_SMOKE_CYCLES || "1", 10);
+const cycles = Number.parseInt(process.env.XINGYUNXUNZHI_DESKTOP_SMOKE_CYCLES || "1", 10);
 if (!Number.isInteger(cycles) || cycles < 1 || cycles > 1_000) {
-  throw new Error(`DEEPSEEK_DESKTOP_SMOKE_CYCLES must be between 1 and 1000, got ${process.env.DEEPSEEK_DESKTOP_SMOKE_CYCLES}`);
+  throw new Error(`XINGYUNXUNZHI_DESKTOP_SMOKE_CYCLES must be between 1 and 1000, got ${process.env.XINGYUNXUNZHI_DESKTOP_SMOKE_CYCLES}`);
 }
 
 async function runCycle(index) {
@@ -398,13 +398,13 @@ const child = spawn(node, ["--expose-internals", "--require", parentWatch, "--re
     LANG: process.env.LANG,
     DSH_HOME: dshHome,
     DSH_TELEMETRY_DISABLED: "true",
-    DEEPSEEK_DESKTOP_HELPER_PATH: node,
-    DEEPSEEK_DESKTOP_HELPER_SCRIPT: credentialHelperScript,
-    DEEPSEEK_DESKTOP_DATA_DIR: dataDir,
-    DEEPSEEK_DESKTOP_PARENT_PID: String(process.pid),
-    DEEPSEEK_DESKTOP_LOCALE: "zh-TW",
-    DEEPSEEK_DESKTOP_NODE_PATH: process.env.DEEPSEEK_DESKTOP_NODE_PATH,
-    DEEPSEEK_DESKTOP_PNPM_CLI: process.env.DEEPSEEK_DESKTOP_PNPM_CLI,
+    XINGYUNXUNZHI_DESKTOP_HELPER_PATH: node,
+    XINGYUNXUNZHI_DESKTOP_HELPER_SCRIPT: credentialHelperScript,
+    XINGYUNXUNZHI_DESKTOP_DATA_DIR: dataDir,
+    XINGYUNXUNZHI_DESKTOP_PARENT_PID: String(process.pid),
+    XINGYUNXUNZHI_DESKTOP_LOCALE: "zh-TW",
+    XINGYUNXUNZHI_DESKTOP_NODE_PATH: process.env.XINGYUNXUNZHI_DESKTOP_NODE_PATH,
+    XINGYUNXUNZHI_DESKTOP_PNPM_CLI: process.env.XINGYUNXUNZHI_DESKTOP_PNPM_CLI,
     NO_PROXY: "127.0.0.1,localhost",
     no_proxy: "127.0.0.1,localhost"
   },

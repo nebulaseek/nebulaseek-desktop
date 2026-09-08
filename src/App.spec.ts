@@ -134,7 +134,7 @@ describe(`${appConfig.productName} shell`, () => {
     listeners.surface = undefined;
     listeners.locale = undefined;
     listeners.harnessUpdate = undefined;
-    delete (window as Window & { __DEEPSEEK_DESKTOP_MENU_ONLY__?: boolean }).__DEEPSEEK_DESKTOP_MENU_ONLY__;
+    delete (window as Window & { __XINGYUNXUNZHI_DESKTOP_MENU_ONLY__?: boolean }).__XINGYUNXUNZHI_DESKTOP_MENU_ONLY__;
     vi.mocked(checkForUpdates).mockResolvedValue({
       enabled: false,
       channel: "community",
@@ -161,21 +161,21 @@ describe(`${appConfig.productName} shell`, () => {
 
     expect(startHarness).toHaveBeenCalledOnce();
     expect(openWorkbench).toHaveBeenCalledOnce();
-    expect(wrapper.text()).toContain("Harness 已就绪");
+    expect(wrapper.text()).toContain("内核已就绪");
     expect(wrapper.text()).not.toContain("开始使用");
 
     await wrapper.get("select").setValue("en-US");
     await flushPromises();
-    expect(wrapper.text()).toContain("Harness ready");
-    expect(wrapper.text()).toContain("Harness");
+    expect(wrapper.text()).toContain("Core ready");
+    expect(wrapper.text()).toContain("Core");
     expect(wrapper.text()).toContain("Diagnostics");
     expect(wrapper.get('[role="menubar"]').text()).toContain("FileEditViewWindowHelp");
   });
 
   it.each([
-    ["zh-CN", "Harness 仓库连接超时，请检查网络或代理后重试。当前版本未受影响。"],
-    ["zh-TW", "Harness 倉庫連線逾時，請檢查網路或代理後重試。目前版本未受影響。"],
-    ["en-US", "The Harness repository connection timed out. Check your network or proxy and retry. The current version was not changed."]
+    ["zh-CN", "内核仓库连接超时，请检查网络或代理后重试。当前版本未受影响。"],
+    ["zh-TW", "內核倉庫連線逾時，請檢查網路或代理後重試。目前版本未受影響。"],
+    ["en-US", "The Core repository connection timed out. Check your network or proxy and retry. The current version was not changed."]
   ] as const)("explains a repository timeout in %s without restarting Harness", async (locale, message) => {
     settings.locale = locale;
     const wrapper = mount(App, { global: { plugins: [i18n] } });
@@ -228,7 +228,7 @@ describe(`${appConfig.productName} shell`, () => {
 
   it("keeps the dedicated workbench menu synchronized with the saved locale", async () => {
     settings.locale = "zh-TW";
-    (window as Window & { __DEEPSEEK_DESKTOP_MENU_ONLY__?: boolean }).__DEEPSEEK_DESKTOP_MENU_ONLY__ = true;
+    (window as Window & { __XINGYUNXUNZHI_DESKTOP_MENU_ONLY__?: boolean }).__XINGYUNXUNZHI_DESKTOP_MENU_ONLY__ = true;
     const wrapper = mount(App, { global: { plugins: [i18n] } });
     await flushPromises();
 
@@ -239,7 +239,7 @@ describe(`${appConfig.productName} shell`, () => {
     await flushPromises();
     expect(wrapper.get('[role="menubar"]').text()).toBe("FileEditViewWindowHelp");
     wrapper.unmount();
-    delete (window as Window & { __DEEPSEEK_DESKTOP_MENU_ONLY__?: boolean }).__DEEPSEEK_DESKTOP_MENU_ONLY__;
+    delete (window as Window & { __XINGYUNXUNZHI_DESKTOP_MENU_ONLY__?: boolean }).__XINGYUNXUNZHI_DESKTOP_MENU_ONLY__;
   });
 
   it("opens settings from a native menu event and returns to the preserved workbench", async () => {
@@ -303,7 +303,7 @@ describe(`${appConfig.productName} shell`, () => {
 
     expect(startHarness).not.toHaveBeenCalled();
     expect(openWorkbench).toHaveBeenCalledOnce();
-    expect(wrapper.text()).toContain("Harness 已就绪");
+    expect(wrapper.text()).toContain("内核已就绪");
   });
 
   it("retries an early failure without a Desktop workspace", async () => {
@@ -323,7 +323,7 @@ describe(`${appConfig.productName} shell`, () => {
     await flushPromises();
 
     expect(startHarness).toHaveBeenCalledWith();
-    expect(wrapper.text()).toContain("Harness 已就绪");
+    expect(wrapper.text()).toContain("内核已就绪");
   });
 
   it("starts an idle Harness without requiring a Desktop workspace", async () => {
@@ -352,7 +352,7 @@ describe(`${appConfig.productName} shell`, () => {
   it("clears diagnostics notices when leaving the diagnostics view", async () => {
     settings.onboardingCompleted = true;
     vi.mocked(exportDiagnostics).mockResolvedValue("/tmp/dsh-diagnostics.json");
-    vi.mocked(exportLogs).mockResolvedValue("/tmp/deepseek-desktop.log");
+    vi.mocked(exportLogs).mockResolvedValue("/tmp/xingyunxunzhi-desktop.log");
 
     const wrapper = mount(App, { global: { plugins: [i18n] } });
     await flushPromises();
@@ -360,7 +360,7 @@ describe(`${appConfig.productName} shell`, () => {
     await wrapper.findAll("button").find(button => button.text() === "导出日志")?.trigger("click");
     await flushPromises();
     expect(exportLogs).toHaveBeenCalledOnce();
-    expect(wrapper.text()).toContain("/tmp/deepseek-desktop.log");
+    expect(wrapper.text()).toContain("/tmp/xingyunxunzhi-desktop.log");
 
     await wrapper.findAll("button").find(button => button.text() === "导出诊断包")?.trigger("click");
     await flushPromises();
@@ -390,10 +390,10 @@ describe(`${appConfig.productName} shell`, () => {
     const wrapper = mount(App, { global: { plugins: [i18n] } });
     await flushPromises();
     await wrapper.findAll("button").find(button => button.text().includes("更新"))?.trigger("click");
-    await wrapper.findAll("button").find(button => button.text() === "检查 Harness")?.trigger("click");
+    await wrapper.findAll("button").find(button => button.text() === "检查内核")?.trigger("click");
     await flushPromises();
     expect(checkHarnessUpdate).toHaveBeenCalledOnce();
-    expect(wrapper.text()).toContain("发现 Harness 1.1.0");
+    expect(wrapper.text()).toContain("发现内核 1.1.0");
     await wrapper.findAll("button").find(button => button.text().includes("准备并等待"))?.trigger("click");
     await flushPromises();
     expect(downloadHarnessUpdate).toHaveBeenCalledOnce();
@@ -421,7 +421,7 @@ describe(`${appConfig.productName} shell`, () => {
       expectedRevision: 0,
       change: { field: "harnessUpdateRepository", value: "https://git.example.com/harness/harness.git" }
     }));
-    expect(wrapper.text()).toContain("Harness 仓库已保存");
+    expect(wrapper.text()).toContain("内核仓库已保存");
   });
 
   it("shows a Desktop release reminder and can ignore that exact version", async () => {

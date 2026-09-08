@@ -6,13 +6,13 @@ import { resolve } from "node:path";
 const providerUrl = pathToFileURL(resolve(import.meta.dirname, "../packages/credentials-vault/index.js")).href;
 const script = `
   import { Context } from "@deepseek-ai/cordis";
-  process.env.DEEPSEEK_DESKTOP_HELPER_PATH = ${JSON.stringify(resolve(import.meta.dirname, "missing-vault-helper"))};
-  process.env.DEEPSEEK_DESKTOP_HELPER_SCRIPT = ${JSON.stringify(resolve(import.meta.dirname, "missing-vault-helper.mjs"))};
-  process.env.DEEPSEEK_DESKTOP_DATA_DIR = ${JSON.stringify(resolve(import.meta.dirname, "test-credential-data"))};
+  process.env.XINGYUNXUNZHI_DESKTOP_HELPER_PATH = ${JSON.stringify(resolve(import.meta.dirname, "missing-vault-helper"))};
+  process.env.XINGYUNXUNZHI_DESKTOP_HELPER_SCRIPT = ${JSON.stringify(resolve(import.meta.dirname, "missing-vault-helper.mjs"))};
+  process.env.XINGYUNXUNZHI_DESKTOP_DATA_DIR = ${JSON.stringify(resolve(import.meta.dirname, "test-credential-data"))};
   const { VaultCredentialProvider } = await import(${JSON.stringify(providerUrl)});
-  const environmentCleared = !process.env.DEEPSEEK_DESKTOP_HELPER_PATH
-    && !process.env.DEEPSEEK_DESKTOP_HELPER_SCRIPT
-    && !process.env.DEEPSEEK_DESKTOP_DATA_DIR;
+  const environmentCleared = !process.env.XINGYUNXUNZHI_DESKTOP_HELPER_PATH
+    && !process.env.XINGYUNXUNZHI_DESKTOP_HELPER_SCRIPT
+    && !process.env.XINGYUNXUNZHI_DESKTOP_DATA_DIR;
   const provider = new VaultCredentialProvider(new Context());
   const proxied = new Proxy(provider, {});
   const result = await proxied.enqueue(async () => "proxy-safe");

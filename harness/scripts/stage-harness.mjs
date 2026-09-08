@@ -21,7 +21,7 @@ const generatedRoot = join(desktopRoot, "target", "generated");
 const preparedHarness = join(generatedRoot, "harness", "prepared");
 const generatedLock = join(generatedRoot, "harness-lock.json");
 const lock = JSON.parse(await readFile(generatedLock, "utf8"));
-const harnessCacheRoot = resolve(process.env.DEEPSEEK_DESKTOP_HARNESS_TARGET_CACHE_ROOT?.trim()
+const harnessCacheRoot = resolve(process.env.XINGYUNXUNZHI_DESKTOP_HARNESS_TARGET_CACHE_ROOT?.trim()
   || join(desktopRoot, "target", "local-release", "harness-target-cache"));
 
 function hostTarget() {
@@ -180,7 +180,7 @@ async function pruneNativeArtifacts(nodeModules, target) {
 async function stageOfficialNode(target, sidecar, licenseDestination) {
   const artifact = lock.node.artifacts[target];
   if (!artifact) throw new Error(`Node artifact is not locked for ${target}`);
-  const cacheRoot = resolve(desktopRoot, "target/deepseek-desktop-harness-cache/node", target);
+  const cacheRoot = resolve(desktopRoot, "target/xingyunxunzhi-desktop-harness-cache/node", target);
   const archive = join(cacheRoot, artifact.archive);
   await downloadVerified(`${lock.node.sourceUrl}${artifact.archive}`, archive, artifact.sha256);
   const extracted = join(cacheRoot, "extracted");
@@ -226,11 +226,11 @@ function createSpdx(target, inventory, createdAt) {
     spdxVersion: "SPDX-2.3",
     dataLicense: "CC0-1.0",
     SPDXID: "SPDXRef-DOCUMENT",
-    name: `DeepSeek-Desktop-Harness-${target}`,
-    documentNamespace: `https://deepseek-desktop.local/${lock.desktopVersion}/sbom/${target}/${lock.harness.commit}`,
+    name: `Xingyunxunzhi-Harness-${target}`,
+    documentNamespace: `https://xingyunxunzhi-desktop.local/${lock.desktopVersion}/sbom/${target}/${lock.harness.commit}`,
     creationInfo: {
       created: createdAt,
-      creators: ["Tool: DeepSeek Desktop harness staging"]
+      creators: ["Tool: Xingyunxunzhi harness staging"]
     },
     packages: inventory.map((item, index) => ({
       SPDXID: `SPDXRef-Package-${index + 1}`,

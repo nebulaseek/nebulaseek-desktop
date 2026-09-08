@@ -4,21 +4,21 @@ import test from "node:test";
 import { assertPinnedHarnessSource } from "../lib/harness-source-pin.mjs";
 
 const pin = {
-  repository: "https://github.com/deepseek-desktop/deepseek-harness.git",
+  repository: "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
   ref: "dsh-v0.1.3-alpha.1",
   commit: "d347e703908d0406b7a7ef80e3a0e594d86b2215"
 };
 
 test("accepts the pinned Harness repository and commit", () => {
   assert.doesNotThrow(() => assertPinnedHarnessSource({
-    repository: "https://github.com/deepseek-desktop/deepseek-harness",
+    repository: "https://github.com/xingyunxunzhi/xingyunxunzhi-harness",
     commit: pin.commit
   }, pin));
 });
 
 test("rejects release Harness source drift", () => {
   assert.throws(() => assertPinnedHarnessSource({
-    repository: "https://github.com/example/deepseek-harness.git",
+    repository: "https://github.com/example/xingyunxunzhi-harness.git",
     commit: pin.commit
   }, pin), /repository does not match source pin/u);
   assert.throws(() => assertPinnedHarnessSource({

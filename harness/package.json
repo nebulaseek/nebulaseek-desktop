@@ -1,5 +1,5 @@
 {
-  "name": "deepseek-desktop-harness",
+  "name": "xingyunxunzhi-desktop-harness",
   "version": "1.0.0",
   "private": true,
   "license": "Apache-2.0",
@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@deepseek-ai/dsh-web-search-follow-model": "workspace:*",
-    "deepseek-desktop-bundle": "workspace:*",
-    "deepseek-desktop-credentials-vault": "workspace:*",
+    "xingyunxunzhi-desktop-bundle": "workspace:*",
+    "xingyunxunzhi-desktop-credentials-vault": "workspace:*",
     "dshmarket": "1.28.1",
     "pnpm": "11.24.0",
     "react": "18.3.1",

@@ -72,7 +72,7 @@ function fail(message, code, cause) {
 }
 
 function locale() {
-  const value = process.env.DEEPSEEK_DESKTOP_LOCALE;
+  const value = process.env.XINGYUNXUNZHI_DESKTOP_LOCALE;
   if (value?.toLowerCase().startsWith("zh-tw") || value?.toLowerCase().startsWith("zh-hk")) return "zh-TW";
   if (value?.toLowerCase().startsWith("zh")) return "zh-CN";
   return "en-US";

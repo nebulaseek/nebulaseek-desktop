@@ -93,7 +93,7 @@ pub(crate) fn content_top_inset(_window: &tauri::Window) -> DesktopResult<f64> {
     Ok(0.0)
 }
 
-const APP_NAME: &str = env!("DEEPSEEK_DESKTOP_APP_NAME");
+const APP_NAME: &str = env!("XINGYUNXUNZHI_DESKTOP_APP_NAME");
 #[cfg(target_os = "macos")]
 const HIDDEN_SHORTCUT_COUNT: isize = 10;
 
@@ -437,10 +437,10 @@ fn item(
 fn labels(locale: &str) -> MenuLabels {
     match locale {
         "zh-TW" => MenuLabels {
-            about: "關於 DeepSeek Desktop",
+            about: "關於星雲尋知",
             settings: "設定…",
             close_settings: "關閉設定",
-            quit: "結束 DeepSeek Desktop",
+            quit: "結束星雲尋知",
             undo: "還原",
             redo: "重做",
             cut: "剪下",
@@ -452,15 +452,15 @@ fn labels(locale: &str) -> MenuLabels {
             minimize: "縮到最小",
             maximize: "放到最大",
             desktop_update: "檢查 Desktop 更新…",
-            harness_update: "Harness 更新…",
+            harness_update: "內核更新…",
             diagnostics: "診斷…",
             documentation: "使用說明",
         },
         "en-US" => MenuLabels {
-            about: "About DeepSeek Desktop",
+            about: "About Xingyunxunzhi",
             settings: "Settings…",
             close_settings: "Close Settings",
-            quit: "Quit DeepSeek Desktop",
+            quit: "Quit Xingyunxunzhi",
             undo: "Undo",
             redo: "Redo",
             cut: "Cut",
@@ -472,15 +472,15 @@ fn labels(locale: &str) -> MenuLabels {
             minimize: "Minimize",
             maximize: "Maximize",
             desktop_update: "Check Desktop Updates…",
-            harness_update: "Harness Updates…",
+            harness_update: "Core Updates…",
             diagnostics: "Diagnostics…",
             documentation: "Documentation",
         },
         _ => MenuLabels {
-            about: "关于 DeepSeek Desktop",
+            about: "关于星云寻知",
             settings: "设置…",
             close_settings: "关闭设置",
-            quit: "退出 DeepSeek Desktop",
+            quit: "退出星云寻知",
             undo: "撤销",
             redo: "重做",
             cut: "剪切",
@@ -492,7 +492,7 @@ fn labels(locale: &str) -> MenuLabels {
             minimize: "最小化",
             maximize: "最大化",
             desktop_update: "检查 Desktop 更新…",
-            harness_update: "Harness 更新…",
+            harness_update: "内核更新…",
             diagnostics: "诊断…",
             documentation: "使用文档",
         },
@@ -502,19 +502,19 @@ fn labels(locale: &str) -> MenuLabels {
 pub(crate) fn close_confirmation_labels(locale: &str) -> CloseConfirmationLabels {
     match locale {
         "zh-TW" => CloseConfirmationLabels {
-            title: "關閉 DeepSeek Desktop？",
+            title: "關閉星雲尋知？",
             message: "關閉視窗將停止目前執行中的任務。確定要關閉嗎？",
             confirm: "關閉",
             cancel: "取消",
         },
         "en-US" => CloseConfirmationLabels {
-            title: "Close DeepSeek Desktop?",
+            title: "Close Xingyunxunzhi?",
             message: "Closing the window stops tasks that are still running. Are you sure?",
             confirm: "Close",
             cancel: "Cancel",
         },
         _ => CloseConfirmationLabels {
-            title: "关闭 DeepSeek Desktop？",
+            title: "关闭星云寻知？",
             message: "关闭窗口将停止当前仍在运行的任务。确定要关闭吗？",
             confirm: "关闭",
             cancel: "取消",

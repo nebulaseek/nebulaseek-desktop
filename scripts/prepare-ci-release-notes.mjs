@@ -13,11 +13,11 @@ function downloadUrl(repository, tag, name) {
 
 export function communityReleaseAssetNames(version) {
   return [
-    `DeepSeek.Desktop_${version}_aarch64.dmg`,
-    `DeepSeek.Desktop_${version}_x64.dmg`,
-    `DeepSeek.Desktop_${version}_x64-setup.exe`,
-    `DeepSeek.Desktop_${version}_amd64.AppImage`,
-    `DeepSeek.Desktop_${version}_amd64.deb`,
+    `Xingyunxunzhi_${version}_aarch64.dmg`,
+    `Xingyunxunzhi_${version}_x64.dmg`,
+    `Xingyunxunzhi_${version}_x64-setup.exe`,
+    `Xingyunxunzhi_${version}_amd64.AppImage`,
+    `Xingyunxunzhi_${version}_amd64.deb`,
     "SHA256SUMS"
   ];
 }

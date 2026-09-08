@@ -10,7 +10,7 @@
 
 - insert:
     - id: desktop-credentials-vault
-      name: 'deepseek-desktop-credentials-vault'
+      name: 'xingyunxunzhi-desktop-credentials-vault'
     - id: web-search-selection
       name: '@deepseek-ai/dsh-web-search-follow-model/selection'
       config:

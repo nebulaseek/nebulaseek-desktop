@@ -127,7 +127,7 @@ for (const descriptor of descriptors) {
 const issuedAt = new Date();
 const payload = {
   schemaVersion: 1,
-  publisher: args.get("publisher") || "deepseek-desktop",
+  publisher: args.get("publisher") || "xingyunxunzhi-desktop",
   issuedAt: issuedAt.toISOString(),
   expiresAt: new Date(issuedAt.getTime() + validityHours * 60 * 60 * 1000).toISOString(),
   harnessVersion: first.harnessVersion,

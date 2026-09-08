@@ -6,7 +6,7 @@
 
 ## 决策
 
-macOS、Windows 与 Linux 的用户功能菜单统一显示在 DeepSeek Desktop 原生窗口内容区顶部，固定为“文件 / 编辑 / 视图 / 窗口 / 帮助”五组。菜单标题由本地管理 Shell WebView 三语渲染，展开项由 Tauri 创建原生系统菜单，继续复用系统编辑、窗口与关于能力。
+macOS、Windows 与 Linux 的用户功能菜单统一显示在星云寻知原生窗口内容区顶部，固定为“文件 / 编辑 / 视图 / 窗口 / 帮助”五组。菜单标题由本地管理 Shell WebView 三语渲染，展开项由 Tauri 创建原生系统菜单，继续复用系统编辑、窗口与关于能力。
 
 工作台仍是没有通用 Tauri IPC 权限的独立 Harness WebView。桌面管理页直接显示壳层菜单；显示工作台时，Desktop 使用初始化脚本注入固定菜单条和三语标题，并为页面内容保留 34px 顶部空间。按钮只导航到当前受管 loopback Origin 下的保留路径，Rust 在导航发生前校验 Origin、菜单名和坐标，弹出原生菜单并拒绝实际跳页；不向 Harness 页面开放 Tauri IPC 或桌面命令。
 

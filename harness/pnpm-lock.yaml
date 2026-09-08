@@ -11,10 +11,10 @@ importers:
       '@deepseek-ai/dsh-web-search-follow-model':
         specifier: workspace:*
         version: link:packages/web-search-follow-model
-      deepseek-desktop-bundle:
+      xingyunxunzhi-desktop-bundle:
         specifier: workspace:*
         version: link:packages/desktop-bundle
-      deepseek-desktop-credentials-vault:
+      xingyunxunzhi-desktop-credentials-vault:
         specifier: workspace:*
         version: link:packages/credentials-vault
       dshmarket:
@@ -81,7 +81,7 @@ importers:
       '@deepseek-ai/dsh-web-search-follow-model':
         specifier: workspace:*
         version: link:../web-search-follow-model
-      deepseek-desktop-credentials-vault:
+      xingyunxunzhi-desktop-credentials-vault:
         specifier: workspace:*
         version: link:../credentials-vault
       yaml:

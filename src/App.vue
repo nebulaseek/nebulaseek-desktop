@@ -4,7 +4,7 @@ import { useI18n } from "vue-i18n";
 import DesktopMenuBar from "./DesktopMenuBar.vue";
 import ReleaseNotes from "./ReleaseNotes.vue";
 import { appConfig } from "./app-config";
-import deepSeekDesktopLogo from "./assets/deepseek-desktop.svg";
+import xingyunxunzhiDesktopLogo from "./assets/xingyunxunzhi-desktop.svg";
 import type { DesktopAbout, DesktopSettings, DesktopSettingsPatch, DesktopSettingsField, DesktopSettingsView, HarnessStatus, HarnessUpdateStatus, UpdateStatus } from "./contracts";
 import {
   checkHarnessUpdate,
@@ -38,8 +38,8 @@ type ViewName = Exclude<DesktopSettingsView, "desktop-update">;
 
 const { locale, t } = useI18n();
 const menuOnly = Boolean((window as Window & {
-  __DEEPSEEK_DESKTOP_MENU_ONLY__?: boolean;
-}).__DEEPSEEK_DESKTOP_MENU_ONLY__);
+  __XINGYUNXUNZHI_DESKTOP_MENU_ONLY__?: boolean;
+}).__XINGYUNXUNZHI_DESKTOP_MENU_ONLY__);
 const view = ref<ViewName>("harness");
 const busy = ref(false);
 const notice = ref("");
@@ -538,7 +538,7 @@ onBeforeUnmount(() => {
     <section v-show="!workbenchVisible" class="settings-window" role="dialog" aria-modal="true" aria-labelledby="settings-title">
       <header class="topbar" :inert="updatePromptVisible ? true : undefined">
       <div class="brand">
-        <img class="brand-mark" :src="deepSeekDesktopLogo" alt="" aria-hidden="true" />
+        <img class="brand-mark" :src="xingyunxunzhiDesktopLogo" alt="" aria-hidden="true" />
         <span>
           <strong id="settings-title">{{ t("navigation.settings") }}</strong>
           <small>{{ t("app.name") }}</small>

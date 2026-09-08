@@ -1,6 +1,6 @@
 # GitHub Actions 多平台发布
 
-DeepSeek Desktop 的正式发布统一使用 GitHub Actions 官方托管 Runner 原生构建。开发者不需要在一台电脑上安装四套操作系统、虚拟机、Rosetta 或 Docker，也不使用自托管 Runner 执行公开 Pull Request 代码。
+星云寻知的正式发布统一使用 GitHub Actions 官方托管 Runner 原生构建。开发者不需要在一台电脑上安装四套操作系统、虚拟机、Rosetta 或 Docker，也不使用自托管 Runner 执行公开 Pull Request 代码。
 
 ## 唯一发布链路
 
@@ -16,7 +16,7 @@ DeepSeek Desktop 的正式发布统一使用 GitHub Actions 官方托管 Runner 
 4. 四个目标全部成功后，汇总任务检查安装包数量、平台类型、重复名称和 SHA-256。
 5. 校验通过后才创建 GitHub Release。
 
-不增加另一套平台打包实现。配置同步、Harness 同步、测试、smoke、Tauri 打包和制品扫描都由现有 `package:community` / `desktop:package` 链路负责。
+不增加另一套平台打包实现。配置同步、内核同步、测试、smoke、Tauri 打包和制品扫描都由现有 `package:community` / `desktop:package` 链路负责。
 
 ## 本地开发验证
 
@@ -52,13 +52,13 @@ v1.0.0+build.1
 1. `master` 指向待发行 commit，工作区干净。
 2. 本机规定的质量检查和当前 macOS 打包通过。
 3. 版本尚未被远程 Tag 或 Release 使用。
-4. Harness 来源、Node `24.20.0`、pnpm `11.24.0`、Rust `1.98.0` 和 Tauri CLI `2.11.4` 与仓库 lock 一致。
+4. 内核来源、Node `24.20.0`、pnpm `11.24.0`、Rust `1.98.0` 和 Tauri CLI `2.11.4` 与仓库 lock 一致。
 5. 发布说明只描述本次实际交付内容。
 
 创建新的 annotated Tag 后推送：
 
 ```bash
-git tag -a v1.0.0 -m "DeepSeek Desktop v1.0.0"
+git tag -a v1.0.0 -m "星云寻知 v1.0.0"
 git push origin master
 git push origin v1.0.0
 ```
@@ -104,4 +104,4 @@ git push origin v1.0.0
 
 ### 发布后核验
 
-重新读取远程 Release，确认 Tag/commit、六个公开文件、文件大小和 `SHA256SUMS`。在 macOS 和 Windows 真实系统完成安装、启动、Harness、模型配置、对话、文件读写、插件、联网搜索和外部链接验收后，再对外声明对应平台完整可用。
+重新读取远程 Release，确认 Tag/commit、六个公开文件、文件大小和 `SHA256SUMS`。在 macOS 和 Windows 真实系统完成安装、启动、内核、模型配置、对话、文件读写、插件、联网搜索和外部链接验收后，再对外声明对应平台完整可用。

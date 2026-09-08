@@ -26,8 +26,8 @@ import { cloneLockedSource, createLockedSourceBundle, resolveBundledTag } from "
 
 const desktopCommit = "a".repeat(40);
 const harnessCommit = "b".repeat(40);
-const sourceRepository = "https://example.invalid/deepseek-desktop.git";
-const harnessRepository = "https://example.invalid/deepseek-harness.git";
+const sourceRepository = "https://example.invalid/xingyunxunzhi-desktop.git";
+const harnessRepository = "https://example.invalid/xingyunxunzhi-harness.git";
 const releaseToolchain = Object.freeze({
   nodeVersion: "24.20.0",
   nodeModuleAbi: "137",
@@ -82,7 +82,7 @@ test("Linux release image contract changes with its build inputs", () => {
 });
 
 test("local Linux worker does not inject hosted-runner packaging flags", () => {
-  const args = dockerBaseArgs({ image: "local/deepseek-builder:1.0.0" }, "/tmp/ca.crt");
+  const args = dockerBaseArgs({ image: "local/xingyunxunzhi-builder:1.0.0" }, "/tmp/ca.crt");
   const assignments = args.filter((value, index) => args[index - 1] === "--env" && value === "NO_STRIP=1");
   assert.deepEqual(assignments, []);
 });
@@ -98,7 +98,7 @@ test("Tauri build performs frontend compilation without rewriting prepared app c
 
 function releaseInput({ channel = "local", targetId = "macos-arm64", trustedNodeId = "" } = {}) {
   return {
-    productName: "DeepSeek Desktop",
+    productName: "Xingyunxunzhi",
     version: "1.0.0",
     tag: "v1.0.0",
     channel,
@@ -151,7 +151,7 @@ test("portable Rust flags remap the project, Cargo cache, and user home", () => 
 });
 
 test("workers can clone a locked local bundle while preserving the canonical repository identity", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-source-bundle-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-source-bundle-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const source = join(directory, "source");
   const checkout = join(directory, "checkout");
@@ -169,7 +169,7 @@ test("workers can clone a locked local bundle while preserving the canonical rep
   assert.equal(await resolveBundledTag(bundle, "v1.0.0"), commit);
   await assert.rejects(() => resolveBundledTag(bundle, "v1.0.1"), /does not contain release tag/u);
   await cloneLockedSource({
-    repository: "ssh://git@example.invalid/team/deepseek-desktop.git",
+    repository: "ssh://git@example.invalid/team/xingyunxunzhi-desktop.git",
     sourceBundle: bundle,
     tag: "v1.0.0",
     commit,
@@ -188,8 +188,8 @@ test("release errors redact credentials and common user-home paths", () => {
 
 test("artifact scanner uses precise CI roots and the real local home", () => {
   const platformPath = value => resolve(value).replaceAll("\\", "/");
-  const projectRoot = platformPath("/Users/runner/work/deepseek-desktop/deepseek-desktop");
-  const runnerWorkspace = platformPath("/Users/runner/work/deepseek-desktop");
+  const projectRoot = platformPath("/Users/runner/work/xingyunxunzhi-desktop/xingyunxunzhi-desktop");
+  const runnerWorkspace = platformPath("/Users/runner/work/xingyunxunzhi-desktop");
   const runnerTemp = platformPath("/Users/runner/work/_temp");
   assert.deepEqual(
     artifactForbiddenRoots(projectRoot, {
@@ -201,7 +201,7 @@ test("artifact scanner uses precise CI roots and the real local home", () => {
     }, platformPath("/Users/runner")),
     [projectRoot, runnerWorkspace, runnerTemp]
   );
-  const localRoot = platformPath("/workspace/deepseek-desktop");
+  const localRoot = platformPath("/workspace/xingyunxunzhi-desktop");
   const localHome = platformPath("/Users/developer");
   assert.deepEqual(
     artifactForbiddenRoots(localRoot, { CI: "false", HOME: localHome }, localHome),
@@ -210,7 +210,7 @@ test("artifact scanner uses precise CI roots and the real local home", () => {
 });
 
 test("artifact scanner rejects environment files, local paths, and secrets", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-artifact-scan-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-artifact-scan-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const scanRoot = join(directory, "root");
   await mkdir(scanRoot);
@@ -308,7 +308,7 @@ test("GitHub workflow pins first-party actions to immutable commits", async () =
   assert.match(windowsAcceptance, /\$processorArchitectures\[0\] -ne 9/u);
   assert.match(windowsAcceptance, /Assert-Pe -Path \$installer.FullName -AllowedMachines @\(0x014c, 0x8664\)/u);
   assert.match(windowsAcceptance, /Assert-Pe -Path \$installedExecutable -AllowedMachines @\(0x8664\)/u);
-  assert.match(windowsAcceptance, /Join-Path \$installLocation "deepseek-desktop\.exe"/u);
+  assert.match(windowsAcceptance, /Join-Path \$installLocation "xingyunxunzhi-desktop\.exe"/u);
   // The workbench names moved into a variable so the first-run dismissal and the wait
   // share one list; assert the list and both uses, not one literal call site.
   assert.match(windowsAcceptance, /\$workbenchNames = @\("新建会话", "新会话", "新增對話", "New session"\)/u);
@@ -328,7 +328,7 @@ test("GitHub workflow pins first-party actions to immutable commits", async () =
   assert.match(windowsAcceptance, /Harness Node child process was not running/u);
   assert.match(windowsAcceptance, /canceling the close confirmation unexpectedly exited/u);
   assert.match(windowsAcceptance, /orphan child processes remained after exit/u);
-  assert.match(windowsAcceptance, /DeepSeek Desktop remained installed after acceptance cleanup/u);
+  assert.match(windowsAcceptance, /Xingyunxunzhi remained installed after acceptance cleanup/u);
   // The release list truncates titles, so the tag must be the whole title.
   assert.match(workflow, /--title "\$GITHUB_REF_NAME"/u);
   assert.doesNotMatch(workflow, /--title "\$product_name/u);
@@ -343,19 +343,19 @@ test("release argument parser ignores the package-manager separator", () => {
 });
 
 test("single-host release config is strict and maps macOS paths into Parallels shares", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-local-all-config-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-local-all-config-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const validPath = join(directory, "valid.json");
   await writeFile(validPath, `${JSON.stringify({
     schemaVersion: 1,
-    docker: { image: "local/deepseek-builder:1.0.0", rebuild: true },
+    docker: { image: "local/xingyunxunzhi-builder:1.0.0", rebuild: true },
     windows: { vm: "Windows 11", controllerHost: "10.211.55.2" },
     destination: "release/local-all"
   })}\n`);
   const config = await loadLocalAllConfig(validPath, { explicit: true });
-  assert.equal(config.docker.image, "local/deepseek-builder:1.0.0");
+  assert.equal(config.docker.image, "local/xingyunxunzhi-builder:1.0.0");
   assert.equal(config.windows.adapter, "parallels");
-  assert.equal(config.windows.workRoot, "C:\\DeepSeekDesktopRelease");
+  assert.equal(config.windows.workRoot, "C:\\XingyunxunzhiDesktopRelease");
   assert.equal(
     macPathToParallelsShared("/Users/developer/project/worker.mjs", { hostHome: "/Users/developer", guestHome: "\\\\Mac\\Home" }),
     "\\\\Mac\\Home\\project\\worker.mjs"
@@ -385,17 +385,17 @@ test("Windows local worker uses the exact Node toolchain declared by the lock", 
         }
       }
     }
-  }, "C:\\DeepSeekDesktopRelease\\toolchain", "\\\\Mac\\Home\\node.zip");
+  }, "C:\\XingyunxunzhiDesktopRelease\\toolchain", "\\\\Mac\\Home\\node.zip");
   assert.equal(configuration.version, "24.20.0");
   assert.equal(configuration.expectedModuleAbi, "137");
   assert.equal(configuration.expectedSha256, "c".repeat(64));
-  assert.equal(configuration.node, "C:\\DeepSeekDesktopRelease\\toolchain\\node\\node-v24.20.0-win-x64\\node.exe");
-  assert.equal(configuration.marker, "C:\\DeepSeekDesktopRelease\\toolchain\\node\\node-v24.20.0-win-x64\\.archive-sha256");
+  assert.equal(configuration.node, "C:\\XingyunxunzhiDesktopRelease\\toolchain\\node\\node-v24.20.0-win-x64\\node.exe");
+  assert.equal(configuration.marker, "C:\\XingyunxunzhiDesktopRelease\\toolchain\\node\\node-v24.20.0-win-x64\\.archive-sha256");
   assert.throws(() => windowsNodeToolchain({ node: { version: "24.20.0", artifacts: {} } }, "C:\\work", "node.zip"), /has no Node artifact/u);
 });
 
 test("release preparation signs immutable inputs, reuses valid cache, and rejects drift", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-release-prepare-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-release-prepare-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   await mkdir(join(directory, "harness"), { recursive: true });
   await mkdir(join(directory, "target", "generated", "branding"), { recursive: true });
@@ -448,7 +448,7 @@ test("release preparation signs immutable inputs, reuses valid cache, and reject
 });
 
 test("content-addressed release cache rejects corruption, target drift, and links", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-content-cache-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-content-cache-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   await mkdir(join(directory, "harness"), { recursive: true });
   await writeFile(join(directory, "harness", "entry.js"), "harness\n");
@@ -466,7 +466,7 @@ test("content-addressed release cache rejects corruption, target drift, and link
 });
 
 test("restored cache working trees make read-only Harness files writable", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-content-cache-writable-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-content-cache-writable-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const harness = join(directory, "harness");
   const file = join(harness, "hatch_build.py");
@@ -484,7 +484,7 @@ test("writable content trees reject symbolic links before changing permissions",
     t.skip("creating symbolic links requires elevated Windows privileges");
     return;
   }
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-content-writable-link-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-content-writable-link-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const target = join(directory, "target.txt");
   await writeFile(target, "target\n");
@@ -513,7 +513,7 @@ test("local release scheduler respects concurrency and preserves failed results"
 });
 
 test("official tasks require a trusted node and reject ticket misuse", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-release-security-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-release-security-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const { service } = await createService(directory);
   await assert.rejects(() => service.createRelease(releaseInput({ channel: "community" })), /trusted node id/u);
@@ -543,7 +543,7 @@ test("official tasks require a trusted node and reject ticket misuse", async t =
 });
 
 test("distributed release HTTP smoke streams, validates, and publishes artifacts", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-release-http-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-release-http-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const { service } = await createService(join(directory, "controller"));
   const adminToken = "admin-token-for-http-smoke";
@@ -575,7 +575,7 @@ test("distributed release HTTP smoke streams, validates, and publishes artifacts
 
   const artifacts = join(directory, "worker-artifacts");
   await mkdir(artifacts, { recursive: true });
-  const installerName = "DeepSeek.Desktop_1.0.0_aarch64.dmg";
+  const installerName = "Xingyunxunzhi_1.0.0_aarch64.dmg";
   const buildInfoName = "BUILD-INFO.aarch64-apple-darwin.json";
   const installer = Buffer.from("fixture installer bytes", "utf8");
   const buildInfo = Buffer.from(`${JSON.stringify({
@@ -645,7 +645,7 @@ test("release HTTP client bounds response size and total request time", async t 
 });
 
 test("completion rejects source facts and local path leakage", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-release-validation-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-release-validation-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const { store, service } = await createService(directory);
   const created = await service.createRelease(releaseInput());
@@ -656,7 +656,7 @@ test("completion rejects source facts and local path leakage", async t => {
   });
   const incoming = join(store.root, "incoming", created.release.id, "macos-arm64");
   await mkdir(incoming, { recursive: true });
-  const installerName = "DeepSeek.Desktop_1.0.0_aarch64.dmg";
+  const installerName = "Xingyunxunzhi_1.0.0_aarch64.dmg";
   const buildInfoName = "BUILD-INFO.aarch64-apple-darwin.json";
   const files = new Map([
     [installerName, Buffer.from("installer")],
@@ -681,7 +681,7 @@ test("completion rejects source facts and local path leakage", async t => {
 });
 
 test("completion rejects a worker that did not use the bound prepared receipt", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-release-prepared-validation-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-release-prepared-validation-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const { store, service } = await createService(directory);
   const prepared = {
@@ -704,7 +704,7 @@ test("completion rejects a worker that did not use the bound prepared receipt", 
   });
   const incoming = join(store.root, "incoming", created.release.id, "macos-arm64");
   await mkdir(incoming, { recursive: true });
-  const installerName = "DeepSeek.Desktop_1.0.0_aarch64.dmg";
+  const installerName = "Xingyunxunzhi_1.0.0_aarch64.dmg";
   const buildInfoName = "BUILD-INFO.aarch64-apple-darwin.json";
   const installer = Buffer.from("installer");
   const buildInfo = Buffer.from(`${JSON.stringify({
@@ -731,7 +731,7 @@ test("completion rejects a worker that did not use the bound prepared receipt", 
 });
 
 test("release preparation and artifacts remain bound to targets and the exact Node toolchain", async t => {
-  const directory = await mkdtemp(join(tmpdir(), "deepseek-release-toolchain-validation-"));
+  const directory = await mkdtemp(join(tmpdir(), "xingyunxunzhi-release-toolchain-validation-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const { store, service } = await createService(directory);
   const now = Date.now();
@@ -760,7 +760,7 @@ test("release preparation and artifacts remain bound to targets and the exact No
   });
   const incoming = join(store.root, "incoming", created.release.id, "macos-arm64");
   await mkdir(incoming, { recursive: true });
-  const installerName = "DeepSeek.Desktop_1.0.0_aarch64.dmg";
+  const installerName = "Xingyunxunzhi_1.0.0_aarch64.dmg";
   const buildInfoName = "BUILD-INFO.aarch64-apple-darwin.json";
   const installer = Buffer.from("installer");
   const buildInfo = Buffer.from(`${JSON.stringify({

@@ -89,5 +89,5 @@ export function parseArguments(argumentsList) {
 export function artifactName(harnessVersion, target) {
   assertSemVer(harnessVersion, "Harness version");
   if (!Object.values(supportedTargets).includes(target)) throw new Error(`unsupported Harness target ${target}`);
-  return `deepseek-harness_${harnessVersion}_${target}.tar.gz`;
+  return `xingyunxunzhi-harness_${harnessVersion}_${target}.tar.gz`;
 }

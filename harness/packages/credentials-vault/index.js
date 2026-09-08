@@ -5,15 +5,15 @@ import { CredentialProvider, parseCredentialKey } from "@deepseek-ai/dsh-credent
 
 const HELPER_ARGUMENT = "--credential-vault-helper";
 const HELPER_SESSION = readFileSync(0, "utf8").trim();
-const HELPER_PATH = process.env.DEEPSEEK_DESKTOP_HELPER_PATH;
-const HELPER_SCRIPT = process.env.DEEPSEEK_DESKTOP_HELPER_SCRIPT;
-const HELPER_DATA_DIR = process.env.DEEPSEEK_DESKTOP_DATA_DIR;
+const HELPER_PATH = process.env.XINGYUNXUNZHI_DESKTOP_HELPER_PATH;
+const HELPER_SCRIPT = process.env.XINGYUNXUNZHI_DESKTOP_HELPER_SCRIPT;
+const HELPER_DATA_DIR = process.env.XINGYUNXUNZHI_DESKTOP_DATA_DIR;
 const OPERATIONS = Symbol("operations");
 const CLOSED = Symbol("closed");
 
-delete process.env.DEEPSEEK_DESKTOP_HELPER_PATH;
-delete process.env.DEEPSEEK_DESKTOP_HELPER_SCRIPT;
-delete process.env.DEEPSEEK_DESKTOP_DATA_DIR;
+delete process.env.XINGYUNXUNZHI_DESKTOP_HELPER_PATH;
+delete process.env.XINGYUNXUNZHI_DESKTOP_HELPER_SCRIPT;
+delete process.env.XINGYUNXUNZHI_DESKTOP_DATA_DIR;
 
 if (!HELPER_SESSION) {
   throw new Error("credentials-vault: desktop credential session is unavailable");
@@ -21,7 +21,7 @@ if (!HELPER_SESSION) {
 
 function helperEnvironment() {
   if (!HELPER_DATA_DIR) throw new Error("credentials-vault: desktop credential data directory is not configured");
-  const environment = { DEEPSEEK_DESKTOP_DATA_DIR: HELPER_DATA_DIR };
+  const environment = { XINGYUNXUNZHI_DESKTOP_DATA_DIR: HELPER_DATA_DIR };
   for (const name of ["SystemRoot", "WINDIR", "TEMP", "TMP", "TMPDIR"]) {
     if (process.env[name]) environment[name] = process.env[name];
   }

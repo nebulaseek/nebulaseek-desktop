@@ -36,7 +36,7 @@
     "tauriUpdater": "2.10.1"
   },
   "harnessSource": {
-    "repository": "https://github.com/deepseek-desktop/deepseek-harness.git",
+    "repository": "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
     "ref": "dsh-v0.1.3-alpha.1",
     "commit": "d347e703908d0406b7a7ef80e3a0e594d86b2215"
   },

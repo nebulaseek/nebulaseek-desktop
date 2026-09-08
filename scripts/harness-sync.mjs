@@ -151,15 +151,15 @@ function buildPathReplacements(sourceRoot) {
   // (D:\a\...) stayed forbidden and unreplaced, and MSVC embeds the real build
   // directory in the .node debug directory.
   const paths = [
-    [sourceRoot, "/deepseek-harness"],
-    [root, "/deepseek-desktop"],
+    [sourceRoot, "/xingyunxunzhi-harness"],
+    [root, "/xingyunxunzhi-desktop"],
     // artifactForbiddenRoots normalizes to forward slashes, but a Windows binary
     // embeds its build directory with backslashes, so both spellings must be
     // replaced. The scan normalizes file content before comparing, which is why it
     // catches a path the forward-slash-only replacement never matched.
     ...artifactForbiddenRoots(root).flatMap(value => [
-      [value, "/deepseek-desktop"],
-      [value.replaceAll("/", "\\"), "/deepseek-desktop"]
+      [value, "/xingyunxunzhi-desktop"],
+      [value.replaceAll("/", "\\"), "/xingyunxunzhi-desktop"]
     ]),
     [homedir(), "/user-home"],
     [process.env.HOME, "/user-home"],
@@ -278,7 +278,7 @@ if (releaseBuild && (source.mode !== "remote" || source.dirty || source.kind ===
 if (releaseBuild) assertPinnedHarnessSource(source, toolchain.harnessSource);
 
 const workRoot = check
-  ? await mkdtemp(join(tmpdir(), "deepseek-desktop-harness-sync-"))
+  ? await mkdtemp(join(tmpdir(), "xingyunxunzhi-desktop-harness-sync-"))
   : join(generatedRoot, "harness");
 try {
   await rm(workRoot, { recursive: true, force: true });
@@ -299,7 +299,7 @@ try {
   await rm(harnessDeployment, { recursive: true, force: true });
   await rm(prepared, { recursive: true, force: true });
   runPnpm([
-    "--filter", "deepseek-desktop-harness", "deploy", "--prod", "--legacy",
+    "--filter", "xingyunxunzhi-desktop-harness", "deploy", "--prod", "--legacy",
     "--config.node-linker=hoisted", desktopDeployment
   ], harnessRoot);
   const restoredHarnessPackages = await deployHarnessClosure(
@@ -320,8 +320,8 @@ try {
   const entry = join("node_modules", ...cli.manifest.name.split("/"), cli.entry).split(sep).join("/");
   await stat(join(prepared, entry));
   const sourceDateEpoch = Number.parseInt(runGit(["show", "-s", "--format=%ct", source.commit], source.sourceRoot), 10);
-  const bundleVersion = await readPackageVersion(finalModules, "deepseek-desktop-bundle");
-  const credentialVaultVersion = await readPackageVersion(finalModules, "deepseek-desktop-credentials-vault");
+  const bundleVersion = await readPackageVersion(finalModules, "xingyunxunzhi-desktop-bundle");
+  const credentialVaultVersion = await readPackageVersion(finalModules, "xingyunxunzhi-desktop-credentials-vault");
   const harnessSha256 = await hashTree(prepared);
   const lock = {
     schemaVersion: 3,
@@ -354,8 +354,8 @@ try {
     nativeAssets: toolchain.nativeAssets,
     targets: toolchain.targets,
     patches: [
-      `deepseek-desktop-bundle@${bundleVersion}`,
-      `deepseek-desktop-credentials-vault@${credentialVaultVersion}`,
+      `xingyunxunzhi-desktop-bundle@${bundleVersion}`,
+      `xingyunxunzhi-desktop-credentials-vault@${credentialVaultVersion}`,
       ...patches
     ]
   };

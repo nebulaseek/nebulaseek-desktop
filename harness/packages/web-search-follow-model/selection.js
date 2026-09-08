@@ -93,7 +93,7 @@ export default class WebSearchSelection extends Service {
 
   admissionFailure() {
     if (this.phase === "active" && this.active.mode !== "disabled") return undefined;
-    const lang = process.env.DEEPSEEK_DESKTOP_LOCALE?.toLowerCase() ?? "en";
+    const lang = process.env.XINGYUNXUNZHI_DESKTOP_LOCALE?.toLowerCase() ?? "en";
     if (lang.startsWith("zh-tw") || lang.startsWith("zh-hk")) return "聯網搜尋已停用或設定尚未生效，一般對話和網頁擷取仍可使用。";
     if (lang.startsWith("zh")) return "联网搜索已禁用或设置尚未生效，正常对话和网页抓取仍可使用。";
     return "Web search is disabled or its settings are not active. Chat and web fetch remain available.";

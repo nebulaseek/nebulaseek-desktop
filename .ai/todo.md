@@ -1,5 +1,11 @@
 # 活跃待办
 
+## 品牌更名收尾
+
+- 更名后尚未重新执行任何构建、打包或安装验收，`memory/verification.md` 的基线仍属旧品牌，重新发布前必须重跑 `verify`、`test:e2e`、`harness:smoke` 与目标平台打包。
+- `HARNESS_REPOSITORY` 与仓库链接已指向 `github.com/xingyunxunzhi/xingyunxunzhi-harness` 和 `github.com/xingyunxunzhi/xingyunxunzhi-desktop`；这两个 GitHub 仓库尚未确认存在，`harness:sync` 在托管到位前无法从默认地址取源。
+- Bundle Identifier 由 `deepseek.desktop` 改为 `xingyunxunzhi.desktop`，旧版本用户的应用数据目录、钥匙串项和更新识别不会自动迁移；如需保留旧安装的数据必须单独设计迁移，否则应在发布说明中说明为全新安装。
+
 ## 全量审计修复
 
 - F01–F24 分簇修复中；逐项证据和未闭环项见 [审计修复验收](memory/audit-remediation.md)。安全与数据保护第一簇已完成本地回归，其余项不能以既有测试总数代替验收。
