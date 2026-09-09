@@ -1,5 +1,7 @@
 # 当前交付摘要
 
+- 内置内核固定源已升级到改名后的 `dsh-v0.1.3-alpha.2` / `33c41938eb`（`0.1.3-alpha.2` 上游加出厂品牌提交），内核仓库此前没有任何 SemVer tag，社区构建按最新 tag 解析再比对 pin 的路径无法成立；补上 annotated tag 后社区渠道同步、11 项 desktop 补丁、全量 `verify`、`test:e2e`、`harness:smoke` 和 macOS ARM64 `desktop:package` 均通过。发布说明的公开资产名改为按实际产品名生成，修掉了中文产品名与固定 ASCII 名称不一致导致的汇总发布失败。证据见 [验证基线](memory/verification.md)。四平台原生矩阵与 Release 结果以对应 Tag 的实际运行为准。
+
 - 当前审计收口：macOS contentView 查询的所有权失衡已有修改前两次独立失败、修改后逐查询平衡及实际 DMG 回归证据，采用局部成对引用，未移动菜单或扩大 swizzle。当前是否满足发布条件以 [审计修复验收](memory/audit-remediation.md) 为准，下列历史通过不能替代本次功能及平台门禁。
 
 - Harness WebKit 消息回放与候选 HEAD 解析修复已完成；1.1.0 DMG 的实际安装、剪贴板、历史/同源链接、混合窗口和候选切换最终复验通过。Alibaba MaaS Max / Flash 原生 GUI 搜索并发重叠 8067 毫秒，各有 8 条来源；1.1.0 恢复内置后的真实搜索也返回 8 条来源。Windows 验收菜单改用公开 UIA ExpandCollapse，脚本回归通过但不算 Windows 实测；等待新 annotated Tag 的原生四平台矩阵后才创建社区预发布。

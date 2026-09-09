@@ -11,21 +11,27 @@ function downloadUrl(repository, tag, name) {
   return `https://github.com/${repository}/releases/download/${encodeURIComponent(tag)}/${encodeURIComponent(name)}`;
 }
 
-export function communityReleaseAssetNames(version) {
+// The bundle file names are derived from the configured product name, so they follow
+// a rebrand instead of pinning one spelling here. prepare-ci-release-assets.mjs
+// replaces spaces with dots when it publishes an installer, and the expected names
+// have to carry that same substitution or a product name with a space never matches.
+export function communityReleaseAssetNames(productName, version) {
+  if (!productName?.trim()) throw new Error("release product name is required");
+  const base = productName.replaceAll(" ", ".");
   return [
-    `Xingyunxunzhi_${version}_aarch64.dmg`,
-    `Xingyunxunzhi_${version}_x64.dmg`,
-    `Xingyunxunzhi_${version}_x64-setup.exe`,
-    `Xingyunxunzhi_${version}_amd64.AppImage`,
-    `Xingyunxunzhi_${version}_amd64.deb`,
+    `${base}_${version}_aarch64.dmg`,
+    `${base}_${version}_x64.dmg`,
+    `${base}_${version}_x64-setup.exe`,
+    `${base}_${version}_amd64.AppImage`,
+    `${base}_${version}_amd64.deb`,
     "SHA256SUMS"
   ];
 }
 
-export function prepareCommunityReleaseNotes({ template, repository, tag, assetNames }) {
+export function prepareCommunityReleaseNotes({ template, repository, tag, assetNames, productName }) {
   if (!/^[^/\s]+\/[^/\s]+$/u.test(repository || "")) throw new Error("GitHub repository must use owner/name format");
   const { version } = parseReleaseTag(tag);
-  const expected = communityReleaseAssetNames(version);
+  const expected = communityReleaseAssetNames(productName, version);
   const actual = [...assetNames].sort();
   if (JSON.stringify(actual) !== JSON.stringify([...expected].sort())) {
     throw new Error("release notes require the complete public asset set");
@@ -47,13 +53,14 @@ export function prepareCommunityReleaseNotes({ template, repository, tag, assetN
   return template.replace(DOWNLOADS_MARKER, downloads);
 }
 
-export async function prepareCommunityReleaseNotesFile({ templatePath, assetsPath, outputPath, repository, tag }) {
+export async function prepareCommunityReleaseNotesFile({ templatePath, assetsPath, outputPath, repository, tag, productName }) {
   const entries = await readdir(assetsPath, { withFileTypes: true });
   if (entries.some(entry => !entry.isFile())) throw new Error("public release assets must only contain files");
   const notes = prepareCommunityReleaseNotes({
     template: await readFile(templatePath, "utf8"),
     repository,
     tag,
+    productName,
     assetNames: entries.map(entry => entry.name)
   });
   await writeFile(outputPath, notes);
@@ -61,12 +68,14 @@ export async function prepareCommunityReleaseNotesFile({ templatePath, assetsPat
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(import.meta.filename)) {
+  const config = JSON.parse(await readFile(join(root, "target/generated/app-config.json"), "utf8"));
   const output = await prepareCommunityReleaseNotesFile({
     templatePath: process.env.CI_RELEASE_NOTES_TEMPLATE || join(root, ".github", "release-notes-community.md"),
     assetsPath: process.env.CI_RELEASE_ASSETS_OUTPUT || join(root, "release-assets", "publish"),
     outputPath: process.env.CI_RELEASE_NOTES_OUTPUT || join(root, "release-assets", "RELEASE-NOTES.md"),
     repository: process.env.GITHUB_REPOSITORY,
-    tag: process.env.GITHUB_REF_NAME
+    tag: process.env.GITHUB_REF_NAME,
+    productName: config.productName
   });
   console.log(`prepared release notes at ${basename(output)}`);
 }

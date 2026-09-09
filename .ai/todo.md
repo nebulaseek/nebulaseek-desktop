@@ -3,7 +3,8 @@
 ## 品牌更名收尾
 
 - 更名后 macOS ARM64 完整本地打包与自动验证已通过，见 `memory/verification.md`；原生 GUI 启动/交互验收和其他平台验证仍待完成。
-- 本地 rebrand 包使用 `desktop:package --harness-local ../xingyunxunzhi-harness`。默认远端尚无 SemVer 标签，公开发布仍需审计并更新内核固定来源；不能用旧 pin 代替本地 rebrand。Desktop GitHub 仓库可用性尚未验证。
+- 内核固定来源已更新为改名后的 `dsh-v0.1.3-alpha.2` / `33c41938eb`（内核仓库新增的 annotated tag，指向出厂品牌提交），社区渠道 `harness:sync` 与 11 项 desktop 补丁在该版本上实测通过；本地 rebrand 联调仍可用 `desktop:package --harness-local ../xingyunxunzhi-harness`，但公开发布一律走远端固定 tag，不再用旧 pin 代替 rebrand。
+- 发布说明的公开资产命名此前固定为改名前的 ASCII 名称，与中文产品名产生的实际产物不一致，会在四平台构建成功后的汇总发布阶段失败；已改为按 `app-config.json` 的实际产品名生成。中文产品名在 Linux `deb` / Windows NSIS 上的实际打包结果只能由官方原生 Runner 验证，本机无法覆盖。
 - Bundle Identifier 由 `deepseek.desktop` 改为 `xingyunxunzhi.desktop`，旧版本用户的应用数据目录、钥匙串项和更新识别不会自动迁移；如需保留旧安装的数据必须单独设计迁移，否则应在发布说明中说明为全新安装。
 
 ## 全量审计修复

@@ -1,5 +1,15 @@
 # 验证基线
 
+## 1.0.0 内核固定源升级与发布前门禁（2026-09-09）
+
+- 内核仓库为出厂品牌提交 `33c41938eb` 新增 annotated tag `dsh-v0.1.3-alpha.2` 并推送（tag 对象 `5176925a1976`）；桌面端 `harness/toolchain-lock.json` 的 `harnessSource` 同步更新。此前远端没有任何 SemVer tag，`HARNESS_REF` 为空时 `selectLatestHarnessTag` 会直接失败，四平台构建无法开始。
+- `RELEASE_CHANNEL=community corepack pnpm@11.24.0 harness:sync` 在 Node `24.20.0` 下通过：固定源校验命中新 pin，11 项 desktop 补丁的 marker 在上游 `0.1.3-alpha.2` 上全部命中，输出 `synchronized Harness 0.1.3-alpha.2 (33c41938eb02)`。
+- `app:sync --check`、`harness:sync --check`、`verify`、`test:e2e`、`harness:smoke` 和 `desktop:package` 依次通过。`verify` 覆盖 108 项配置/发行测试、32 项前端测试、三语校验、40 项搜索回归、94 项 Rust 测试（1 项外部仓库测试按配置忽略）和 Clippy；`test:e2e` 7 项通过；`harness:smoke` 覆盖真实内核启动、设置界面与父进程消亡清理。
+- 首次 `test:e2e` 因本机默认 Playwright 缓存缺少 WebKit 而失败，指向 `target/playwright-browsers` 后通过；该失败与产品代码无关，未放宽任何断言。
+- `desktop:package` 产物为 `release/1.0.0/aarch64-apple-darwin/星云寻知_1.0.0_aarch64.dmg`，SHA-256 `523e9af622ba9ce197941c73983f21a83af9055bb6e4f1879dc8e83fb5009d6b`；闭包扫描 53746 个文件、921348162 字节。BUILD-INFO 记录内核来源为 remote、clean、`dsh-v0.1.3-alpha.2` / `33c41938eb` / `0.1.3-alpha.2`，`requestedRef` 为 null，即与 CI 相同的「按最新 SemVer tag 解析后再比对 pin」路径。
+- DMG `hdiutil verify` 通过；挂载后确认 `CFBundleName` / `CFBundleDisplayName` 均为「星云寻知」，`CFBundleShortVersionString` 为 `1.0.0`，`CFBundleIdentifier` 为 `xingyunxunzhi.desktop`，`codesign --verify --deep --strict` 通过。该包 `desktop.dirty` 为 true（本地工作区尚未提交），只作本机验收，不代表发布制品。
+- 本轮未做原生 GUI 人工交互验收，也未在其他平台运行。中文产品名在 Linux `deb` 与 Windows NSIS 上的实际打包结果本机无法覆盖，只能由官方原生 Runner 验证。
+
 ## 星云寻知本地 rebrand 打包验证（2026-09-08）
 
 - `desktop:package --harness-local ../xingyunxunzhi-harness` 完整通过，产物为 `release/1.0.0/aarch64-apple-darwin/星云寻知_1.0.0_aarch64.dmg`。SHA-256：`b9b2fbe4c51d5a605729275c755ca5395e46d63636330a32e9ebfb35338bcc29`。
