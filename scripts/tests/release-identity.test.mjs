@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -31,7 +31,10 @@ test("release identity rejects lightweight, moved, mismatched and replaced annot
 });
 
 test("container checkout trust preserves annotated tag checks without trusting other repositories", { skip: process.platform === "win32" }, async () => {
-  const directory = await mkdtemp(join(tmpdir(), "release-container-"));
+  // safe.directory matches on the repository's resolved path, so the fixture
+  // registers one. macOS hands out /var/folders/... temporary directories
+  // behind a /private symlink, which no container checkout has.
+  const directory = await realpath(await mkdtemp(join(tmpdir(), "release-container-")));
   const source = join(directory, "source");
   const checkout = join(directory, "checkout");
   const config = join(directory, "gitconfig");
