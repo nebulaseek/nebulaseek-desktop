@@ -1,9 +1,16 @@
 # 验证基线
 
-> 品牌迁移说明：以下所有记录都产生于品牌更名之前，产物名、Bundle Identifier、
-> 图标、环境变量前缀和菜单文案均为旧品牌 `DeepSeek Desktop` / `deepseek.desktop` /
-> `DEEPSEEK_DESKTOP_*`。更名为「星云寻知 / Xingyunxunzhi」后尚未重新执行任何
-> 构建、打包或安装验收，本基线在重新验证前不代表当前代码的可信状态。
+## 星云寻知本地 rebrand 打包验证（2026-09-08）
+
+- `desktop:package --harness-local ../xingyunxunzhi-harness` 完整通过，产物为 `release/1.0.0/aarch64-apple-darwin/星云寻知_1.0.0_aarch64.dmg`。SHA-256：`b9b2fbe4c51d5a605729275c755ca5395e46d63636330a32e9ebfb35338bcc29`。
+- 应用 `CFBundleName` / `CFBundleDisplayName` 均为「星云寻知」；包内内核来源核验为 local、clean、`33c41938eb0268302b75f16add1d1be8b4130eb6` / `0.1.3-alpha.2`，包含本地品牌更名。工作台 smoke 截图确认中文名称与云形图标。
+- 验证通过：107 项配置/发行测试、32 项前端测试、三语校验、40 项搜索回归、94 项 Rust 测试（1 项外部仓库测试按配置忽略）、Clippy、7 项 E2E、真实内核设置与父进程退出清理 smoke、交付闭包扫描、DMG 完整性、SHA256SUMS 和严格递归 ad-hoc 签名。
+- 新版 Connection 仅声明 credentials 依赖，导致扩展 RPC 注册访问 webServer 时抛出未注入异常；修改前真实 smoke 返回 405，桌面补丁恢复显式 webServer 依赖后，原有 401/403 认证检查及搜索设置保存/恢复全部通过。未放宽测试或认证。
+- 本机 Git 身份隔离测试使用真实临时目录 `TMPDIR=/private/tmp`，避免 macOS 临时目录别名不匹配；未修改全局 Git 信任配置。
+- 此前英文 `Xingyunxunzhi` 包误用远端旧固定提交 `d347e703…`，未包含本地 rebrand，已被本次中文包替代；不得再用其通过结果代表本地 rebrand。
+- 仅 ad-hoc 签名，未 Apple 公证。本次原生 GUI 人工验收、其他平台及 GitHub 发布未运行；原生 GUI 不以浏览器 smoke 代替。
+
+> 下文记录产生于品牌更名前，只代表各自日期的历史验证。
 
 ## 容器发布身份检查
 

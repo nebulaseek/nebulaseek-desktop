@@ -38,14 +38,14 @@
 
 **普通用户：**
 
-1. 将 `Xingyunxunzhi.app` 拖入“应用程序”目录，然后尝试启动。
+1. 将 `星云寻知.app` 拖入“应用程序”目录，然后尝试启动。
 2. 如果出现下图所示提示，请先确认安装包来自本项目 GitHub Releases，并已核对 `SHA256SUMS`。确认无误后点击“完成”，**不要点击“移到废纸篓”**。
 
 <p align="center">
   <img src="docs/assets/macos-unverified-app-warning.png" alt="macOS 无法验证星云寻知的提示" width="420">
 </p>
 
-3. 打开“系统设置 → 隐私与安全”，向下滚动到“安全性”区域。找到“已阻止 Xingyunxunzhi.app 以保护 Mac”，点击右侧的“仍要打开”。
+3. 打开“系统设置 → 隐私与安全”，向下滚动到“安全性”区域。找到“已阻止 星云寻知.app 以保护 Mac”，点击右侧的“仍要打开”。
 
 <p align="center">
   <img src="docs/assets/macos-privacy-security-open-anyway.png" alt="在 macOS 隐私与安全设置中点击仍要打开" width="900">
@@ -60,13 +60,13 @@
 1. 仅移除星云寻知的下载隔离标记：
 
 ```bash
-xattr -dr com.apple.quarantine "/Applications/Xingyunxunzhi.app"
+xattr -dr com.apple.quarantine "/Applications/星云寻知.app"
 ```
 
 2. 启动星云寻知：
 
 ```bash
-open "/Applications/Xingyunxunzhi.app"
+open "/Applications/星云寻知.app"
 ```
 
 不要关闭 macOS 的全局 Gatekeeper、SIP 或 XProtect，也不要对“下载”目录批量移除隔离标记；这些操作会降低整台 Mac 的安全性。
@@ -139,6 +139,14 @@ corepack pnpm@11.24.0 package:community
 ```bash
 corepack pnpm@11.24.0 desktop:package
 ```
+
+将相邻目录中已经更名的本地内核源码装入本机安装包时，显式指定：
+
+```bash
+corepack pnpm@11.24.0 desktop:package --harness-local ../xingyunxunzhi-harness
+```
+
+该选项只用于 local 包，读取指定工作区当前源码，并在 BUILD-INFO 中记录内核提交、local 来源与 dirty 状态；不会自动替换成远端旧版本。未指定时仍从配置的 Git 仓库取源。默认软件名称、窗口标题和 macOS 应用名称为「星云寻知」，内部包名与 Bundle Identifier 保留 ASCII 标识。
 
 可复制 `.env.example` 为 `.env` 来定制应用元数据和内核来源。配置优先级为“命令行环境变量 > `.env` > 内置默认值”；`.env` 不会进入内核、安装包、诊断包或发布目录。`HARNESS_REF` 默认留空，本地开发会自动选择最新版本标签；社区版和正式发布仍受仓库内固定内核来源约束。`DESKTOP_APP_REPOSITORY` 默认留空：GitHub Actions 使用当前工作流仓库地址，本地开发读取公开的 Git `origin`；若 `origin` 只是本机路径，则继续读取 `package.json` 或项目内置仓库地址。作者和仓库地址会显示在关于页，仓库地址可直接用系统浏览器打开。
 

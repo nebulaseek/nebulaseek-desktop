@@ -10,7 +10,7 @@
   -> target/generated/tauri.conf.json
   -> Vue / Rust / Tauri 构建
 
-HARNESS_REPOSITORY / HARNESS_REF
+HARNESS_REPOSITORY / HARNESS_REF，或 desktop:package --harness-local 指定的本地工作区
   -> scripts/harness-sync.mjs
   -> 解析不可变 commit
   -> 构建 Harness 生产闭包
@@ -34,6 +34,8 @@ Harness 仓库地址（默认构建仓库或用户覆盖）
   -> 有效期 / 防重放 + SHA-256 + 来源 / 平台 / 协议 / 包版本校验
   -> 与仓库模式共用版本指针、smoke 和回滚
 ```
+
+本地打包可显式使用 `--harness-local`，生成来源与 BUILD-INFO 记录实际 local commit 和 dirty 状态；配置同步保留这份来源，不以更新仓库地址覆盖。该选项不允许用于 community/stable。新版 Connection 的宿主服务不再默认注入 HTTP 服务，桌面兼容补丁显式声明 `webServer` 依赖，以保持扩展 RPC 注册及其原有认证/Origin 检查。
 
 `target/` 是生成与缓存目录，不是源码事实。稳定工具链、Harness 发布来源和第三方制品校验和由 `harness/toolchain-lock.json` 维护。
 

@@ -2,8 +2,8 @@
 
 ## 品牌更名收尾
 
-- 更名后尚未重新执行任何构建、打包或安装验收，`memory/verification.md` 的基线仍属旧品牌，重新发布前必须重跑 `verify`、`test:e2e`、`harness:smoke` 与目标平台打包。
-- `HARNESS_REPOSITORY` 与仓库链接已指向 `github.com/xingyunxunzhi/xingyunxunzhi-harness` 和 `github.com/xingyunxunzhi/xingyunxunzhi-desktop`；这两个 GitHub 仓库尚未确认存在，`harness:sync` 在托管到位前无法从默认地址取源。
+- 更名后 macOS ARM64 完整本地打包与自动验证已通过，见 `memory/verification.md`；原生 GUI 启动/交互验收和其他平台验证仍待完成。
+- 本地 rebrand 包使用 `desktop:package --harness-local ../xingyunxunzhi-harness`。默认远端尚无 SemVer 标签，公开发布仍需审计并更新内核固定来源；不能用旧 pin 代替本地 rebrand。Desktop GitHub 仓库可用性尚未验证。
 - Bundle Identifier 由 `deepseek.desktop` 改为 `xingyunxunzhi.desktop`，旧版本用户的应用数据目录、钥匙串项和更新识别不会自动迁移；如需保留旧安装的数据必须单独设计迁移，否则应在发布说明中说明为全新安装。
 
 ## 全量审计修复

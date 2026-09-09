@@ -11,7 +11,7 @@
 2026-09-08 完成品牌更名，产品名从 `DeepSeek Desktop` 改为「星云寻知」。命名分层如下，改动集中在 `scripts/lib/build-config.mjs` 的 `DEFAULT_CONFIG` 与 `.env.example`：
 
 - 用户可见名：zh-CN `星云寻知`、zh-TW `星雲尋知`、en-US `Xingyunxunzhi`（原生菜单三语分别硬编码，见 `src-tauri/src/native_menu.rs`）。
-- `DESKTOP_APP_NAME=Xingyunxunzhi`：保持 ASCII，因为它同时决定 deb 包名、DMG/NSIS 产物名和 macOS `.app` 名；中文名只出现在展示层。
+- `DESKTOP_APP_NAME=星云寻知`：用户明确要求软件名称为中文，用于窗口标题、软件名称与 macOS `.app` 名。内部 slug、Bundle Identifier 与包名保持 ASCII。
 - `DESKTOP_APP_SLUG=xingyunxunzhi-desktop`、`DESKTOP_APP_IDENTIFIER=xingyunxunzhi.desktop`、环境变量前缀 `XINGYUNXUNZHI_DESKTOP_*`。
 - 图标源为 `src-tauri/icons/icon.png`（1024×1024），Shell 品牌图形为 `src/assets/xingyunxunzhi-desktop.svg`；两者均为自有资产，不再包含上游鱼形几何（`NOTICE` 已同步）。
 - 保留不改：`@deepseek-ai/*` 包名、`deepseek-official` / `llm-deepseek` / `web-search-deepseek` / `DEEPSEEK_API_KEY` 等 DeepSeek 模型服务标识，以及 `github.com/deepseek-ai/deepseek-harness` 上游仓库地址。

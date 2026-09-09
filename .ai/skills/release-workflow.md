@@ -45,6 +45,8 @@ corepack pnpm@11.24.0 harness:smoke
 corepack pnpm@11.24.0 desktop:package
 ```
 
+本地 rebrand 联调使用 `desktop:package --harness-local ../xingyunxunzhi-harness`，把指定工作区的实际源码打入本机安装包。不能因远端缺少标签就改用旧锁定提交来代表本地 rebrand；必须核对生成来源的 commit 和交付中的品牌文案。该选项仅适用于 local，BUILD-INFO 记录 local 来源和 dirty 状态，不把本机路径写入产物。
+
 尚未获准创建发行 Tag 时使用 `desktop:package` 生成本机验收包，它会记录源码 dirty 状态但不会伪装成社区发行。获准发布后，GitHub Tag 矩阵统一调用门禁更严格的 `package:community`。前面的独立命令用于缩短定位反馈，只报告实际运行过的结果。
 
 macOS 本机至少检查：

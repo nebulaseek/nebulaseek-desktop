@@ -134,6 +134,19 @@
       "id": "loopback-cookie-migration"
     },
     {
+      "packageName": "@deepseek-ai/dsh-client-connection",
+      "operation": "replace-text",
+      "moduleFile": "lib/index.js",
+      "replacements": [
+        {
+          "before": "const inject = [\"credentials\"];",
+          "after": "const inject = [\"webServer\", \"credentials\"];"
+        }
+      ],
+      "markers": ["const inject = [\"webServer\", \"credentials\"];"],
+      "id": "desktop-rpc-webserver-dependency"
+    },
+    {
       "packageName": "@deepseek-ai/dsh-client-modules",
       "file": "@deepseek-ai__dsh-client-modules@0.1.2-alpha.1.patch",
       "moduleFile": "lib/index.js",

@@ -15,6 +15,14 @@ const pnpmVersion = packageJson.packageManager?.replace(/^pnpm@/u, "");
 const toolchainLock = JSON.parse(await readFile(join(root, "harness", "toolchain-lock.json"), "utf8"));
 const resolvedConfig = await loadBuildConfig(root);
 const channel = resolvedConfig.release.channel;
+const packageArgs = process.argv.slice(2).filter(argument => argument !== "--");
+if (packageArgs.length && (packageArgs.length !== 2 || packageArgs[0] !== "--harness-local" || !packageArgs[1]?.trim())) {
+  throw new Error("usage: desktop:package [--harness-local <repository-path>]");
+}
+const localHarnessPath = packageArgs.length ? resolve(root, packageArgs[1]) : null;
+if (localHarnessPath && channel !== "local") {
+  throw new Error("--harness-local is only supported for local desktop packages");
+}
 if (!pnpmVersion) throw new Error("packageManager must declare a pinned pnpm version");
 if (!new Set(["local", "community", "stable"]).has(channel)) throw new Error(`unsupported release channel ${channel}`);
 if (process.versions.node !== toolchainLock.node.version || process.versions.modules !== toolchainLock.node.moduleAbi) {
@@ -87,6 +95,7 @@ if (preparedValueCount !== 0 && preparedValueCount !== 3) {
   throw new Error("prepared packaging requires a cache root, descriptor, and controller release plan together");
 }
 const preparedMode = Boolean(preparedRoot);
+if (preparedMode && localHarnessPath) throw new Error("--harness-local cannot be combined with a prepared release");
 let preparedReceiptSha256 = "";
 if (preparedMode) {
   const restoredAt = Date.now();
@@ -107,7 +116,7 @@ if (preparedMode) {
   timings.installMs = runPnpm(["install", "--frozen-lockfile"]);
   timings.playwrightInstallMs = runPnpm(["playwright:install"]);
   timings.appSyncMs = runPnpm(["app:sync"]);
-  timings.harnessSyncMs = runPnpm(["harness:sync"]);
+  timings.harnessSyncMs = runPnpm(["harness:sync", ...(localHarnessPath ? ["--local", localHarnessPath] : [])]);
   timings.releaseGateMs = runPnpm(["release:check", channel]);
   timings.verifyMs = runPnpm(["verify"]);
   timings.e2eMs = runPnpm(["test:e2e"]);
@@ -214,6 +223,8 @@ await writeFile(buildInfoPath, `${JSON.stringify({
     tauriCliVersion: toolchainLock.toolchain?.tauriCli
   },
   harness: {
+    mode: harnessSource.sourceMode,
+    dirty: harnessSource.dirty,
     repository: harnessSource.repository,
     requestedRef: harnessSource.requestedRef,
     resolvedRef: harnessSource.resolvedRef,

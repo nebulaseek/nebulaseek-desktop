@@ -64,7 +64,7 @@ try {
   if (!check) {
     try {
       const existing = JSON.parse(await readFile(join(outputRoot, "harness-source.json"), "utf8"));
-      if (existing.repository === config.harness.repository
+      if ((existing.sourceMode === "local" || existing.repository === config.harness.repository)
         && existing.requestedRef === (config.harness.ref || null)
         && existing.resolvedCommit) {
         harnessSource = existing;

@@ -24,7 +24,7 @@ export const CONFIG_KEYS = Object.freeze([
 ]);
 
 export const DEFAULT_CONFIG = Object.freeze({
-  DESKTOP_APP_NAME: "Xingyunxunzhi",
+  DESKTOP_APP_NAME: "星云寻知",
   DESKTOP_APP_VERSION: "1.0.0",
   DESKTOP_APP_IDENTIFIER: "xingyunxunzhi.desktop",
   DESKTOP_APP_SLUG: "xingyunxunzhi-desktop",
