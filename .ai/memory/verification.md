@@ -9,6 +9,8 @@
 - `desktop:package` 产物为 `release/1.0.0/aarch64-apple-darwin/星云寻知_1.0.0_aarch64.dmg`，SHA-256 `523e9af622ba9ce197941c73983f21a83af9055bb6e4f1879dc8e83fb5009d6b`；闭包扫描 53746 个文件、921348162 字节。BUILD-INFO 记录内核来源为 remote、clean、`dsh-v0.1.3-alpha.2` / `33c41938eb` / `0.1.3-alpha.2`，`requestedRef` 为 null，即与 CI 相同的「按最新 SemVer tag 解析后再比对 pin」路径。
 - DMG `hdiutil verify` 通过；挂载后确认 `CFBundleName` / `CFBundleDisplayName` 均为「星云寻知」，`CFBundleShortVersionString` 为 `1.0.0`，`CFBundleIdentifier` 为 `xingyunxunzhi.desktop`，`codesign --verify --deep --strict` 通过。该包 `desktop.dirty` 为 true（本地工作区尚未提交），只作本机验收，不代表发布制品。
 - 本轮未做原生 GUI 人工交互验收，也未在其他平台运行。中文产品名在 Linux `deb` 与 Windows NSIS 上的实际打包结果本机无法覆盖，只能由官方原生 Runner 验证。
+- `v1.0.1` 的官方矩阵（Run `34323507633`）：`shell-quality`、`macos-arm64`、`macos-x64`、`linux-x64` 全部成功，证明中文产品名在 DMG、AppImage 和 deb 上打包无问题；`windows-x64` 在第 34 分钟失败，`publish-release` 按门禁跳过，未产生残缺 Release。
+- Windows 失败定位为 `scripts/verify-windows-install.ps1` 把产品名写死为 `Xingyunxunzhi`：卸载注册表项按 `DisplayName` 精确匹配，窗口标题按 `"Xingyunxunzhi v<版本>"` 比对，改名后两者都不可能命中。已改为读取 `target/generated/app-config.json` 的 `productName` 与 `windowTitle`。该结论来自代码与失败时长推断，未读到 Job 日志（GitHub 要求登录，日志接口要求仓库 admin）；该验收脚本此前只做过语法解析，`v1.0.1` 是它第一次真实执行，后续 UI 自动化步骤是否还有缺陷只能由下一次原生 Runner 结果确认。
 
 ## 星云寻知本地 rebrand 打包验证（2026-09-08）
 

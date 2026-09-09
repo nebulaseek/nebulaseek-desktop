@@ -328,7 +328,15 @@ test("GitHub workflow pins first-party actions to immutable commits", async () =
   assert.match(windowsAcceptance, /Harness Node child process was not running/u);
   assert.match(windowsAcceptance, /canceling the close confirmation unexpectedly exited/u);
   assert.match(windowsAcceptance, /orphan child processes remained after exit/u);
-  assert.match(windowsAcceptance, /Xingyunxunzhi remained installed after acceptance cleanup/u);
+  assert.match(windowsAcceptance, /\$productName remained installed after acceptance cleanup/u);
+  // A rebrand changes the installed DisplayName and the window title together, so the
+  // acceptance must read both from the generated configuration. Hardcoding either one
+  // makes the gate fail against a correctly built installer.
+  assert.match(windowsAcceptance, /\$appConfig = Get-Content -LiteralPath \$appConfigPath -Raw -Encoding UTF8 \| ConvertFrom-Json/u);
+  assert.match(windowsAcceptance, /\$productName = \[string\]\$appConfig\.productName/u);
+  assert.match(windowsAcceptance, /\$expectedTitle = \[string\]\$appConfig\.windowTitle/u);
+  assert.match(windowsAcceptance, /\$_\.DisplayName -eq \$productName/u);
+  assert.doesNotMatch(windowsAcceptance, /Xingyunxunzhi/u);
   // The release list truncates titles, so the tag must be the whole title.
   assert.match(workflow, /--title "\$GITHUB_REF_NAME"/u);
   assert.doesNotMatch(workflow, /--title "\$product_name/u);

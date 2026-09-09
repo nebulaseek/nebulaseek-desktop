@@ -9,6 +9,26 @@ param(
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
+# The installed DisplayName and the window title are whatever the build configuration
+# says the product is called, so they are read from the generated configuration rather
+# than repeated here. Hardcoding one spelling is what silently broke this gate when the
+# product name changed: the registry lookup and the title comparison kept matching an
+# old ASCII name that the installer no longer writes.
+$repositoryRoot = Split-Path -Parent $PSScriptRoot
+$appConfigPath = Join-Path $repositoryRoot "target\generated\app-config.json"
+if (-not (Test-Path -LiteralPath $appConfigPath)) {
+  throw "generated application configuration is missing: $appConfigPath"
+}
+$appConfig = Get-Content -LiteralPath $appConfigPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$productName = [string]$appConfig.productName
+$expectedTitle = [string]$appConfig.windowTitle
+if (-not $productName -or -not $expectedTitle) {
+  throw "generated application configuration must declare productName and windowTitle"
+}
+if ([string]$appConfig.version -ne $ExpectedVersion) {
+  throw "generated application configuration is $($appConfig.version), expected $ExpectedVersion"
+}
+
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
@@ -45,7 +65,7 @@ function Get-InstalledEntry {
   )
   foreach ($root in $roots) {
     $entry = Get-ItemProperty -Path $root -ErrorAction SilentlyContinue |
-      Where-Object { $_.DisplayName -eq "Xingyunxunzhi" } |
+      Where-Object { $_.DisplayName -eq $productName } |
       Select-Object -First 1
     if ($null -ne $entry) {
       return $entry
@@ -135,7 +155,7 @@ function Activate-App {
 
   $shell = New-Object -ComObject WScript.Shell
   if (-not $shell.AppActivate($Process.Id)) {
-    throw "could not activate Xingyunxunzhi"
+    throw "could not activate $productName"
   }
   Start-Sleep -Milliseconds 300
 }
@@ -310,17 +330,16 @@ try {
     Start-Sleep -Milliseconds 500
   } while ([DateTime]::UtcNow -lt $deadline)
   if (-not $installedExecutable) {
-    throw "installed Xingyunxunzhi executable was not found"
+    throw "installed $productName executable was not found"
   }
 
   Assert-Pe -Path $installedExecutable -AllowedMachines @(0x8664)
   $appProcess = Start-Process -FilePath $installedExecutable -PassThru
-  $expectedTitle = "Xingyunxunzhi v$ExpectedVersion"
   $deadline = [DateTime]::UtcNow.AddSeconds(120)
   do {
     $appProcess.Refresh()
     if ($appProcess.HasExited) {
-      throw "Xingyunxunzhi exited before its main window was ready"
+      throw "$productName exited before its main window was ready"
     }
     if ($appProcess.MainWindowHandle -ne 0 -and $appProcess.MainWindowTitle -eq $expectedTitle) {
       break
@@ -369,10 +388,10 @@ try {
   $confirm = Wait-AppUiElement -Names @("关闭", "關閉", "Close") -RootProcessId $appProcess.Id -TimeoutSeconds 15
   Invoke-UiElement -Element $confirm
   if (-not $appProcess.WaitForExit(30000)) {
-    throw "Xingyunxunzhi did not exit after close confirmation"
+    throw "$productName did not exit after close confirmation"
   }
   if ($appProcess.ExitCode -ne 0) {
-    throw "Xingyunxunzhi exited with code $($appProcess.ExitCode)"
+    throw "$productName exited with code $($appProcess.ExitCode)"
   }
   $deadline = [DateTime]::UtcNow.AddSeconds(20)
   do {
@@ -388,7 +407,7 @@ try {
     throw "orphan child processes remained after exit: $($remainingChildren -join ', ')"
   }
 
-  Write-Output "Windows x64 installation acceptance passed for Xingyunxunzhi $ExpectedVersion."
+  Write-Output "Windows x64 installation acceptance passed for $productName $ExpectedVersion."
 } finally {
   if ($null -ne $appProcess -and -not $appProcess.HasExited) {
     Stop-Process -Id $appProcess.Id -Force -ErrorAction SilentlyContinue
@@ -419,6 +438,6 @@ try {
     Start-Sleep -Milliseconds 500
   }
   if ($null -ne (Get-InstalledEntry)) {
-    throw "Xingyunxunzhi remained installed after acceptance cleanup"
+    throw "$productName remained installed after acceptance cleanup"
   }
 }
