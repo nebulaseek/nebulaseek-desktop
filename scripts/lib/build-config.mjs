@@ -32,7 +32,7 @@ export const DEFAULT_CONFIG = Object.freeze({
   DESKTOP_APP_SLUG: "deepseek-desktop",
   DESKTOP_APP_DESCRIPTION: "Local AI agent workspace",
   DESKTOP_APP_AUTHORS: "XingYunXunZhi Desktop Contributors",
-  DESKTOP_APP_REPOSITORY: "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop",
+  DESKTOP_APP_REPOSITORY: "",
   DESKTOP_APP_ICON: "src-tauri/icons/icon.png",
   HARNESS_REPOSITORY: "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
   HARNESS_REF: "",
