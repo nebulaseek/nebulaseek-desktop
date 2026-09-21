@@ -1,15 +1,15 @@
 # Harness 独立更新指南
 
-DeepSeek Desktop 把稳定桌面外壳与 Harness 分开。用户只需更换一个 Git 仓库地址，就能改变 Desktop 下次运行的 Harness；Tauri、原生菜单、凭据边界和桌面设置仍由原来的 Desktop 外壳提供。
+星云寻知把稳定桌面外壳与 Harness 分开。用户只需更换一个 Git 仓库地址，就能改变 Desktop 下次运行的 Harness；Tauri、原生菜单、凭据边界和桌面设置仍由原来的 Desktop 外壳提供。
 
-DeepSeek 官方上游是 [DeepSeek Harness（官方版）](https://github.com/deepseek-ai/deepseek-harness.git)。本项目默认使用 [DeepSeek Harness（社区版）](https://github.com/deepseek-desktop/deepseek-harness.git)，并由 [DeepSeek Desktop（社区版）](https://github.com/deepseek-desktop/deepseek-desktop.git) 通过工具链 lock 固定实际 commit。两个社区仓库均不代表 DeepSeek 官方发行。
+DeepSeek 官方上游是 [DeepSeek Harness（官方版）](https://github.com/deepseek-ai/deepseek-harness.git)，星云寻知 Harness 跟随 [DeepSeek Harness（社区版）](https://github.com/deepseek-desktop/deepseek-harness.git)。本项目默认使用 [XingYunXunZhi Harness](https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git)，并由 [XingYunXunZhi Desktop](https://github.com/xingyunxunzhi/xingyunxunzhi-desktop.git) 通过工具链 lock 固定实际 commit。
 
 ## 普通用户
 
-Harness 更新页始终显示当前桌面包的默认仓库。社区版默认使用 DeepSeek Desktop Harness 仓库：
+Harness 更新页始终显示当前桌面包的默认仓库。星云寻知发行版默认使用 XingYunXunZhi Harness 仓库：
 
 ```text
-https://github.com/deepseek-desktop/deepseek-harness.git
+https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git
 ```
 
 用户也可以填写自己维护的兼容 fork。设置中只有一个“Harness 仓库”输入框，不需要另外填写更新清单、发布者或公钥。可用行为包括：

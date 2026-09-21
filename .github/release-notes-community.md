@@ -1,12 +1,12 @@
-# DeepSeek Desktop 社区版
+# 星云寻知社区版
 
-这是内置固定版本本地 Harness 的独立、非官方社区发行版。
+这是基于 DeepSeek Desktop 社区版、内置固定 XingYunXunZhi Harness 的星云寻知品牌发行版。
 
 <!-- release-downloads -->
 
 ## 主要变化
 
-- Harness 默认来源改为官方仓库，内置基线升级到官方 master 的 `c291e7961a51`（`0.1.5-rc.2`）。
+- 同步 DeepSeek Desktop 与 DeepSeek Harness 社区版最新基线，下游仅保留用户可见品牌覆盖。
 - 插件配置与只读插件列表采用官方实现，不再强制装配 DSH Market，也不保留旧市场适配补丁。
 - Desktop 独立搜索设置改用官方 Fetch API、模型目录和公开 peer 依赖，删除旧 RPC 通道、私有依赖列表和旧版路由兼容字段。
 - 打包与仓库更新统一采用当前官方的本地 npm 包、依赖闭包和隔离安装机制，不再修改 Python SDK 聚合包或补拷旧核心。

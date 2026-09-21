@@ -20,7 +20,7 @@ export async function createReleasePlan({
   channel = "community",
   signed = false,
   sourceRepository = "",
-  productName = "DeepSeek Desktop",
+  productName = "星云寻知",
   requestedTargetIds = [],
   trustedNodes = new Map(),
   prepared = null

@@ -2,7 +2,9 @@
 
 ## 项目定位
 
-DeepSeek Desktop 是 DeepSeek Harness 的独立社区桌面发行版。它使用 Tauri 2 管理本地 Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
+星云寻知 Desktop 是 DeepSeek Desktop 社区版的品牌发行版。它使用 Tauri 2 管理本地 XingYunXunZhi Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
+
+下游只修改用户可见名称、文案、图片、公开仓库地址和锁定的品牌 Harness 来源。`deepseek.desktop`、`deepseek-desktop`、`DEEPSEEK_DESKTOP_*`、包名、crate/bin 名、IPC、数据目录和更新协议等兼容标识继续沿用社区上游，详见 ADR-028。
 
 本仓库是独立 Git 仓库，不得从其他仓库接管、暂存或提交本仓库文件。生成的上游 Harness 检出只是临时构建输入，不作为相邻源码仓库管理。
 
@@ -64,7 +66,7 @@ DeepSeek Desktop 是 DeepSeek Harness 的独立社区桌面发行版。它使用
 - npm：`11.19.0`（随固定 Node 官方归档提供）
 - Rust：`1.98.0`
 - Tauri CLI：`2.11.4`
-- 当前 Harness 按 `deepseek-desktop/deepseek-harness` 的不可变 commit 锁定（具体来源见工具链 lock）。独立搜索设置直接使用 `connection.fetch.register` / `connection.fetch` 的 `/api/desktop.web-search` GET/POST 接口，旧 RPC 通道与强制 `webServer` 注入补丁已移除。
+- 当前 Harness 按 `xingyunxunzhi/xingyunxunzhi-harness` 的不可变品牌提交锁定（具体来源见工具链 lock）；该提交以 `deepseek-desktop/deepseek-harness` 社区版为代码基线。独立搜索设置直接使用 `connection.fetch.register` / `connection.fetch` 的 `/api/desktop.web-search` GET/POST 接口，旧 RPC 通道与强制 `webServer` 注入补丁已移除。
 - Harness 固定来源、commit 和制品校验和以 `harness/toolchain-lock.json` 为准，不在本文件重复维护。
 
 ## 发行目标

@@ -130,7 +130,7 @@ async function createCommand(parsed) {
     channel,
     signed,
     sourceRepository: option(parsed, "source"),
-    productName: option(parsed, "product-name", "DeepSeek Desktop"),
+    productName: option(parsed, "product-name", "星云寻知"),
     requestedTargetIds: options(parsed, "target"),
     trustedNodes,
     prepared

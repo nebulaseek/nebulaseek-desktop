@@ -341,7 +341,7 @@ test("GitHub workflow pins first-party actions to immutable commits", async () =
   assert.match(windowsAcceptance, /Harness Node child process was not running/u);
   assert.match(windowsAcceptance, /canceling the close confirmation unexpectedly exited/u);
   assert.match(windowsAcceptance, /orphan child processes remained after exit/u);
-  assert.match(windowsAcceptance, /DeepSeek Desktop remained installed after acceptance cleanup/u);
+  assert.match(windowsAcceptance, /星云寻知 remained installed after acceptance cleanup/u);
   // The release list truncates titles, so the tag must be the whole title.
   assert.match(workflow, /--title "\$GITHUB_REF_NAME"/u);
   assert.doesNotMatch(workflow, /--title "\$product_name/u);
