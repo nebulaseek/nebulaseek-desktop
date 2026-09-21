@@ -6,8 +6,8 @@ import { cleanCachedCheckout } from "../lib/cached-checkout-clean.mjs";
 
 const pin = {
   repository: "https://github.com/nebulaseek/nebulaseek-harness.git",
-  ref: "a20f09c13af60a813e2832b39891298cd3114b5e",
-  commit: "a20f09c13af60a813e2832b39891298cd3114b5e"
+  ref: "ad90bbafb7b6505d3b1ce7d0d8980c49b755b12a",
+  commit: "ad90bbafb7b6505d3b1ce7d0d8980c49b755b12a"
 };
 
 test("accepts the pinned Harness repository and commit", () => {
@@ -75,8 +75,9 @@ test("selects the newest Harness SemVer tag", () => {
 test("selects a newer NebulaSeek brand tag without moving the community tag", () => {
   assert.equal(selectLatestHarnessTag([
     "dsh-v0.1.6-alpha.2",
-    "dsh-v0.1.6-alpha.2.nebulaseek.1"
-  ]), "dsh-v0.1.6-alpha.2.nebulaseek.1");
+    "dsh-v0.1.6-alpha.2.nebulaseek.1",
+    "dsh-v0.1.6-alpha.2.nebulaseek.2"
+  ]), "dsh-v0.1.6-alpha.2.nebulaseek.2");
 });
 
 test("prefers a stable release over a prerelease with the same version", () => {

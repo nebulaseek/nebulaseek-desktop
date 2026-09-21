@@ -39,8 +39,8 @@
   "harnessSource": {
     "repository": "https://github.com/nebulaseek/nebulaseek-harness.git",
     "version": "0.1.6",
-    "ref": "a20f09c13af60a813e2832b39891298cd3114b5e",
-    "commit": "a20f09c13af60a813e2832b39891298cd3114b5e"
+    "ref": "ad90bbafb7b6505d3b1ce7d0d8980c49b755b12a",
+    "commit": "ad90bbafb7b6505d3b1ce7d0d8980c49b755b12a"
   },
   "bundledPackages": {
     "pnpm": {
