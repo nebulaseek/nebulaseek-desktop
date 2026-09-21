@@ -12,7 +12,7 @@ Git Tag 可以带或不带小写 `v` 前缀，除此之外不接受预发布后�
 
 四段公开版本是窗口、关于页、更新提示、发布目录、安装包名称、Release Tag 和 `BUILD-INFO` 的唯一用户可见版本。Tauri 和原生打包格式仍有各自约束，由 `app:sync` 从公开版本派生内部值：Windows/Linux 使用 `0.1.6+1` 形式的 SemVer；macOS 使用三段 marketing version `0.1.6` 和 build number `1`。这些派生值不得作为另一套人工维护的版本源。
 
-旧 Release 与 Tag 已清理，Desktop 更新器只解析新的四段公开版本并按四个数字逐段比较，不保留旧 SemVer 发行分支。
+历史首发只以三段标签 `v0.0.0`、`v0.0.1`、`v0.0.2` 归档，其中仅 `v0.0.2` 保留原安装包 Release。Desktop 更新器忽略这些历史标签，只解析新的四段公开版本并按四个数字逐段比较，不保留旧 SemVer 发行分支。
 
 ## 原因
 
