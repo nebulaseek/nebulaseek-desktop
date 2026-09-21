@@ -183,7 +183,7 @@ export class ReleaseControllerService {
     const release = {
       id: releaseId,
       schemaVersion: 1,
-      productName: input.productName?.trim() || "星云寻知",
+      productName: input.productName?.trim() || "NebulaSeek（星云寻知）",
       version,
       tag,
       channel,

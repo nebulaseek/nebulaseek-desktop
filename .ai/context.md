@@ -2,7 +2,7 @@
 
 ## 项目定位
 
-星云寻知 Desktop 是 DeepSeek Desktop 社区版的品牌发行版。它使用 Tauri 2 管理本地 XingYunXunZhi Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
+NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。它使用 Tauri 2 管理本地 NebulaSeek Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
 
 下游只修改用户可见名称、文案、图片、公开仓库地址和锁定的品牌 Harness 来源。`deepseek.desktop`、`deepseek-desktop`、`DEEPSEEK_DESKTOP_*`、包名、crate/bin 名、IPC、数据目录和更新协议等兼容标识继续沿用社区上游，详见 ADR-029。
 
@@ -66,7 +66,7 @@
 - npm：`11.19.0`（随固定 Node 官方归档提供）
 - Rust：`1.98.0`
 - Tauri CLI：`2.11.4`
-- 当前 Harness 按 `xingyunxunzhi/xingyunxunzhi-harness` 的不可变品牌提交锁定（具体来源见工具链 lock）；该提交以 `deepseek-desktop/deepseek-harness` 社区版为代码基线。独立搜索设置直接使用 `connection.fetch.register` / `connection.fetch` 的 `/api/desktop.web-search` GET/POST 接口，旧 RPC 通道与强制 `webServer` 注入补丁已移除。
+- 当前 Harness 按 `nebulaseek/nebulaseek-harness` 的不可变品牌提交锁定（具体来源见工具链 lock）；该提交以 `deepseek-desktop/deepseek-harness` 社区版为代码基线。独立搜索设置直接使用 `connection.fetch.register` / `connection.fetch` 的 `/api/desktop.web-search` GET/POST 接口，旧 RPC 通道与强制 `webServer` 注入补丁已移除。
 - Harness 固定来源、commit 和制品校验和以 `harness/toolchain-lock.json` 为准，不在本文件重复维护。
 - 标准本地构建使用 `pnpm install --frozen-lockfile` 后执行 `pnpm run build`；`build`、`verify` 和 `test:e2e` 都会在消费当前 Harness 前完成同步，禁止把历史 `target/generated` 当作依赖安装结果。Playwright 预览只调用 `frontend:build`，避免在 60 秒服务器启动窗口内递归执行完整桌面构建。
 

@@ -45,7 +45,7 @@ function Get-InstalledEntry {
   )
   foreach ($root in $roots) {
     $entry = Get-ItemProperty -Path $root -ErrorAction SilentlyContinue |
-      Where-Object { $_.DisplayName -eq "星云寻知" } |
+      Where-Object { $_.DisplayName -eq "NebulaSeek（星云寻知）" } |
       Select-Object -First 1
     if ($null -ne $entry) {
       return $entry
@@ -315,7 +315,7 @@ try {
 
   Assert-Pe -Path $installedExecutable -AllowedMachines @(0x8664)
   $appProcess = Start-Process -FilePath $installedExecutable -PassThru
-  $expectedTitle = "星云寻知 v$ExpectedVersion"
+  $expectedTitle = "NebulaSeek（星云寻知） v$ExpectedVersion"
   $deadline = [DateTime]::UtcNow.AddSeconds(120)
   do {
     $appProcess.Refresh()

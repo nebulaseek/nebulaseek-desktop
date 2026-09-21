@@ -1,6 +1,6 @@
-# 星云寻知社区版
+# NebulaSeek（星云寻知）专版
 
-这是基于 DeepSeek Desktop 社区版、内置固定 XingYunXunZhi Harness 的星云寻知品牌发行版。
+这是由 DeepSeek Desktop 社区版维护团队推出的客户专版，内置固定的 NebulaSeek（星云寻知） Harness。专版与社区版保持同一代码基线，只替换用户可见品牌和发行入口。
 
 <!-- release-downloads -->
 

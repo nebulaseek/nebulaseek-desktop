@@ -27,17 +27,17 @@
 
 ```dotenv
 # 应用信息
-DESKTOP_APP_NAME=星云寻知
+DESKTOP_APP_NAME=NebulaSeek（星云寻知）
 DESKTOP_APP_VERSION=0.1.6.1
 DESKTOP_APP_IDENTIFIER=deepseek.desktop
 DESKTOP_APP_SLUG=deepseek-desktop
 DESKTOP_APP_DESCRIPTION=Local AI agent workspace
-DESKTOP_APP_AUTHORS=XingYunXunZhi Desktop Contributors
-DESKTOP_APP_REPOSITORY=https://github.com/xingyunxunzhi/xingyunxunzhi-desktop
+DESKTOP_APP_AUTHORS=NebulaSeek Desktop Contributors
+DESKTOP_APP_REPOSITORY=https://github.com/nebulaseek/nebulaseek-desktop
 DESKTOP_APP_ICON=src-tauri/icons/icon.png
 
 # Harness 来源
-HARNESS_REPOSITORY=https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git
+HARNESS_REPOSITORY=https://github.com/nebulaseek/nebulaseek-harness.git
 HARNESS_REF=
 
 # 可选预构建签名制品通道；留空时按 Harness 仓库准备源码候选
@@ -204,13 +204,13 @@ corepack pnpm@11.24.0 tauri:build
 {
   "schemaVersion": 1,
   "application": {
-    "productName": "星云寻知",
+    "productName": "NebulaSeek（星云寻知）",
     "version": "0.1.6.1",
     "identifier": "deepseek.desktop",
     "slug": "deepseek-desktop",
     "description": "Local AI agent workspace",
-    "authors": ["XingYunXunZhi Desktop Contributors"],
-    "repository": "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop"
+    "authors": ["NebulaSeek Desktop Contributors"],
+    "repository": "https://github.com/nebulaseek/nebulaseek-desktop"
   },
   "desktop": {
     "commit": "desktop repository commit",
@@ -225,7 +225,7 @@ corepack pnpm@11.24.0 tauri:build
     "tauriCliVersion": "2.11.4"
   },
   "harness": {
-    "repository": "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
+    "repository": "https://github.com/nebulaseek/nebulaseek-harness.git",
     "requestedRef": null,
     "resolvedRef": "dsh-v0.1.2-alpha.1",
     "commit": "resolved immutable commit",

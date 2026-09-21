@@ -37,10 +37,10 @@
     "tauriUpdater": "2.10.1"
   },
   "harnessSource": {
-    "repository": "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
+    "repository": "https://github.com/nebulaseek/nebulaseek-harness.git",
     "version": "0.1.6",
-    "ref": "1a6d23608d51472304dd03bfc288b309bf352fb4",
-    "commit": "1a6d23608d51472304dd03bfc288b309bf352fb4"
+    "ref": "a20f09c13af60a813e2832b39891298cd3114b5e",
+    "commit": "a20f09c13af60a813e2832b39891298cd3114b5e"
   },
   "bundledPackages": {
     "pnpm": {

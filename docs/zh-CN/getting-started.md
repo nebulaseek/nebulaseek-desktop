@@ -1,6 +1,6 @@
-# 星云寻知 Desktop
+# NebulaSeek（星云寻知） Desktop
 
-星云寻知 Desktop 是 DeepSeek Desktop 社区版的品牌发行版。它将 Vue 桌面 Shell、Tauri 2 原生主程序、固定版本 Node.js 和构建时锁定的 Harness 打包在一起，不依赖其他框架应用，也不要求用户预装 Node.js、pnpm 或 Rust。本项目与 DeepSeek 不存在隶属、合作或官方背书关系。
+NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。它与面向大众用户的社区版保持同一代码基线，只替换用户可见品牌，并将 Vue 桌面 Shell、Tauri 2 原生主程序、固定版本 Node.js 和构建时锁定的 Harness 打包在一起。本项目与 DeepSeek 不存在隶属、合作或官方背书关系。
 
 桌面 Shell、应用程序和安装包统一使用星云寻知云形标识；DeepSeek 模型名称和社区上游归属仍保留其真实名称。
 
@@ -11,10 +11,10 @@
 相关仓库及边界如下：
 
 - [DeepSeek Harness（官方版）](https://github.com/deepseek-ai/deepseek-harness.git) 是 DeepSeek 官方上游。
-- [DeepSeek Harness（社区版）](https://github.com/deepseek-desktop/deepseek-harness.git) 是星云寻知 Harness 跟随的社区上游。
-- [XingYunXunZhi Harness](https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git) 是本桌面版默认使用并锁定的 Harness 来源。
-- [DeepSeek Desktop（社区版）](https://github.com/deepseek-desktop/deepseek-desktop.git) 是本仓库持续同步的社区上游。
-- [XingYunXunZhi Desktop](https://github.com/xingyunxunzhi/xingyunxunzhi-desktop.git) 是当前桌面发行仓库。
+- [DeepSeek Harness（社区版）](https://github.com/deepseek-desktop/deepseek-harness.git) 是本团队维护、面向大众用户的 Harness 社区版。
+- [NebulaSeek（星云寻知） Harness](https://github.com/nebulaseek/nebulaseek-harness.git) 是本桌面专版默认使用并锁定的 Harness 来源。
+- [DeepSeek Desktop（社区版）](https://github.com/deepseek-desktop/deepseek-desktop.git) 是本团队维护、面向大众用户的 Desktop 社区版，也是专版同步的代码基线。
+- [NebulaSeek（星云寻知） Desktop](https://github.com/nebulaseek/nebulaseek-desktop.git) 是当前专版发行仓库。
 
 星云寻知发行版不代表 DeepSeek 官方发行；实际内核来源和 commit 以 Desktop 工具链 lock 为准。
 
@@ -27,7 +27,7 @@
 | Windows x64 | NSIS `.exe` | CI 原生构建；每次发布必须完成安装、启动、工作台与设置交互、关闭确认、子进程清理和卸载验收 |
 | Linux x64 | AppImage / `.deb` | CI 原生构建，等待对应发行版安装验收 |
 
-当前社区版产物名称和发布说明必须明确带有 `community` / `unsigned`；其中 macOS 的 `unsigned` 表示没有 Apple Developer ID 身份签名和公证，不代表应用 Bundle 缺少本地 ad-hoc 完整性签名。社区版不能作为已认证 Stable 版本对外宣传。
+当前专版沿用上游内部的 `community` 发布通道，并在产物名称和发布说明中明确标注 `unsigned`；其中 macOS 的 `unsigned` 表示没有 Apple Developer ID 身份签名和公证，不代表应用 Bundle 缺少本地 ad-hoc 完整性签名。专版不能作为已认证 Stable 版本对外宣传。
 
 ## 开始使用
 
@@ -117,7 +117,7 @@ macOS 默认位于 `~/Library/Application Support/deepseek.desktop/`；Windows �
 
 ## 更新与卸载
 
-桌面安装包和 Harness 使用两条独立更新链路。Desktop 启动后每天最多静默检查一次自身版本，也可从“帮助 → 检查 Desktop 更新”手动检查。社区版只读取构建时固定的 GitHub 仓库 Release 列表，按四段版本、发布时间及五个平台安装包完整性选择候选；发现新版后显示版本、时间与摘要，可选择前往 Release、稍后提醒或忽略该版本。当前社区版未签名，因此不会自动下载安装，也不会使用远端提供的任意下载地址。
+桌面安装包和 Harness 使用两条独立更新链路。Desktop 启动后每天最多静默检查一次自身版本，也可从“帮助 → 检查 Desktop 更新”手动检查。专版只读取构建时固定的 GitHub 仓库 Release 列表，按四段版本、发布时间及五个平台安装包完整性选择候选；发现新版后显示版本、时间与摘要，可选择前往 Release、稍后提醒或忽略该版本。当前专版未签名，因此不会自动下载安装，也不会使用远端提供的任意下载地址。
 
 更新摘要显示标题、列表、表格和代码块，长内容可在摘要区滚动查看；切换至备用更新源时也保留排版。点击摘要中的网页链接会使用系统浏览器打开，不会离开当前设置页；外部图片仅显示替代文字。“前往下载”仍进入官方 Release 页面，由用户确认并下载安装包。
 

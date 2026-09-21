@@ -5,14 +5,14 @@ import { selectLatestHarnessTag } from "../lib/harness-ref.mjs";
 import { cleanCachedCheckout } from "../lib/cached-checkout-clean.mjs";
 
 const pin = {
-  repository: "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
-  ref: "1a6d23608d51472304dd03bfc288b309bf352fb4",
-  commit: "1a6d23608d51472304dd03bfc288b309bf352fb4"
+  repository: "https://github.com/nebulaseek/nebulaseek-harness.git",
+  ref: "a20f09c13af60a813e2832b39891298cd3114b5e",
+  commit: "a20f09c13af60a813e2832b39891298cd3114b5e"
 };
 
 test("accepts the pinned Harness repository and commit", () => {
   assert.doesNotThrow(() => assertPinnedHarnessSource({
-    repository: "https://github.com/xingyunxunzhi/xingyunxunzhi-harness",
+    repository: "https://github.com/nebulaseek/nebulaseek-harness",
     commit: pin.commit
   }, pin));
 });
@@ -70,6 +70,13 @@ test("selects the newest Harness SemVer tag", () => {
     "dsh-v0.1.1-rc.10",
     "feature-preview"
   ]), "dsh-v0.1.1-rc.10");
+});
+
+test("selects a newer NebulaSeek brand tag without moving the community tag", () => {
+  assert.equal(selectLatestHarnessTag([
+    "dsh-v0.1.6-alpha.2",
+    "dsh-v0.1.6-alpha.2.nebulaseek.1"
+  ]), "dsh-v0.1.6-alpha.2.nebulaseek.1");
 });
 
 test("prefers a stable release over a prerelease with the same version", () => {

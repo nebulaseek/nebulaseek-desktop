@@ -2,14 +2,14 @@
   "name": "deepseek-desktop",
   "version": "0.1.6",
   "private": true,
-  "description": "XingYunXunZhi desktop distribution of the community DeepSeek Desktop",
+  "description": "NebulaSeek（星云寻知） dedicated desktop edition of the community DeepSeek Desktop",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xingyunxunzhi/xingyunxunzhi-desktop.git"
+    "url": "git+https://github.com/nebulaseek/nebulaseek-desktop.git"
   },
-  "homepage": "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop#readme",
+  "homepage": "https://github.com/nebulaseek/nebulaseek-desktop#readme",
   "bugs": {
-    "url": "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop/issues"
+    "url": "https://github.com/nebulaseek/nebulaseek-desktop/issues"
   },
   "license": "Apache-2.0",
   "type": "module",

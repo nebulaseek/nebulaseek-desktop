@@ -1,8 +1,8 @@
 [package]
 name = "deepseek-desktop"
 version = "0.1.6"
-description = "Self-contained local shell for XingYunXunZhi Desktop"
-authors = ["XingYunXunZhi Desktop Contributors"]
+description = "Self-contained local shell for NebulaSeek（星云寻知） Desktop"
+authors = ["NebulaSeek Desktop Contributors"]
 license = "Apache-2.0"
 edition = "2024"
 rust-version = "1.98"
