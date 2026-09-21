@@ -10,7 +10,7 @@
 
 Harness 默认来源使用 `xingyunxunzhi/xingyunxunzhi-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。后续发行采用 `0.1.6.<Desktop 修订号>` 四段版本。社区上游 `v0.1.6.2` 已完成四平台矩阵、资产复核、本机 ARM64 安装和真实 oMLX 验收；星云寻知发行版仍须以相同版本独立完成品牌构建与发布验收。
 
-Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memory/verification.md#官方-harness-016-alpha2-源码升级)。旧版本体系的 Release 与 Tag 已全部清理；其中的成功或失败记录只保留在验证基线中，不再作为候选或远端状态。当前公开发行版为 `v0.1.6.2`。
+Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memory/verification.md#官方-harness-016-alpha2-源码升级)。历史 `v0.0.0`、`v0.0.1`、`v0.0.2` 标签及 `v0.0.2` 预发布 Release 只作归档，不作为当前源码候选；本轮发行目标为 `v0.1.6.2`。
 
 ## 独立搜索扩展的外部验收
 

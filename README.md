@@ -5,7 +5,7 @@
 
 星云寻知 Desktop 是 DeepSeek Desktop 社区版的品牌发行版。它持续同步社区上游，只在用户可见的名称、文案和图片上使用星云寻知品牌；内部包名、环境变量、IPC、数据目录和应用标识保持上游兼容。用户无需另外安装 Node.js、pnpm、Rust 或其他框架应用。本项目与 DeepSeek 不存在隶属、合作或官方背书关系。
 
-公开版本使用四段数字：前三段对应锁定 Harness 的正式版本，第四段是 Desktop 修订号，例如 Harness `v0.1.6` 对应 Desktop `v0.1.6.1`。实际发行版本以 GitHub Releases 为准。macOS 安装包使用完整的 ad-hoc 签名，但没有 Apple Developer ID 身份和公证；Windows、Linux 社区版产物目前也没有可信发布者签名。桌面自有源码采用 Apache-2.0，内置 Harness、Node.js 和 npm 依赖保留各自许可证声明。
+后续公开版本使用四段数字：前三段对应锁定 Harness 的正式版本，第四段是 Desktop 修订号，例如 Harness `v0.1.6` 对应 Desktop `v0.1.6.1`。历史首发标签保留为 `v0.0.0`、`v0.0.1`、`v0.0.2`，其中 `v0.0.2` 是现有历史预发布版本。实际发行版本以 GitHub Releases 为准。macOS 安装包使用完整的 ad-hoc 签名，但没有 Apple Developer ID 身份和公证；Windows、Linux 社区版产物目前也没有可信发布者签名。桌面自有源码采用 Apache-2.0，内置 Harness、Node.js 和 npm 依赖保留各自许可证声明。
 
 安装包发布在 [GitHub Releases](https://github.com/xingyunxunzhi/xingyunxunzhi-desktop/releases)。安装前请使用同版本 `SHA256SUMS` 校验文件完整性。
 
