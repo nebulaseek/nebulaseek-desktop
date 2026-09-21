@@ -5,14 +5,14 @@ import { selectLatestHarnessTag } from "../lib/harness-ref.mjs";
 import { cleanCachedCheckout } from "../lib/cached-checkout-clean.mjs";
 
 const pin = {
-  repository: "https://github.com/deepseek-desktop/deepseek-harness.git",
-  ref: "ddefc45fbc7f8e46dd73185e68295696d1297887",
-  commit: "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  repository: "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
+  ref: "1a6d23608d51472304dd03bfc288b309bf352fb4",
+  commit: "1a6d23608d51472304dd03bfc288b309bf352fb4"
 };
 
 test("accepts the pinned Harness repository and commit", () => {
   assert.doesNotThrow(() => assertPinnedHarnessSource({
-    repository: "https://github.com/deepseek-desktop/deepseek-harness",
+    repository: "https://github.com/xingyunxunzhi/xingyunxunzhi-harness",
     commit: pin.commit
   }, pin));
 });

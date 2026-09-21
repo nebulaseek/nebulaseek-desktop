@@ -437,10 +437,10 @@ fn item(
 fn labels(locale: &str) -> MenuLabels {
     match locale {
         "zh-TW" => MenuLabels {
-            about: "關於 DeepSeek Desktop",
+            about: "關於星雲尋知",
             settings: "設定…",
             close_settings: "關閉設定",
-            quit: "結束 DeepSeek Desktop",
+            quit: "結束星雲尋知",
             undo: "還原",
             redo: "重做",
             cut: "剪下",
@@ -457,10 +457,10 @@ fn labels(locale: &str) -> MenuLabels {
             documentation: "使用說明",
         },
         "en-US" => MenuLabels {
-            about: "About DeepSeek Desktop",
+            about: "About XingYunXunZhi Desktop",
             settings: "Settings…",
             close_settings: "Close Settings",
-            quit: "Quit DeepSeek Desktop",
+            quit: "Quit XingYunXunZhi Desktop",
             undo: "Undo",
             redo: "Redo",
             cut: "Cut",
@@ -477,10 +477,10 @@ fn labels(locale: &str) -> MenuLabels {
             documentation: "Documentation",
         },
         _ => MenuLabels {
-            about: "关于 DeepSeek Desktop",
+            about: "关于星云寻知",
             settings: "设置…",
             close_settings: "关闭设置",
-            quit: "退出 DeepSeek Desktop",
+            quit: "退出星云寻知",
             undo: "撤销",
             redo: "重做",
             cut: "剪切",
@@ -502,19 +502,19 @@ fn labels(locale: &str) -> MenuLabels {
 pub(crate) fn close_confirmation_labels(locale: &str) -> CloseConfirmationLabels {
     match locale {
         "zh-TW" => CloseConfirmationLabels {
-            title: "關閉 DeepSeek Desktop？",
+            title: "關閉星雲尋知？",
             message: "關閉視窗將停止目前執行中的任務。確定要關閉嗎？",
             confirm: "關閉",
             cancel: "取消",
         },
         "en-US" => CloseConfirmationLabels {
-            title: "Close DeepSeek Desktop?",
+            title: "Close XingYunXunZhi Desktop?",
             message: "Closing the window stops tasks that are still running. Are you sure?",
             confirm: "Close",
             cancel: "Cancel",
         },
         _ => CloseConfirmationLabels {
-            title: "关闭 DeepSeek Desktop？",
+            title: "关闭星云寻知？",
             message: "关闭窗口将停止当前仍在运行的任务。确定要关闭吗？",
             confirm: "关闭",
             cancel: "取消",

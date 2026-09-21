@@ -30,7 +30,7 @@ test("uses built-in defaults without an env file", async () => {
   assert.equal(config.bundleVersion, "0.1.6+2");
   assert.equal(config.displayVersion, `v${DEFAULT_CONFIG.DESKTOP_APP_VERSION}`);
   assert.equal(config.windowTitle, `${DEFAULT_CONFIG.DESKTOP_APP_NAME} v${DEFAULT_CONFIG.DESKTOP_APP_VERSION}`);
-  assert.equal(config.repository, "https://github.com/deepseek-desktop/deepseek-desktop");
+  assert.equal(config.repository, "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop");
   assert.equal(config.harness.repository, DEFAULT_CONFIG.HARNESS_REPOSITORY);
   assert.equal(config.harness.ref, "");
   assert.deepEqual(config.harnessUpdate, {

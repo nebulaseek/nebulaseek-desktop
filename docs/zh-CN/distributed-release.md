@@ -1,6 +1,6 @@
 # GitHub Actions 多平台发布
 
-DeepSeek Desktop 的正式发布统一使用 GitHub Actions 官方托管 Runner 原生构建。开发者不需要在一台电脑上安装四套操作系统、虚拟机、Rosetta 或 Docker，也不使用自托管 Runner 执行公开 Pull Request 代码。
+星云寻知的正式发布统一使用 GitHub Actions 官方托管 Runner 原生构建。开发者不需要在一台电脑上安装四套操作系统、虚拟机、Rosetta 或 Docker，也不使用自托管 Runner 执行公开 Pull Request 代码。
 
 ## 唯一发布链路
 
@@ -56,7 +56,7 @@ v0.1.6.2
 创建新的 annotated Tag 后推送：
 
 ```bash
-git tag -a v0.1.6.1 -m "DeepSeek Desktop v0.1.6.1"
+git tag -a v0.1.6.1 -m "星云寻知 v0.1.6.1"
 git push origin master
 git push origin v0.1.6.1
 ```

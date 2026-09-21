@@ -1,6 +1,6 @@
-# DeepSeek Desktop 社区版
+# 星云寻知社区版
 
-这是内置固定版本本地 Harness 的独立、非官方社区发行版。
+这是基于 DeepSeek Desktop 社区版、内置固定 XingYunXunZhi Harness 的星云寻知品牌发行版。
 
 <!-- release-downloads -->
 

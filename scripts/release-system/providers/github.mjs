@@ -37,7 +37,7 @@ export async function publishGitHub({ release, stagingDirectory, options }) {
     "release", "create", release.tag, ...assets,
     "--repo", repository,
     "--title", `${release.productName} ${release.version}`,
-    "--notes", options.notes || "由 DeepSeek Desktop 分布式本地发布系统生成。",
+    "--notes", options.notes || "由星云寻知分布式本地发布系统生成。",
     "--verify-tag"
   ];
   if (release.channel !== "stable") args.push("--prerelease");

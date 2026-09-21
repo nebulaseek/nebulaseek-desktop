@@ -26,15 +26,15 @@ export const CONFIG_KEYS = Object.freeze([
 ]);
 
 export const DEFAULT_CONFIG = Object.freeze({
-  DESKTOP_APP_NAME: "DeepSeek Desktop",
+  DESKTOP_APP_NAME: "星云寻知",
   DESKTOP_APP_VERSION: "0.1.6.2",
   DESKTOP_APP_IDENTIFIER: "deepseek.desktop",
   DESKTOP_APP_SLUG: "deepseek-desktop",
   DESKTOP_APP_DESCRIPTION: "Local AI agent workspace",
-  DESKTOP_APP_AUTHORS: "DeepSeek Desktop Contributors",
-  DESKTOP_APP_REPOSITORY: "",
+  DESKTOP_APP_AUTHORS: "XingYunXunZhi Desktop Contributors",
+  DESKTOP_APP_REPOSITORY: "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop",
   DESKTOP_APP_ICON: "src-tauri/icons/icon.png",
-  HARNESS_REPOSITORY: "https://github.com/deepseek-desktop/deepseek-harness.git",
+  HARNESS_REPOSITORY: "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
   HARNESS_REF: "",
   HARNESS_UPDATE_MANIFEST_URL: "",
   HARNESS_UPDATE_CHANNEL: "stable",
@@ -200,7 +200,7 @@ export async function resolveDesktopRepository(root, configured, environment = {
     const repository = typeof manifest.repository === "string" ? manifest.repository : manifest.repository?.url;
     if (repository) return normalizePublicRepository(repository);
   } catch {}
-  return "https://github.com/deepseek-desktop/deepseek-desktop";
+  return "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop";
 }
 
 export function resolveBuildValues({ fileValues = {}, environment = {} } = {}) {

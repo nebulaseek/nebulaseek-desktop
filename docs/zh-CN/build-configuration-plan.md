@@ -12,7 +12,7 @@
 命令行环境变量 > 项目根目录 .env > 内置默认值
 ```
 
-项目没有 `.env` 时，构建结果必须与当前 DeepSeek Desktop 默认发行版保持一致。`.env` 只在开发和构建阶段读取，不得复制进 Harness、安装包、诊断包或发布产物。
+项目没有 `.env` 时，构建结果必须与当前星云寻知默认发行版保持一致。`.env` 只在开发和构建阶段读取，不得复制进 Harness、安装包、诊断包或发布产物。
 
 ## 已完成治理
 
@@ -27,17 +27,17 @@
 
 ```dotenv
 # 应用信息
-DESKTOP_APP_NAME=DeepSeek Desktop
+DESKTOP_APP_NAME=星云寻知
 DESKTOP_APP_VERSION=0.1.6.1
 DESKTOP_APP_IDENTIFIER=deepseek.desktop
 DESKTOP_APP_SLUG=deepseek-desktop
 DESKTOP_APP_DESCRIPTION=Local AI agent workspace
-DESKTOP_APP_AUTHORS=DeepSeek Desktop Contributors
-DESKTOP_APP_REPOSITORY=
+DESKTOP_APP_AUTHORS=XingYunXunZhi Desktop Contributors
+DESKTOP_APP_REPOSITORY=https://github.com/xingyunxunzhi/xingyunxunzhi-desktop
 DESKTOP_APP_ICON=src-tauri/icons/icon.png
 
 # Harness 来源
-HARNESS_REPOSITORY=https://github.com/deepseek-desktop/deepseek-harness.git
+HARNESS_REPOSITORY=https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git
 HARNESS_REF=
 
 # 可选预构建签名制品通道；留空时按 Harness 仓库准备源码候选
@@ -48,7 +48,7 @@ HARNESS_UPDATE_PUBLISHER=deepseek-desktop
 HARNESS_UPDATE_PUBLIC_KEY=
 ```
 
-内置默认值与上述示例保持一致，但不能通过读取 `.env.example` 获得默认值；默认值应由统一配置加载器持有，确保删除 `.env` 和 `.env.example` 后仍能正常开发、测试和打包。`DESKTOP_APP_REPOSITORY` 留空时，GitHub Actions 使用当前工作流仓库地址，本地开发读取公开的 Git `origin`；若 `origin` 只是本机路径，则继续读取 `package.json` 或项目内置仓库地址。`HARNESS_REF` 留空时，本地开发自动选择 Harness 仓库中最新的 SemVer 版本标签，社区版和正式发布则必须匹配 `harness/toolchain-lock.json` 中经过审计的固定仓库与 commit。
+内置默认值与上述示例保持一致，但不能通过读取 `.env.example` 获得默认值；默认值应由统一配置加载器持有，确保删除 `.env` 和 `.env.example` 后仍能正常开发、测试和打包。`DESKTOP_APP_REPOSITORY` 可以通过环境变量或 `.env` 覆盖；显式留空时仍按 GitHub Actions 元数据、公开 Git `origin`、`package.json` 和项目内置地址的顺序解析。`HARNESS_REF` 留空时，本地开发自动选择 Harness 仓库中最新的 SemVer 版本标签，社区版和正式发布则必须匹配 `harness/toolchain-lock.json` 中经过审计的固定仓库与 commit。
 
 `.env` 解析优先使用 Node.js 24 标准能力，不为简单键值配置新增 dotenv 运行依赖。配置加载器只读取已声明变量，忽略宿主环境中的无关变量，并对未知的 `DESKTOP_APP_*`、`HARNESS_*` 变量给出明确错误，防止拼写错误被静默忽略。
 
@@ -204,13 +204,13 @@ corepack pnpm@11.24.0 tauri:build
 {
   "schemaVersion": 1,
   "application": {
-    "productName": "DeepSeek Desktop",
+    "productName": "星云寻知",
     "version": "0.1.6.1",
     "identifier": "deepseek.desktop",
     "slug": "deepseek-desktop",
     "description": "Local AI agent workspace",
-    "authors": ["DeepSeek Desktop Contributors"],
-    "repository": "https://github.com/deepseek-desktop/deepseek-desktop"
+    "authors": ["XingYunXunZhi Desktop Contributors"],
+    "repository": "https://github.com/xingyunxunzhi/xingyunxunzhi-desktop"
   },
   "desktop": {
     "commit": "desktop repository commit",
@@ -225,7 +225,7 @@ corepack pnpm@11.24.0 tauri:build
     "tauriCliVersion": "2.11.4"
   },
   "harness": {
-    "repository": "https://github.com/deepseek-desktop/deepseek-harness.git",
+    "repository": "https://github.com/xingyunxunzhi/xingyunxunzhi-harness.git",
     "requestedRef": null,
     "resolvedRef": "dsh-v0.1.2-alpha.1",
     "commit": "resolved immutable commit",
@@ -281,7 +281,7 @@ corepack pnpm@11.24.0 tauri:build
 ## 完成标准
 
 - 开发者只修改可选 `.env` 和一张源图即可生成定制安装包。
-- 删除 `.env` 后能够构建与当前默认值一致的 DeepSeek Desktop。
+- 删除 `.env` 后能够构建与当前默认值一致的星云寻知。
 - `desktop:package` 自动完成配置解析、Harness 锁定、验证和当前平台打包。
 - `package:community` 复用同一打包实现并增加社区发行门禁，不形成重复流水线。
 - 应用名称、版本和图标不再要求修改业务源码。

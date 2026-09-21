@@ -8,7 +8,7 @@
 
 当前发布及已解决门禁见 [验证基线](memory/verification.md#当前发布验收)；本文件只列未验证范围与外部条件，不再保留旧失败版本为待发布候选。F01–F24 各自的实测、Mock 和平台边界以 [审计修复验收](memory/audit-remediation.md) 为准，不能用发行成功统一标记全平台全功能通过。
 
-Harness 默认来源已切换到 `deepseek-desktop/deepseek-harness`，后续发行采用 `0.1.6.<Desktop 修订号>` 四段版本。当前 `v0.1.6.2` 已完成 GitHub 四平台 Tag 矩阵、全部公开资产下载重算、本机 ARM64 正式发布包安装及真实 oMLX 验收。
+Harness 默认来源使用 `xingyunxunzhi/xingyunxunzhi-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。后续发行采用 `0.1.6.<Desktop 修订号>` 四段版本。社区上游 `v0.1.6.2` 已完成四平台矩阵、资产复核、本机 ARM64 安装和真实 oMLX 验收；星云寻知发行版仍须以相同版本独立完成品牌构建与发布验收。
 
 Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memory/verification.md#官方-harness-016-alpha2-源码升级)。旧版本体系的 Release 与 Tag 已全部清理；其中的成功或失败记录只保留在验证基线中，不再作为候选或远端状态。当前公开发行版为 `v0.1.6.2`。
 
