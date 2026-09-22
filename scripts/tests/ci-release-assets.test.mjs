@@ -5,7 +5,7 @@ import { basename, join } from "node:path";
 import { tmpdir } from "node:os";
 import { test } from "node:test";
 
-import { prepareCiReleaseAssets } from "../prepare-ci-release-assets.mjs";
+import { prepareCiReleaseAssets, publicArtifactProductName } from "../prepare-ci-release-assets.mjs";
 
 const version = "0.1.6.1";
 const commit = "0123456789abcdef0123456789abcdef01234567";
@@ -29,6 +29,11 @@ const targets = new Map([
 function hash(value) {
   return createHash("sha256").update(value).digest("hex");
 }
+
+test("public artifacts omit the bilingual display suffix", () => {
+  assert.equal(publicArtifactProductName("NebulaSeek（星云寻知）"), "NebulaSeek");
+  assert.equal(publicArtifactProductName("DeepSeek Desktop"), "DeepSeek.Desktop");
+});
 
 async function fixture(root, mutate = value => value) {
   for (const [target, installerNames] of targets) {
