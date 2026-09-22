@@ -18,7 +18,7 @@ const appConfig = JSON.parse(
 
 const releaseChannelLabel = {
   local: "Local build",
-  community: "Community",
+  community: "Dedicated edition",
   stable: "Stable"
 } as const;
 
