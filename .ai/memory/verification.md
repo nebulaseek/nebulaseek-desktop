@@ -1,5 +1,13 @@
 # 验证基线
 
+## NebulaSeek 名称规范与社区文档同步（未重新发布）
+
+- 两个专版仓库当前跟踪文本均无旧拼音组织名。应用标题、三语原生菜单、Harness 字标、浏览器元数据和安装器统一显示 `NebulaSeek`；项目介绍明确官方、社区与专版的五仓库关系，中文名称仅用于解释品牌。内部兼容标识和核心行为不变。
+- Desktop 合入社区 `5f40d53d4308d796649d90834011b723ea62e0a9`，采用安装导向 README、贡献指南与发布正文下载表格；专版下载地址、来源锁和渠道保持独立。`docs/releases/0.1.6.3.md` 与线上正文原样一致，六个资产链接逐项匹配；未导入社区版本正文作为专版历史。43 个本地文档链接及锚点通过检查。
+- 新源码固定 NebulaSeek Harness `1334a5f573105c6550bda0a3f694b18b225d9f10`；版本号、线上 Release、Tag、安装包与本机已安装应用均未改变，已发布包仍保留当时的双语显示名。
+- Harness 品牌相关单元测试、CLI 帮助快照、浏览器入门流程与 PWA manifest、`build:official`、文档一致性、网站构建、lint 和推送 typecheck 通过。较宽的 Electron `main-startup.spec.ts` 有 15 项失败；将该测试及相关启动/语言文件临时恢复到修改前 HEAD 后，首个失败仍为 `desktop policy: invalid installed client identity`。本次未扩大范围修改启动策略；品牌相关的 About/菜单 5 项聚焦回归通过。这不影响下述 Tauri Desktop 验证，也不代表 Electron 全套测试通过。
+- Desktop `app:sync --check`、`harness:sync --check` 与完整 `verify` 通过：136 项配置/发行、33 项前端、45 项搜索、113 项 Rust、三语 155 个 key、Harness 装配/manifest 与 Clippy；两项需显式联网的 Rust 测试默认忽略。`release:smoke` 26 项、Chromium/WebKit 的 6 项 E2E 与真实 Harness smoke 通过；设置持久化/恢复、小窗布局、父进程退出清理和完整启停均正常。
+
 ## NebulaSeek v0.1.6.3 发布验收
 
 2026-09-22：专版 [v0.1.6.3](https://github.com/nebulaseek/nebulaseek-desktop/releases/tag/v0.1.6.3) 已发布。远端 annotated Tag 对象 `920a028c2107755e5d5d3723b59f878403315b97` 指向 commit `54290252725a5733a090b3bf989b3db133e3c689`，与 GitHub Actions Run `35671763519` 的构建源码一致。`v0.1.6.2` 因旧 E2E 夹具错误失败，按不可变 Tag 规则保留且没有 Release。

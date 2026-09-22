@@ -1,19 +1,17 @@
-# NebulaSeek 专版
-
-这是由 DeepSeek Desktop 社区版维护团队推出的客户专版，内置固定的 NebulaSeek Harness。专版与社区版保持同一代码基线，只替换用户可见品牌和发行入口。
+NebulaSeek Desktop 客户专版，由 DeepSeek Desktop 社区版维护团队开发，内置锁定版本的 NebulaSeek Harness，可直接安装使用。
 
 <!-- release-downloads -->
 
 <!-- release-changes -->
 
-Node `24.20.0` / pnpm `11.24.0` / npm `11.19.0` 保持锁定。此更新需要新版 Desktop 外壳；Harness 候选通过构建、闭包校验和真实启动检查后才会切换，失败保留当前版本。
+## 升级说明
 
-## 下载选择
+退出 NebulaSeek 后，下载对应系统和架构的安装包进行更新。保留现有应用数据目录，即可继续使用原有模型配置、插件和会话。
 
-- **macOS Apple 芯片：** `*_aarch64.dmg`
-- **macOS Intel：** `*_x64.dmg`
-- **Windows x64：** `*_x64-setup.exe`
-- **Linux x64：** `.AppImage` 便携包或 `.deb` 安装包
-- **完整性校验：** 安装前使用 `SHA256SUMS` 校验安装包
+Desktop 外壳与 Harness 独立更新：本页安装包更新桌面应用；设置中的 Harness 更新只切换内核。涉及额外操作或兼容性变化时，以本版“更新内容”为准。
 
-当前专版未使用 Apple Developer ID、Apple 公证或 Windows 可信发布者证书，Desktop 安装包自动更新保持关闭；Harness 独立更新不受此限制。本版本标记为专版预发布，不占据 Latest。安装说明和平台实测边界请查看仓库文档。
+## 验证与限制
+
+- 发行流程要求质量检查与四个平台原生构建全部通过，并核对五个安装包及统一 SHA-256 清单；具体实机验证以对应版本记录为准。
+- macOS 安装包有 ad-hoc 完整性签名，尚无 Apple Developer ID 签名和公证；Windows 尚无 Authenticode 签名，Linux 安装包未提供可信发布者签名。
+- 本版标记为专版预发布，不占据 Latest。Desktop 仅提供新版提醒和下载入口，不自动下载安装包；Harness 独立更新沿用自己的验证流程。

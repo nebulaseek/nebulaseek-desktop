@@ -1,9 +1,15 @@
 # 更新日志
 
-DeepSeek Desktop 的重要变化记录如下。
+NebulaSeek Desktop 的专版变化记录在前；`0.1.6.2` 及更早条目保留 DeepSeek Desktop 社区上游历史，不代表专版发行或专版实机验收。
 
 ## 未发布
 
+- 重整 README 的安装与使用入口，将开发细节集中到贡献指南；发布说明使用按平台排列的下载表格，补齐升级说明、验证范围与版本正文归档。
+- 应用显示名称统一为 `NebulaSeek`，项目说明使用 `NebulaSeek Harness` / `NebulaSeek Desktop`，中文名称“星云寻知”仅用于品牌关系介绍。本次不重新发布安装包。
+
+## NebulaSeek 0.1.6.3 - 2026-09-22
+
+- 专版发布五个 `NebulaSeek_*` 安装包与 `SHA256SUMS`；当时应用内仍使用双语名称，内核固定为 `ad90bbafb7b6505d3b1ce7d0d8980c49b755b12a`。版本说明见 [归档](docs/releases/0.1.6.3.md)。
 - 首次使用新 Harness commit 时，通过当前内核的官方 CLI 自动安装或更新 DSH Market；明确使用 `dshmarket@latest`，避免已有固定版本被保留。同步成功后普通重启不再重复安装，失败会提示并允许重试。
 - 精简自有测试：删除实验性发布编排回归及上游 CSS 模拟页面测试，合并版本、频道和内核来源测试；保留正式发布、凭据、依赖闭包、更新恢复及真实插件集成检查。
 - `verify` 先同步 Harness 再运行语言桥测试，确保清理依赖后的首次验证不会因缺少 `yaml` 失败。

@@ -2,11 +2,15 @@
 
 ## 项目定位
 
-NebulaSeek Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。它使用 Tauri 2 管理本地 NebulaSeek Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
+NebulaSeek Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。应用显示名称统一为 `NebulaSeek`，中文名仅用于品牌关系介绍。它使用 Tauri 2 管理本地 NebulaSeek Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
 
 下游只修改用户可见名称、文案、图片、公开仓库地址和锁定的品牌 Harness 来源。`deepseek.desktop`、`deepseek-desktop`、`DEEPSEEK_DESKTOP_*`、包名、crate/bin 名、IPC、数据目录和更新协议等兼容标识继续沿用社区上游，详见 ADR-029。
 
 本仓库是独立 Git 仓库，不得从其他仓库接管、暂存或提交本仓库文件。生成的上游 Harness 检出只是临时构建输入，不作为相邻源码仓库管理。
+
+社区仓库的代码与文档只介绍官方 Harness 上游、社区 Harness 和社区 Desktop；下游专版的品牌与版本关系由下游仓库自行维护，不反向加入社区项目。
+
+README 面向安装与使用，开发、构建和架构细节集中到 `CONTRIBUTING.md`，macOS 首次打开步骤放在使用指南。发布说明格式与历史正文归档见 `docs/releases/README.md`；生成器仍从 CHANGELOG 的“未发布”段提取变化，不在模板硬编码历史版本事实。
 
 ## 当前边界
 
