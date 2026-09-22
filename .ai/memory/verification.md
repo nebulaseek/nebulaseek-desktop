@@ -1,18 +1,39 @@
 # 验证基线
 
-## WebKit 模型菜单点击修复（未重新发布）
+## NebulaSeek v0.1.6.4 发布验收
+
+2026-09-22：[v0.1.6.4](https://github.com/nebulaseek/nebulaseek-desktop/releases/tag/v0.1.6.4) 已发布，Release `393520015`，`draft=false`、`prerelease=true`，不占 Latest。Tag 对象 `5bcb39846689fba4c8425c5295e5a3c13bf5aa13` 指向 `624b6c2494d5b3f63974bb5267194642e2805730`；内置专版 Harness 为 `0096f4a28fe7fb3a1cac44fc2b8761dbdd691b97`，实际 CLI `0.1.6-alpha.2`。
+
+- 本次按用户“专版先正常打包出来，因为急用”及“按照这个对应版本发布就行”的明确要求交付既有 `0.1.6.4` 制品。此前使用 `v0.1.6.3` 发布页、保留包内 `0.1.6.4` 的方案未执行；旧 `v0.1.6.3` Release、Tag 和安装包未变。后续 RC 适配单独进行，不将 alpha 内核改版本号冒充 RC。
+- [Run 35688368374](https://github.com/nebulaseek/nebulaseek-desktop/actions/runs/35688368374)：质量检查成功，Linux/Windows/macOS ARM64 Job 成功；Intel `package:community` 步骤成功，6 项 E2E、113 项 Rust（2 项显式联网忽略）及 Harness smoke/打包完成。Intel 日志在 07:00:10Z 记录 artifact `10681560906` 上传及 finalized 成功，随后收到取消。Intel Job 与汇总 Job 的最终状态是 cancelled，不能记为整轮全绿。
+- 恢复发布复用上述 Run 的四份原始 artifact，不触发新构建、不混用旧包。四份 ZIP 全部实际下载并与 GitHub artifact digest 一致；现有 `prepare-ci-release-assets.mjs` 通过四份 BUILD-INFO 的源码、版本、来源、工具链、交付扫描及各平台 SHA256SUMS 门禁，生成恰好五个安装包和统一校验文件。上传后六个资产的大小与 GitHub digest 均匹配本地实际字节。公开后再次从 Release 下载全部六个文件，实算 SHA-256 同时匹配 GitHub digest、公开 SHA256SUMS 与 CI 原制品；ARM64 DMG 与先行安装验收的候选字节一致。
+- 本次本地完整打包基于 `9c0f427`，配置 137、前端 33、搜索 45、Rust 113（2 ignored）、三语 156 key、6 项 E2E 和真实 Harness smoke 通过。最终 `624b6c2` 只追加签名清单维护工具的 SemVer 校验与回归，6 项聚焦清单测试及 26 项 release smoke 通过；发行安装包来自最终提交的 CI。
+- 同一 CI ARM64 DMG 已安装验证：应用名 `NebulaSeek.app`，标题 `NebulaSeek v0.1.6.4`，实际 Node/CLI 来自安装包，Harness 仅监听 loopback，未认证请求 401；oMLX Qwen3.8 27B Medium 真实回复 `NEBULASEEK_V0164_20260922_OK`，退出后主进程、Harness 和监听端口均释放。该证据与真实 Harness 页面 WebKit 模型菜单回归分开记录；原生鼠标菜单自动化未取得可靠观测，未宣称该项通过。
+- Intel DMG 的磁盘映像校验、严格深层 ad-hoc 签名验证通过，主程序和随包 Node 为 x86_64，内部平台版本 `0.1.6` / build `4`；未在 Intel 真机人工启动。Windows 本轮 Runner 已实际安装并通过工作台、设置、退出和卸载验收；不能扩大为所有路径长度、外部 Provider 或 Linux 人工 GUI 已验收。
+- macOS 无 Apple Developer ID/公证，Windows 无 Authenticode；均保持未签名专版预发布说明。
+
+| 文件 | 字节数 | SHA-256 |
+| --- | ---: | --- |
+| `NebulaSeek_0.1.6.4_aarch64.dmg` | 405,107,822 | `05ce6bfa8584fe9d8062096832f2e17214e404dcdfc78f1722024d84c2e20e4a` |
+| `NebulaSeek_0.1.6.4_amd64.AppImage` | 233,937,400 | `f37402f238844d2ea24ada480d0663f14a755ea7c9ac0d669f7ade7f058903e6` |
+| `NebulaSeek_0.1.6.4_amd64.deb` | 172,126,514 | `e9fcc88e0555c9940b8f5fd38164649130d1cb035cd04d23b20de8f1bf0185de` |
+| `NebulaSeek_0.1.6.4_x64-setup.exe` | 139,708,088 | `4051179823e9db5ccf7eb955c357be06cad445e225b76bc639d35c3573874bcc` |
+| `NebulaSeek_0.1.6.4_x64.dmg` | 364,278,453 | `b33f9bb9eef8c33b00513636313ecc9d97da92a5e2a725395edd60ee925d0b95` |
+| `SHA256SUMS` | 484 | `6fbf6fa86e7707b12fbac97c3909b159d2cd638cf47d6ec33d85b2aae2e95637` |
+
+## WebKit 模型菜单点击修复（已随 v0.1.6.4 交付）
 
 - macOS 视频中的模型菜单可展开，但点击其他选项不生效。使用真实暂存 Harness 与隔离 profile 对照：旧版 Chromium 点击成功；WebKit 在 `mousedown` 后把已选行焦点移到页面，`relatedTarget=null` 触发菜单卸载，因此收不到选项的 `click`。旧版用方向键选择后按 Enter 可绕过。
 - 修复由社区 Harness `303d39dab4a88bcd957221d88b663e72e03bf7ee` 提供，专版合入为 `0096f4a28fe7fb3a1cac44fc2b8761dbdd691b97`；Desktop 工具链 lock 已指向该专版提交。仅在鼠标主键按下时显式聚焦可用菜单按钮并阻止默认失焦，保留键盘、外部失焦关闭和模型选择协议；专版未增加独有的模型逻辑。
 - 新增 owner 回归在修复前因选择回调未调用而失败，修复后该包 39 项测试通过；文档门禁、lint 和两仓库推送 typecheck 通过。
 - 固定新提交构建后，真实暂存 Harness 页面在 Chromium 与 macOS 上的 Playwright WebKit 中通过鼠标模型切换、推理等级切换、刷新保持、方向键加 Enter 选择及 Escape 关闭，页面无未捕获错误，父进程消亡清理通过。刷新前等待网络请求完成，避免将页面卸载取消请求误记为选择失败；重新加载后的首次配置提示按正常按钮关闭。此证据不是原生安装包或真实供应商调用验收。
-- Desktop 完整 `verify` 通过，包括配置、前端、三语、Harness 装配与 manifest、搜索扩展、Rust 和 Clippy；`harness:sync --check`、26 项 `release:smoke`、6 项 `test:e2e` 与真实 `harness:smoke` 均通过。既有 `v0.1.6.3` Tag、Release、安装包及已安装应用未改变；用户可通过 Harness 独立更新准备新提交并在重启后切换。
+- Desktop 完整 `verify` 通过，包括配置、前端、三语、Harness 装配与 manifest、搜索扩展、Rust 和 Clippy；`harness:sync --check`、26 项 `release:smoke`、6 项 `test:e2e` 与真实 `harness:smoke` 均通过。上述源码验证时尚未重新发行；修复现已随 `v0.1.6.4` 安装包交付，旧 `v0.1.6.3` Tag、Release 和安装包保持不变。
 
-## NebulaSeek 名称规范与社区文档同步（未重新发布）
+## NebulaSeek 名称规范与社区文档同步（源码阶段记录）
 
 - 两个专版仓库当前跟踪文本均无旧拼音组织名。应用标题、三语原生菜单、Harness 字标、浏览器元数据和安装器统一显示 `NebulaSeek`；项目介绍明确官方、社区与专版的五仓库关系，中文名称仅用于解释品牌。内部兼容标识和核心行为不变。
 - Desktop 合入社区 `5f40d53d4308d796649d90834011b723ea62e0a9`，采用安装导向 README、贡献指南与发布正文下载表格；专版下载地址、来源锁和渠道保持独立。`docs/releases/0.1.6.3.md` 与线上正文原样一致，六个资产链接逐项匹配；未导入社区版本正文作为专版历史。43 个本地文档链接及锚点通过检查。
-- 新源码固定 NebulaSeek Harness `1334a5f573105c6550bda0a3f694b18b225d9f10`；版本号、线上 Release、Tag、安装包与本机已安装应用均未改变，已发布包仍保留当时的双语显示名。
+- 当时源码固定 NebulaSeek Harness `1334a5f573105c6550bda0a3f694b18b225d9f10`；版本号、线上 Release、Tag、安装包与本机已安装应用均未改变，已发布包仍保留当时的双语显示名。
 - Harness 品牌相关单元测试、CLI 帮助快照、浏览器入门流程与 PWA manifest、`build:official`、文档一致性、网站构建、lint 和推送 typecheck 通过。较宽的 Electron `main-startup.spec.ts` 有 15 项失败；将该测试及相关启动/语言文件临时恢复到修改前 HEAD 后，首个失败仍为 `desktop policy: invalid installed client identity`。本次未扩大范围修改启动策略；品牌相关的 About/菜单 5 项聚焦回归通过。这不影响下述 Tauri Desktop 验证，也不代表 Electron 全套测试通过。
 - Desktop `app:sync --check`、`harness:sync --check` 与完整 `verify` 通过：136 项配置/发行、33 项前端、45 项搜索、113 项 Rust、三语 155 个 key、Harness 装配/manifest 与 Clippy；两项需显式联网的 Rust 测试默认忽略。`release:smoke` 26 项、Chromium/WebKit 的 6 项 E2E 与真实 Harness smoke 通过；设置持久化/恢复、小窗布局、父进程退出清理和完整启停均正常。
 

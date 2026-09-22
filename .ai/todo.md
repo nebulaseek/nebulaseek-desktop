@@ -2,9 +2,9 @@
 
 ## 验收范围
 
-当前发布及已解决门禁见 [验证基线](memory/verification.md#nebulaseek-v0163-发布验收)；本文件只列未验证范围与外部条件，不再保留旧失败版本为待发布候选。F01–F24 各自的实测、Mock 和平台边界以 [审计修复验收](memory/audit-remediation.md) 为准，不能用发行成功统一标记全平台全功能通过。
+当前发布及已解决门禁见 [验证基线](memory/verification.md#nebulaseek-v0164-发布验收)；本文件只列未验证范围与外部条件，不再保留旧失败版本为待发布候选。F01–F24 各自的实测、Mock 和平台边界以 [审计修复验收](memory/audit-remediation.md) 为准，不能用发行成功统一标记全平台全功能通过。
 
-Harness 默认来源使用 `nebulaseek/nebulaseek-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。专版 `v0.1.6.3` 已完成四平台构建、资产复核与本机 ARM64 安装验收；后续发行继续采用 `0.1.6.<Desktop 修订号>` 四段版本。
+Harness 默认来源使用 `nebulaseek/nebulaseek-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。专版 `v0.1.6.4` 按急用要求先交付现有四平台包；后续跟随社区 RC 基线重新适配品牌层及打包过滤，不把当前 alpha 内核改号当成 RC。版本前三段继续取实际锁定 Harness 的基础版本。
 
 Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memory/verification.md#官方-harness-016-alpha2-源码升级)。历史 `v0.0.0`、`v0.0.1`、`v0.0.2` 标签及 `v0.0.2` 预发布 Release 只作归档；失败 Tag `v0.1.6.2` 保持不可变且没有 Release。
 
@@ -27,7 +27,7 @@ Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memor
 
 ## 平台验证
 
-- Windows 安装长路径回归：用户提供的双语名称安装器在深层 OpenTelemetry 文件写入处失败，截图路径约 260 个字符；短安装目录是当前排查/绕过方法，尚未在用户机器复验。现有 Runner 默认安装成功不覆盖更长用户目录或关闭长路径支持的机器；下次发行前应验证此组合，不能仅凭源码缩短产品名宣称已全面修复。
+- Windows 安装长路径回归：用户提供的双语名称安装器在深层 OpenTelemetry 文件写入处失败，截图路径约 260 个字符；短安装目录是当前排查/绕过方法，尚未在用户机器复验。现有 Runner 默认安装成功不覆盖更长用户目录或关闭长路径支持的机器；仍需验证此组合，不能仅凭源码缩短产品名宣称已全面修复。
 
 以下是四平台原生 Runner 的现有 `package:community` 自动门禁，后续发行仍须实际运行成功；当前成功证据见验证基线：
 
