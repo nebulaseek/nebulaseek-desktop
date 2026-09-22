@@ -1,16 +1,12 @@
 # 活跃待办
 
-## Harness 与市场联动的发行验收
-
-- 已在隔离 profile 验证当前同步代码的安装、升级与 Harness 服务启动；尚未打包发布新 Desktop，也未替换本机已安装的 `0.1.6.2`。Windows/Linux 的联动更新仍需随下一次正式发行验证。
-
 ## 验收范围
 
-当前发布及已解决门禁见 [验证基线](memory/verification.md#当前发布验收)；本文件只列未验证范围与外部条件，不再保留旧失败版本为待发布候选。F01–F24 各自的实测、Mock 和平台边界以 [审计修复验收](memory/audit-remediation.md) 为准，不能用发行成功统一标记全平台全功能通过。
+当前发布及已解决门禁见 [验证基线](memory/verification.md#nebulaseek-v0163-发布验收)；本文件只列未验证范围与外部条件，不再保留旧失败版本为待发布候选。F01–F24 各自的实测、Mock 和平台边界以 [审计修复验收](memory/audit-remediation.md) 为准，不能用发行成功统一标记全平台全功能通过。
 
-Harness 默认来源使用 `nebulaseek/nebulaseek-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。后续发行采用 `0.1.6.<Desktop 修订号>` 四段版本。社区上游 `v0.1.6.2` 已完成四平台矩阵、资产复核、本机 ARM64 安装和真实 oMLX 验收；NebulaSeek（星云寻知）专版仍须以相同版本独立完成品牌构建与发布验收。
+Harness 默认来源使用 `nebulaseek/nebulaseek-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。专版 `v0.1.6.3` 已完成四平台构建、资产复核与本机 ARM64 安装验收；后续发行继续采用 `0.1.6.<Desktop 修订号>` 四段版本。
 
-Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memory/verification.md#官方-harness-016-alpha2-源码升级)。历史 `v0.0.0`、`v0.0.1`、`v0.0.2` 标签及 `v0.0.2` 预发布 Release 只作归档，不作为当前源码候选；本轮发行目标为 `v0.1.6.2`。
+Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memory/verification.md#官方-harness-016-alpha2-源码升级)。历史 `v0.0.0`、`v0.0.1`、`v0.0.2` 标签及 `v0.0.2` 预发布 Release 只作归档；失败 Tag `v0.1.6.2` 保持不可变且没有 Release。
 
 ## 独立搜索扩展的外部验收
 
@@ -45,4 +41,4 @@ Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memor
 - Linux x64 的凭据库、官方插件列表/配置和对话链路验收。
 - 未签名制品在 Gatekeeper 与 SmartScreen 下的实际拦截表现。
 
-Desktop 社区版版本提醒已具备安全检查协议；Windows x64 原生硬件与 Linux 环境仍需确认系统浏览器打开官方 Release 页面及网络失败提示。新发现的问题应先用源码和可复现证据确认，再加入本文件。
+Desktop 专版版本提醒已具备安全检查协议；Windows x64 原生硬件与 Linux 环境仍需确认系统浏览器打开官方 Release 页面及网络失败提示。新发现的问题应先用源码和可复现证据确认，再加入本文件。

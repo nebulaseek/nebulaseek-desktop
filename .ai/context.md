@@ -10,7 +10,7 @@ NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团�
 
 ## 当前边界
 
-- 社区上游公开版本 `v0.1.6.2` 已完成 GitHub 官方 Runner 四平台矩阵、六个公开资产下载重算、本机 ARM64 正式包安装和真实 oMLX 对话；星云寻知当前正在以相同版本独立发布，不能直接继承上游的发布结论。历史首发标签已从 `v1.0.0`、`v1.0.1`、`v1.0.2` 重新编号为 `v0.0.0`、`v0.0.1`、`v0.0.2`，其中仅 `v0.0.2` 保留原安装包的历史预发布 Release。防复发规则见 [发布手册](skills/release-workflow.md#最短反馈路径)。
+- 社区上游公开版本为 `v0.1.6.2`；专版在相同 `0.1.6` Harness 基线上以 `v0.1.6.3` 完成独立四平台构建、公开资产下载复核和 macOS ARM64 安装验收。`v0.1.6.2` 是保留的失败 Tag，未创建专版 Release；历史首发标签为 `v0.0.0`、`v0.0.1`、`v0.0.2`，其中仅 `v0.0.2` 保留原安装包的历史预发布 Release。防复发规则见 [发布手册](skills/release-workflow.md#最短反馈路径)。
 
 - macOS 根视图过度释放已定位到优化构建的 `content_top_inset`，以显式且成对的局部引用修复，见 ADR-019 与 [生命周期证据](memory/macos-lifecycle.md)。1.1.0 本地 DMG 已验证 WebKit 历史、同源链接、剪贴板、混合窗口操作、候选激活/拒绝/恢复和独立搜索设置；Alibaba MaaS Max / Flash GUI 并发各有 8 条来源，实际重叠 8067 毫秒。该实测为同端点同凭据，不扩大为所有 Provider 隔离或每个后续发行包均重测；逐缺陷范围见 [审计修复验收](memory/audit-remediation.md)。
 
@@ -40,7 +40,7 @@ NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团�
 - 导航判定按当前受管 Origin 实时进行，不使用 WebView 创建时的快照；Harness 未就绪期间没有可信 Origin，HTTP/HTTPS 导航一律拒绝而不转交系统浏览器，避免把带令牌的 loopback 地址交给外部程序。
 - Harness 进程以 `--expose-internals` 启动：这是 Harness 插件加载器与 HMR 的硬性契约，同时意味着 Harness 内所有代码（含第三方插件）都能访问 Node 内部模块，属于已知且被接受的边界放宽。
 - 加密凭据库主要防止意外明文泄漏；它不承诺抵御已经取得同一操作系统用户权限的恶意进程。
-- 社区版保持关闭 Desktop 自动下载安装，但每天最多从构建时固定的 GitHub 仓库静默检查一次 Release，也允许手动检查；候选按四段公开版本、发布时间、draft/prerelease 状态和五个平台资产完整性选择，不使用 `latest`，提醒只打开由固定仓库和验证后 tag 构造的 Release 页面。Harness 独立更新默认采用“发现后提醒”，默认跟随构建时的 Harness 仓库；用户只需替换仓库地址即可改用其他兼容 fork，二者不共用更新边界。
+- 专版保持关闭 Desktop 自动下载安装，但每天最多从构建时固定的 GitHub 仓库静默检查一次 Release，也允许手动检查；候选按四段公开版本、发布时间、draft/prerelease 状态和五个平台资产完整性选择，不使用 `latest`，提醒只打开由固定仓库和验证后 tag 构造的 Release 页面。Harness 独立更新默认采用“发现后提醒”，默认跟随构建时的 Harness 仓库；用户只需替换仓库地址即可改用其他兼容 fork，二者不共用更新边界。
 - 未签名制品发布时一律标记 GitHub prerelease，不占据 Latest release 位置；该判断取自生成配置的 `release.signed`，与四段版本形态无关，签名接入后自动恢复为正式发布。
 - 正式四平台发行统一由 GitHub Actions 官方托管 Runner 原生构建：Pull Request 与普通分支 push 不触发发布工作流，只有四段数字 Tag 才运行质量门禁并进入 macOS ARM64/x64、Windows x64、Linux x64 矩阵。
 - 四个平台复用唯一 `package:community` / `desktop:package` 构建事实；全部成功后才创建 Release，公开资产只包含 5 个安装包和 `SHA256SUMS`。
@@ -60,7 +60,7 @@ NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团�
 
 ## 版本基线
 
-- 新发行体系使用四段公开版本：锁定 Harness `0.1.6` 对应 Desktop `0.1.6.<修订号>`，当前默认版本为 `0.1.6.2`；三个 `v0.0.x` 标签只作历史归档，更新器只接受四段格式。
+- 新发行体系使用四段公开版本：锁定 Harness `0.1.6` 对应 Desktop `0.1.6.<修订号>`，当前发布版本为 `0.1.6.3`；三个 `v0.0.x` 标签只作历史归档，更新器只接受四段格式。
 - Node：`24.20.0`（四平台精确锁定，module ABI `137`）
 - pnpm：`11.24.0`
 - npm：`11.19.0`（随固定 Node 官方归档提供）

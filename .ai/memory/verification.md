@@ -1,6 +1,27 @@
 # 验证基线
 
-## Harness 联动市场同步与测试精简（未发布）
+## NebulaSeek v0.1.6.3 发布验收
+
+2026-09-22：专版 [v0.1.6.3](https://github.com/nebulaseek/nebulaseek-desktop/releases/tag/v0.1.6.3) 已发布。远端 annotated Tag 对象 `920a028c2107755e5d5d3723b59f878403315b97` 指向 commit `54290252725a5733a090b3bf989b3db133e3c689`，与 GitHub Actions Run `35671763519` 的构建源码一致。`v0.1.6.2` 因旧 E2E 夹具错误失败，按不可变 Tag 规则保留且没有 Release。
+
+- Run `35671763519` 的 shell-quality、macOS ARM64、macOS x64、Windows x64 和 Linux x64 Job 均成功；Windows Job 包含真实 NSIS 安装、工作台与设置交互、关闭清理和卸载。`publish-release` 在五个平台制品已汇总后，因发行说明仍硬编码 `DeepSeek.Desktop_*` 而在上传前失败。公开资产生成器及回归已在 `462f146`、`b9cee2a` 修复，随后从该 Run 的同一批官方 Runner 制品完成汇总校验和 Release 发布，没有重建或替换平台二进制。
+- Release 为 `draft=false`、`prerelease=true`，公开资产恰好是两份 DMG、EXE、AppImage、DEB 与 `SHA256SUMS`；安装包统一使用 `NebulaSeek_*`，正文提供六条直达链接并明确“专版预发布”。
+
+| 公开资产 | 字节 | 下载后 SHA-256 |
+| --- | ---: | --- |
+| `NebulaSeek_0.1.6.3_aarch64.dmg` | 401,946,325 | `22db6b3e66c6454760c56b3d7709eca60e31bccea698bcd3337622fea82b32e6` |
+| `NebulaSeek_0.1.6.3_x64.dmg` | 361,334,450 | `45147083a85c6c2dc1cb991ad2bceaeee053989a2b57d47fc9dd0c2c29ff648d` |
+| `NebulaSeek_0.1.6.3_x64-setup.exe` | 139,697,888 | `25d1e277eb49d909438c8c1d838f4e0a86350c30a41e14aabaf728248b49e962` |
+| `NebulaSeek_0.1.6.3_amd64.AppImage` | 233,941,496 | `a220304eb58467165e7ead1f19abb7c985dc055d524a195ca569953f4a86f1de` |
+| `NebulaSeek_0.1.6.3_amd64.deb` | 172,267,358 | `b78ce037f60e9dc939c9ab29ece3d13555718a7d640cbcf1ff8409ca7f0bd746` |
+| `SHA256SUMS` | 484 | `c93b476926e04115f338ea2b70ff009df923611c660fbcac35a18dc8cd8f2c4b` |
+
+- 六个公开文件已从 Release 全部下载；五个安装包逐项通过 `SHA256SUMS`，实际摘要与 GitHub asset digest 一致。两份 DMG 均通过 `hdiutil verify`；挂载后应用通过 `codesign --verify --deep --strict`，主程序和随包 Node 分别为原生 arm64 / x86_64，版本字段均为 `0.1.6` / build `3`。
+- 下载的 ARM64 DMG 已覆盖安装到 `/Applications/NebulaSeek（星云寻知）.app`。窗口标题为 `NebulaSeek（星云寻知） v0.1.6.3`；Harness sidecar 从安装包启动并只监听 `127.0.0.1` 随机端口，无令牌请求返回 401，退出后主进程与 sidecar 均无残留。
+- 发布前本机 `app:sync --check`、`harness:sync --check`、`release:smoke`、完整 `verify`、6 项 E2E 与真实 `harness:smoke` 全部通过。锁定的专版 Harness 为 `ad90bbafb7b6505d3b1ce7d0d8980c49b755b12a`（`dsh-v0.1.6-alpha.2.nebulaseek.2`），其社区代码基线为 `ddefc45fbc7f8e46dd73185e68295696d1297887`。
+- macOS 包仍为 ad-hoc 签名且未公证，Windows 未接入可信发布者签名；因此保持 prerelease，不把本次结果扩大为 Linux 人工 GUI、真实外部 Provider、签名、公证或更新回滚验收。
+
+## Harness 联动市场同步与测试精简
 
 - 通过当前内核的官方 CLI 同步市场；实测裸 `add dshmarket` 保留已有 `1.45.1`，显式 `add dshmarket@latest` 更新到当时 registry 的 `1.52.0`。不将即时市场版本锁入内置 Harness。
 - 显式联网 Rust 用例 `market_sync_live_install_upgrade_and_service_boot` 调用生产同步函数，在全新隔离 profile 完成首次安装、降到固定旧版后升级、同 commit 跳过安装、保留用户字段/唯一 Bundle 声明，再启动暂存 Harness 并通过认证 HTTP 探活。凭据 helper 使用已安装 `0.1.6.2` 主程序；没有替换用户应用、操作用户 profile，或将此结果称为新版安装包 GUI 验收。
