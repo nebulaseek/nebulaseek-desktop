@@ -14,9 +14,11 @@ README 面向安装与使用，开发、构建和架构细节集中到 `CONTRIBU
 
 ## 当前边界
 
-- 未发布品牌显示调整：侧栏字标按简体、繁体、英文显示“星云寻知” / “星雲尋知” / `NebulaSeek`；窗口标题、安装包名称和路径保持 `NebulaSeek`。源码锁定专版 Harness `309b9a92569c7f4074c75057d76c57f4ec5e4bda`，已发布 `v0.1.6.4` 安装包未被修改。本对话仅维护专版，不向社区版对话派发任务或修改社区仓库。
+- 侧栏字标按简体、繁体、英文显示“星云寻知” / “星雲尋知” / `NebulaSeek`；窗口标题、安装包名称和路径保持 `NebulaSeek`。源码锁定专版 Harness `31fac98ac0a3546959be2a87b19eb6ae31bfd911`（Tag `dsh-v0.1.5-rc.2.nebulaseek.1`）。本对话仅维护专版，不向社区版对话派发任务或修改社区仓库。
 
-- 专版当前发布 `v0.1.6.4`，源码为 `624b6c2494d5b3f63974bb5267194642e2805730`，同步社区 Desktop `850a88a`。本次按急用要求复用同一轮四平台原生安装包，仍内置 `0.1.6-alpha.2`；RC 适配单独处理，不重标已有内核版本。Intel 打包和上传完成后 Run 被取消，经过完整制品校验恢复发布，证据见[当前验收](memory/verification.md#nebulaseek-v0164-发布验收)。旧 `v0.1.6.3` Release、公开资产及远端/本地 Tag 已按用户要求撤下，历史验收记录保留。`v0.1.6.2` 是保留的失败 Tag，未创建专版 Release；历史首发标签为 `v0.0.0`、`v0.0.1`、`v0.0.2`，其中仅 `v0.0.2` 保留原安装包的历史预发布 Release。防复发规则见 [发布手册](skills/release-workflow.md#最短反馈路径)。
+- 专版内核已切到真实 RC：品牌覆盖层在社区 `dsh-v0.1.5-rc.2`（`fb2c4b9e`）之上重建为 `31fac98ac0a3`，专版版本随锁定 Harness 回到 `0.1.5.<修订号>`，这不是版本回退错误。原覆盖层建立在 `0.1.6-alpha.2` 上，因 RC 缺少 `apps/desktop` 安装器资源、图标、CLI help 快照与部分 locales，无法机械重放，按 RC 实际结构重建；WebKit 模型菜单点击聚焦修复改由桌面补丁层交付。`nebulaseek-harness` 的 `master` 已随 RC 前移，旧 alpha 品牌历史保留在 `master-alpha-0.1.6`。
+
+- 已发布 `v0.1.6.4`（内置 `0.1.6-alpha.2`）的 Release、资产和 Tag 未被撤下，其验收记录仍然有效，但它不满足当前稳定频道打包规则，不能作为后续发行的基线。旧 `v0.1.6.3` Release、公开资产及远端/本地 Tag 已按用户要求撤下，历史验收记录保留。`v0.1.6.2` 是保留的失败 Tag，未创建专版 Release；历史首发标签为 `v0.0.0`、`v0.0.1`、`v0.0.2`，其中仅 `v0.0.2` 保留原安装包的历史预发布 Release。防复发规则见 [发布手册](skills/release-workflow.md#最短反馈路径)。
 
 - macOS 根视图过度释放已定位到优化构建的 `content_top_inset`，以显式且成对的局部引用修复，见 ADR-019 与 [生命周期证据](memory/macos-lifecycle.md)。1.1.0 本地 DMG 已验证 WebKit 历史、同源链接、剪贴板、混合窗口操作、候选激活/拒绝/恢复和独立搜索设置；Alibaba MaaS Max / Flash GUI 并发各有 8 条来源，实际重叠 8067 毫秒。该实测为同端点同凭据，不扩大为所有 Provider 隔离或每个后续发行包均重测；逐缺陷范围见 [审计修复验收](memory/audit-remediation.md)。
 
@@ -68,13 +70,13 @@ README 面向安装与使用，开发、构建和架构细节集中到 `CONTRIBU
 
 ## 版本基线
 
-- 新发行体系使用四段公开版本：锁定 Harness `0.1.6` 对应 Desktop `0.1.6.<修订号>`，当前发布版本与源码默认版本均为 `0.1.6.4`；三个 `v0.0.x` 标签只作历史归档，更新器只接受四段格式。
+- 新发行体系使用四段公开版本：锁定 Harness `0.1.5` 对应 Desktop `0.1.5.<修订号>`，源码默认版本为 `0.1.5.1`；三个 `v0.0.x` 标签只作历史归档，更新器只接受四段格式。前三段始终取实际锁定 Harness 的基础版本，因此内核换基线时四段版本可能低于上一次发行。
 - Node：`24.20.0`（四平台精确锁定，module ABI `137`）
 - pnpm：`11.24.0`
 - npm：`11.19.0`（随固定 Node 官方归档提供）
 - Rust：`1.98.0`
 - Tauri CLI：`2.11.4`
-- 当前 Harness 按 `nebulaseek/nebulaseek-harness` 的不可变品牌提交锁定（具体来源见工具链 lock）；该提交以 `deepseek-desktop/deepseek-harness` 社区版为代码基线。独立搜索设置直接使用 `connection.fetch.register` / `connection.fetch` 的 `/api/desktop.web-search` GET/POST 接口，旧 RPC 通道与强制 `webServer` 注入补丁已移除。
+- 当前 Harness 按 `nebulaseek/nebulaseek-harness` 的不可变品牌提交锁定（具体来源见工具链 lock）；该提交以 `deepseek-desktop/deepseek-harness` 社区版的 `dsh-v0.1.5-rc.2` 为代码基线。社区安装包只接受稳定频道内核，`alpha`、`beta` 在显式 commit、本地源码、暂存闭包和发布汇总四处都会被拒；频道临时分类为 alpha/beta 归预览版，其余（含 rc）归稳定版。独立搜索设置直接使用 `connection.fetch.register` / `connection.fetch` 的 `/api/desktop.web-search` GET/POST 接口，旧 RPC 通道与强制 `webServer` 注入补丁已移除。
 - Harness 固定来源、commit 和制品校验和以 `harness/toolchain-lock.json` 为准，不在本文件重复维护。
 - 标准本地构建使用 `pnpm install --frozen-lockfile` 后执行 `pnpm run build`；`build`、`verify` 和 `test:e2e` 都会在消费当前 Harness 前完成同步，禁止把历史 `target/generated` 当作依赖安装结果。Playwright 预览只调用 `frontend:build`，避免在 60 秒服务器启动窗口内递归执行完整桌面构建。
 

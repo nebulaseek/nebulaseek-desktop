@@ -4,9 +4,20 @@
 
 当前发布及已解决门禁见 [验证基线](memory/verification.md#nebulaseek-v0164-发布验收)；本文件只列未验证范围与外部条件，不再保留旧失败版本为待发布候选。F01–F24 各自的实测、Mock 和平台边界以 [审计修复验收](memory/audit-remediation.md) 为准，不能用发行成功统一标记全平台全功能通过。
 
-Harness 默认来源使用 `nebulaseek/nebulaseek-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。专版 `v0.1.6.4` 按急用要求先交付现有四平台包；后续跟随社区 RC 基线重新适配品牌层及打包过滤，不把当前 alpha 内核改号当成 RC。版本前三段继续取实际锁定 Harness 的基础版本。
+Harness 默认来源使用 `nebulaseek/nebulaseek-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。RC 基线适配已完成：品牌层重建在 `dsh-v0.1.5-rc.2` 之上，专版版本随之为 `0.1.5.<修订号>`。版本前三段继续取实际锁定 Harness 的基础版本。
 
-Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memory/verification.md#官方-harness-016-alpha2-源码升级)。历史 `v0.0.0`、`v0.0.1`、`v0.0.2` 标签及 `v0.0.2` 预发布 Release 只作归档；失败 Tag `v0.1.6.2` 保持不可变且没有 Release。
+历史 `v0.0.0`、`v0.0.1`、`v0.0.2` 标签及 `v0.0.2` 预发布 Release 只作归档；失败 Tag `v0.1.6.2` 保持不可变且没有 Release。`v0.1.6.4` 的 Release 与资产仍在线，但内置 alpha 内核，不作为后续发行基线。
+
+## 内核降级的升级路径未验证
+
+- `v0.1.6.4` 的 Release 与资产仍在线，内置 `0.1.6-alpha.2`；从它升级到 `v0.1.5.1` 对用户工作区数据是**内核降级**（`0.1.6-alpha.2` → `0.1.5-rc.2`）。社区上游是把全部 alpha 发行撤下才规避此路径的，本仓库没有撤下。
+- 该降级路径未做真实验证：既没有用已有 `0.1.6-alpha.2` 用户数据目录启动 `0.1.5-rc.2` 安装包，也没有确认 Harness 对更低版本数据的兼容或迁移行为。`harness:smoke` 使用隔离 profile，不覆盖此项。
+- 处理方式待定：撤下 `v0.1.6.4`、在发布说明中标注降级注意事项，或实测该升级路径后再决定。
+
+## 品牌 Harness 仓库的未决项
+
+- 品牌覆盖层重建到 RC 时，`apps/desktop` 的安装器资源与图标、`apps/cli` 的 help 快照、`ui-plugin-manager` 与 office 预览的 locales 在 RC 中没有对应文件，因此未携带品牌。社区基线若日后重新引入这些文件，需要重新核对是否遗漏品牌面。
+- `ui-brand-official` 在 RC 下必须显式声明 `ui-conversation` 项目引用，否则 `tsc -b` 会把被引用包源码拉进本项目。升级基线时不要按上游 0.1.6 的引用列表回退该声明。
 
 ## 独立搜索扩展的外部验收
 
