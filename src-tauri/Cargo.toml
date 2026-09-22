@@ -1,6 +1,6 @@
 [package]
 name = "deepseek-desktop"
-version = "0.1.6"
+version = "0.1.5"
 description = "Self-contained local shell for NebulaSeek Desktop"
 authors = ["NebulaSeek Desktop Contributors"]
 license = "Apache-2.0"
