@@ -1,5 +1,5 @@
 name: 问题报告
-description: 报告可复现的星云寻知问题
+description: 报告可复现的 NebulaSeek 问题
 title: "[Bug] "
 labels: [bug]
 body:
@@ -9,7 +9,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: 星云寻知版本
+      label: NebulaSeek 版本
       placeholder: 0.1.0-community.6
     validations:
       required: true
@@ -36,4 +36,4 @@ body:
     id: diagnostics
     attributes:
       label: 已脱敏诊断包
-      description: 确认不含私人数据后，仅附加由星云寻知导出的诊断包。
+      description: 确认不含私人数据后，仅附加由 NebulaSeek 导出的诊断包。

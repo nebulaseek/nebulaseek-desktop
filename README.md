@@ -1,36 +1,38 @@
-# NebulaSeek（星云寻知） Desktop
+# NebulaSeek Desktop
 
 [![专版发布](https://github.com/nebulaseek/nebulaseek-desktop/actions/workflows/community-build.yml/badge.svg)](https://github.com/nebulaseek/nebulaseek-desktop/actions/workflows/community-build.yml)
 [![许可证](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。社区版面向大众用户，NebulaSeek 专版与其保持同一代码基线，只在用户可见的名称、文案、图片和发行入口使用独立品牌；内部包名、环境变量、IPC、数据目录和应用标识保持社区版兼容。用户无需另外安装 Node.js、pnpm、Rust 或其他框架应用。本项目与 DeepSeek 不存在隶属、合作或官方背书关系。
+NebulaSeek 的中文名称为“星云寻知”。NebulaSeek Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。社区版面向大众用户，NebulaSeek 专版与其保持同一代码基线，只在用户可见的名称、文案、图片和发行入口使用独立品牌；内部包名、环境变量、IPC、数据目录和应用标识保持社区版兼容。用户无需另外安装 Node.js、pnpm、Rust 或其他框架应用。本项目与 DeepSeek 不存在隶属、合作或官方背书关系。
 
-后续公开版本使用四段数字：前三段对应锁定 Harness 的正式版本，第四段是 Desktop 修订号，例如 Harness `v0.1.6` 对应 Desktop `v0.1.6.1`。历史首发标签保留为 `v0.0.0`、`v0.0.1`、`v0.0.2`，其中 `v0.0.2` 是现有历史预发布版本。实际发行版本以 GitHub Releases 为准。macOS 安装包使用完整的 ad-hoc 签名，但没有 Apple Developer ID 身份和公证；Windows、Linux 社区版产物目前也没有可信发布者签名。桌面自有源码采用 Apache-2.0，内置 Harness、Node.js 和 npm 依赖保留各自许可证声明。
+后续公开版本使用四段数字：前三段对应锁定 Harness 的正式版本，第四段是 Desktop 修订号，例如 Harness `v0.1.6` 对应 Desktop `v0.1.6.1`。历史首发标签保留为 `v0.0.0`、`v0.0.1`、`v0.0.2`，其中 `v0.0.2` 是现有历史预发布版本。实际发行版本以 GitHub Releases 为准。macOS 安装包使用完整的 ad-hoc 签名，但没有 Apple Developer ID 身份和公证；Windows、Linux 专版产物目前也没有可信发布者签名。桌面自有源码采用 Apache-2.0，内置 Harness、Node.js 和 npm 依赖保留各自许可证声明。
 
 安装包发布在 [GitHub Releases](https://github.com/nebulaseek/nebulaseek-desktop/releases)。安装前请使用同版本 `SHA256SUMS` 校验文件完整性。
 
 ## 项目关系
 
-- [DeepSeek Harness（官方版）](https://github.com/deepseek-ai/deepseek-harness.git)：DeepSeek 官方 Harness 上游。
-- [DeepSeek Harness（社区版）](https://github.com/deepseek-desktop/deepseek-harness.git)：由本团队维护、面向大众用户的 Harness 社区版。
-- [NebulaSeek（星云寻知） Harness](https://github.com/nebulaseek/nebulaseek-harness.git)：仅增加专版用户可见品牌，也是本桌面版锁定的默认 Harness。
-- [DeepSeek Desktop（社区版）](https://github.com/deepseek-desktop/deepseek-desktop.git)：由本团队维护、面向大众用户的 Desktop 社区版，也是专版持续同步的代码基线。
-- [NebulaSeek（星云寻知） Desktop](https://github.com/nebulaseek/nebulaseek-desktop.git)：本仓库，负责专版桌面外壳、构建、扩展集成与发行。
+| 版本 | 项目 | 仓库 |
+| --- | --- | --- |
+| 官方版 | DeepSeek Harness | [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness.git) |
+| 社区版 | DeepSeek Harness | [deepseek-desktop/deepseek-harness](https://github.com/deepseek-desktop/deepseek-harness.git) |
+| 社区版 | DeepSeek Desktop | [deepseek-desktop/deepseek-desktop](https://github.com/deepseek-desktop/deepseek-desktop.git) |
+| 星云寻知专版 | NebulaSeek Harness | [nebulaseek/nebulaseek-harness](https://github.com/nebulaseek/nebulaseek-harness.git) |
+| 星云寻知专版 | NebulaSeek Desktop | [nebulaseek/nebulaseek-desktop](https://github.com/nebulaseek/nebulaseek-desktop.git) |
 
-原 `xingyunxunzhi/xingyunxunzhi-harness` 与 `xingyunxunzhi/xingyunxunzhi-desktop` 地址由 GitHub 自动重定向到上述 NebulaSeek 专版仓库，已有链接和 Git remote 可继续使用。
+社区版由本团队维护，面向大众用户；NebulaSeek 是同一团队推出的客户专版。Harness 按“官方版 → 社区版 → NebulaSeek”同步，Desktop 按“社区版 → NebulaSeek”同步。
 
-工具链 lock 记录每个 Desktop 版本实际使用的星云寻知 Harness commit。同步上游时只重放品牌覆盖层，避免修改社区版运行时契约。
+工具链 lock 记录每个 Desktop 版本实际使用的 NebulaSeek Harness commit。同步上游时只重放品牌覆盖层，避免修改社区版运行时契约。
 
 ## 界面预览
 
-![星云寻知工作台](docs/assets/workbench.png)
+![NebulaSeek 工作台](docs/assets/workbench.png)
 
-![星云寻知模型接入](docs/assets/model-provider.png)
+![NebulaSeek 模型接入](docs/assets/model-provider.png)
 
 
 ## 快速使用
 
-1. 从 GitHub Releases 下载当前系统对应的安装包，完成安装后启动星云寻知。
+1. 从 GitHub Releases 下载当前系统对应的安装包，完成安装后启动 NebulaSeek。
 2. 应用会自动启动本地 Harness 并进入工作台，无需点击启动或预先选择目录；项目目录在工作台中按会话需要添加和切换。
 3. 进入工作台的“设置 → 模型”，添加官方或自定义 Provider，填写 API 地址和密钥，并获取可用模型。
 4. 在对话输入区切换模型，创建会话后即可进行对话、代码修改和项目文件操作。
@@ -45,18 +47,20 @@ NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团�
 
 ### macOS 提示“Apple 无法验证”怎么办
 
-当前专版尚未使用 Apple Developer ID 签名和公证，因此首次打开时，macOS 可能提示“Apple 无法验证 NebulaSeek（星云寻知）是否包含可能危害 Mac 安全或泄漏隐私的恶意软件”。该提示本身不代表应用已被检测出恶意代码。请只从本项目的 [GitHub Releases](https://github.com/nebulaseek/nebulaseek-desktop/releases) 下载，并核对同版本 `SHA256SUMS`。
+当前专版尚未使用 Apple Developer ID 签名和公证，因此首次打开时，macOS 可能提示“Apple 无法验证 NebulaSeek 是否包含可能危害 Mac 安全或泄漏隐私的恶意软件”。该提示本身不代表应用已被检测出恶意代码。请只从本项目的 [GitHub Releases](https://github.com/nebulaseek/nebulaseek-desktop/releases) 下载，并核对同版本 `SHA256SUMS`。
+
+以下路径对应当前源码构建的 `NebulaSeek.app`；已发布的 `v0.1.6.3` 安装包仍使用原来的双语应用名，命令路径应以实际安装名称为准。
 
 **普通用户：**
 
-1. 将 `NebulaSeek（星云寻知）.app` 拖入“应用程序”目录，然后尝试启动。
+1. 将 `NebulaSeek.app` 拖入“应用程序”目录，然后尝试启动。
 2. 如果出现下图所示提示，请先确认安装包来自本项目 GitHub Releases，并已核对 `SHA256SUMS`。确认无误后点击“完成”，**不要点击“移到废纸篓”**。
 
 <p align="center">
-  <img src="docs/assets/macos-unverified-app-warning.png" alt="macOS 无法验证星云寻知的提示" width="420">
+  <img src="docs/assets/macos-unverified-app-warning.png" alt="macOS 无法验证 NebulaSeek 的提示" width="420">
 </p>
 
-3. 打开“系统设置 → 隐私与安全”，向下滚动到“安全性”区域。找到“已阻止 NebulaSeek（星云寻知）.app 以保护 Mac”，点击右侧的“仍要打开”。
+3. 打开“系统设置 → 隐私与安全”，向下滚动到“安全性”区域。找到“已阻止 NebulaSeek.app 以保护 Mac”，点击右侧的“仍要打开”。
 
 <p align="center">
   <img src="docs/assets/macos-privacy-security-open-anyway.png" alt="在 macOS 隐私与安全设置中点击仍要打开" width="900">
@@ -64,20 +68,20 @@ NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团�
 
 4. 按系统提示使用登录密码或 Touch ID 完成验证；如果随后再次出现确认框，请选择“打开”。这项确认通常只需完成一次，之后可从“应用程序”目录正常双击启动。
 
-如果“仍要打开”没有出现，请重新启动一次星云寻知触发拦截，再立即返回“系统设置 → 隐私与安全”查看。较旧版本的 macOS 可在“系统偏好设置 → 安全性与隐私 → 通用”中找到同类入口。
+如果“仍要打开”没有出现，请重新启动一次 NebulaSeek 触发拦截，再立即返回“系统设置 → 隐私与安全”查看。较旧版本的 macOS 可在“系统偏好设置 → 安全性与隐私 → 通用”中找到同类入口。
 
 **开发者：** 确认安装包来源和 SHA-256 无误后，按以下两步操作。
 
-1. 仅移除星云寻知的下载隔离标记：
+1. 仅移除 NebulaSeek 的下载隔离标记：
 
 ```bash
-xattr -dr com.apple.quarantine "/Applications/NebulaSeek（星云寻知）.app"
+xattr -dr com.apple.quarantine "/Applications/NebulaSeek.app"
 ```
 
-2. 启动 星云寻知：
+2. 启动 NebulaSeek：
 
 ```bash
-open "/Applications/NebulaSeek（星云寻知）.app"
+open "/Applications/NebulaSeek.app"
 ```
 
 不要关闭 macOS 的全局 Gatekeeper、SIP 或 XProtect，也不要对“下载”目录批量移除隔离标记；这些操作会降低整台 Mac 的安全性。
@@ -161,7 +165,7 @@ corepack pnpm@11.24.0 desktop:package
 
 Desktop 外壳启动后每天最多静默检查一次自身版本，也可以从“帮助 → 检查 Desktop 更新”随时手动检查。专版从构建时固定的 GitHub 仓库读取 Release 列表，按四段版本、发布时间和五个平台安装包是否齐全筛选，不依赖可能指向旧正式版的 `latest`。发现新版时会在当前窗口显示版本、发布时间和摘要，并提供“前往下载 / 稍后提醒 / 忽略此版本”；未签名专版只打开固定 Release 页面，不自动下载安装，也不接受远端返回的任意下载地址。Desktop 版本提醒与下面的 Harness 独立更新是两条不同链路。
 
-星云寻知将稳定的桌面外壳与 Harness 分开。桌面版默认使用 `https://github.com/nebulaseek/nebulaseek-harness.git`，用户也可以换成自己的兼容 fork。更换仓库只会改变本机运行的 Harness，不会替换 Desktop、模型配置、对话或工作区数据。
+NebulaSeek 将稳定的桌面外壳与 Harness 分开。桌面版默认使用 `https://github.com/nebulaseek/nebulaseek-harness.git`，用户也可以换成自己的兼容 fork。更换仓库只会改变本机运行的 Harness，不会替换 Desktop、模型配置、对话或工作区数据。
 
 “设置 → 更新 → Harness 独立更新”只需要一个 **Harness 仓库** 地址，不需要填写更新清单、发布者或公钥。点击“检查 Harness”会读取该仓库默认分支的最新 commit；发现变化后，Desktop 使用安装包内置的 Node、pnpm、npm 和 Node-API 头文件，在应用数据目录拉取、安装依赖、构建并启动验证候选 Harness。系统需要能够执行 Git；当前官方原生包还要求 macOS 提供可用的 C 编译器，Linux 提供 `cc` 与 `musl-gcc`（通常来自 `musl-tools`）。私有仓库还需要用户自己的 Git 访问权限。前置工具缺失或构建失败时保留当前 Harness。
 
@@ -190,6 +194,6 @@ Desktop 外壳启动后每天最多静默检查一次自身版本，也可以从
 
 GitHub Actions 原生矩阵构建 macOS arm64/x64、Windows x64 和 Linux x64 产物。macOS arm64 与 Windows x64 还必须完成真实安装、启动、正常退出、孤儿进程、卸载和重装验收；某个平台构建成功不代表其他平台已经完成安装验收。
 
-应用使用星云寻知云形标识；DeepSeek 模型名称和社区上游归属仍保留其真实名称。
+应用使用 NebulaSeek 云形标识；DeepSeek 模型名称和社区上游归属仍保留其真实名称。
 
 更完整的安装、模型配置、数据目录、安全和故障排查说明见 [中文使用文档](docs/zh-CN/getting-started.md)。

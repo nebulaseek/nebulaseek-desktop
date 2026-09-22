@@ -1,4 +1,4 @@
-# ADR-029：NebulaSeek（星云寻知）只维护用户可见品牌覆盖层
+# ADR-029：NebulaSeek 只维护用户可见品牌覆盖层
 
 ## 状态
 
@@ -6,22 +6,24 @@
 
 ## 决策
 
-NebulaSeek（星云寻知） Desktop 由 DeepSeek Desktop 社区版维护团队推出，持续同步 `deepseek-desktop/deepseek-desktop` 社区版，并只在用户可见层维护专版品牌：应用和窗口名称、三语菜单文案、图标、浏览器元数据、安装与发布文案、公开仓库链接，以及默认锁定的 NebulaSeek Harness 来源。
+NebulaSeek Desktop 由 DeepSeek Desktop 社区版维护团队推出，持续同步 `deepseek-desktop/deepseek-desktop` 社区版，并只在用户可见层维护专版品牌：应用和窗口名称、三语菜单文案、图标、浏览器元数据、安装与发布文案、公开仓库链接，以及默认锁定的 NebulaSeek Harness 来源。
+
+应用内名称、窗口标题、原生菜单、侧栏字标与安装包应用名统一使用 `NebulaSeek`。中文名称“星云寻知”只用于项目介绍等合适的说明位置，不拼接进应用名；项目组件称为 `NebulaSeek Harness` 与 `NebulaSeek Desktop`。
 
 内部兼容标识保持上游值，包括 npm 包名、Rust crate/bin 名、`deepseek.desktop` Bundle Identifier、`deepseek-desktop` slug、`DEEPSEEK_DESKTOP_*` 环境变量、IPC、应用数据目录、服务名、加密和更新协议。DeepSeek 模型名、社区上游名称和历史技术证据也保留真实名称。
 
-NebulaSeek（星云寻知） Harness 同样只维护用户可见品牌覆盖。Desktop 的 `harness/toolchain-lock.json` 必须锁定该仓库的不可变品牌提交，不能只改显示地址或跟随可移动分支。
+NebulaSeek Harness 同样只维护用户可见品牌覆盖。Desktop 的 `harness/toolchain-lock.json` 必须锁定该仓库的不可变品牌提交，不能只改显示地址或跟随可移动分支。
 
 ## 上游同步流程
 
 1. 拉取社区上游，将下游 `master` 重置或变基到选定的最新上游提交。
-2. 重放一个聚焦的星云寻知品牌提交；冲突只在本 ADR 定义的用户可见表面解决。
+2. 重放一个聚焦的 NebulaSeek 品牌提交；冲突只在本 ADR 定义的用户可见表面解决。
 3. 检查差异，移除包名、环境变量、IPC、数据目录和协议标识的意外重命名。
 4. Harness 品牌提交先发布，再把其不可变 commit 写入 Desktop 工具链 lock。
 
 ## 原因
 
-- 用户能在所有实际界面识别星云寻知品牌。
+- 用户能在所有实际界面识别 NebulaSeek 品牌。
 - 插件、脚本、已有数据和 Desktop/Harness 集成继续使用社区版兼容契约。
 - 后续上游同步通常只需重放一个品牌提交，减少冲突和维护成本。
 

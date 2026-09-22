@@ -2,7 +2,7 @@
 
 ## 项目定位
 
-NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。它使用 Tauri 2 管理本地 NebulaSeek Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
+NebulaSeek Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。它使用 Tauri 2 管理本地 NebulaSeek Harness，在单个原生窗口中嵌入 Harness 工作台，并提供自动启动、模型凭据、诊断、关于和更新状态等桌面能力。
 
 下游只修改用户可见名称、文案、图片、公开仓库地址和锁定的品牌 Harness 来源。`deepseek.desktop`、`deepseek-desktop`、`DEEPSEEK_DESKTOP_*`、包名、crate/bin 名、IPC、数据目录和更新协议等兼容标识继续沿用社区上游，详见 ADR-029。
 

@@ -130,7 +130,7 @@ async function createCommand(parsed) {
     channel,
     signed,
     sourceRepository: option(parsed, "source"),
-    productName: option(parsed, "product-name", "NebulaSeek（星云寻知）"),
+    productName: option(parsed, "product-name", "NebulaSeek"),
     requestedTargetIds: options(parsed, "target"),
     trustedNodes,
     prepared

@@ -12,7 +12,7 @@
 命令行环境变量 > 项目根目录 .env > 内置默认值
 ```
 
-项目没有 `.env` 时，构建结果必须与当前星云寻知默认发行版保持一致。`.env` 只在开发和构建阶段读取，不得复制进 Harness、安装包、诊断包或发布产物。
+项目没有 `.env` 时，构建结果必须与当前 NebulaSeek 默认发行版保持一致。`.env` 只在开发和构建阶段读取，不得复制进 Harness、安装包、诊断包或发布产物。
 
 ## 已完成治理
 
@@ -27,7 +27,7 @@
 
 ```dotenv
 # 应用信息
-DESKTOP_APP_NAME=NebulaSeek（星云寻知）
+DESKTOP_APP_NAME=NebulaSeek
 DESKTOP_APP_VERSION=0.1.6.1
 DESKTOP_APP_IDENTIFIER=deepseek.desktop
 DESKTOP_APP_SLUG=deepseek-desktop
@@ -204,7 +204,7 @@ corepack pnpm@11.24.0 tauri:build
 {
   "schemaVersion": 1,
   "application": {
-    "productName": "NebulaSeek（星云寻知）",
+    "productName": "NebulaSeek",
     "version": "0.1.6.1",
     "identifier": "deepseek.desktop",
     "slug": "deepseek-desktop",
@@ -281,7 +281,7 @@ corepack pnpm@11.24.0 tauri:build
 ## 完成标准
 
 - 开发者只修改可选 `.env` 和一张源图即可生成定制安装包。
-- 删除 `.env` 后能够构建与当前默认值一致的星云寻知。
+- 删除 `.env` 后能够构建与当前默认值一致的 NebulaSeek。
 - `desktop:package` 自动完成配置解析、Harness 锁定、验证和当前平台打包。
 - `package:community` 复用同一打包实现并增加社区发行门禁，不形成重复流水线。
 - 应用名称、版本和图标不再要求修改业务源码。

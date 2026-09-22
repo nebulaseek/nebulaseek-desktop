@@ -2,7 +2,7 @@
   "name": "deepseek-desktop",
   "version": "0.1.6",
   "private": true,
-  "description": "NebulaSeek（星云寻知） dedicated desktop edition of the community DeepSeek Desktop",
+  "description": "NebulaSeek dedicated desktop edition of the community DeepSeek Desktop",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nebulaseek/nebulaseek-desktop.git"

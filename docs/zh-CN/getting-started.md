@@ -1,22 +1,16 @@
-# NebulaSeek（星云寻知） Desktop
+# NebulaSeek Desktop
 
-NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。它与面向大众用户的社区版保持同一代码基线，只替换用户可见品牌，并将 Vue 桌面 Shell、Tauri 2 原生主程序、固定版本 Node.js 和构建时锁定的 Harness 打包在一起。本项目与 DeepSeek 不存在隶属、合作或官方背书关系。
+NebulaSeek Desktop 是由 DeepSeek Desktop 社区版维护团队推出的客户专版。它与面向大众用户的社区版保持同一代码基线，只替换用户可见品牌，并将 Vue 桌面 Shell、Tauri 2 原生主程序、固定版本 Node.js 和构建时锁定的 Harness 打包在一起。本项目与 DeepSeek 不存在隶属、合作或官方背书关系。
 
-桌面 Shell、应用程序和安装包统一使用星云寻知云形标识；DeepSeek 模型名称和社区上游归属仍保留其真实名称。
+桌面 Shell、应用程序和安装包统一使用 NebulaSeek 云形标识；DeepSeek 模型名称和社区上游归属仍保留其真实名称。
 
 公开版本使用四段数字：前三段对应锁定 Harness 的正式版本，第四段是 Desktop 修订号，当前默认版本为 `0.1.6.2`。实际发行版本以 GitHub Releases 为准。社区版可在本地完整使用；macOS 使用不关联开发者身份的 ad-hoc 完整签名，尚未完成 Apple Developer ID 签名、公证或 Windows Authenticode 签名，桌面安装包自动更新也未启用，因此不能作为已认证 Stable 版本宣传。Harness 与 Desktop 外壳独立，用户可以在设置中只更换 Harness 仓库地址。
 
 工程源码位于仓库根目录。`harness/toolchain-lock.json` 固定 Node、Rust、原生依赖、桌面补丁和发布允许的 Harness 来源；`harness:sync` 在本地开发且 `HARNESS_REF` 为空时自动选择 Harness 仓库最新的 SemVer 版本标签，显式填写时使用指定来源，随后统一解析为不可变 commit。社区版和正式发布还必须匹配仓库内经过审计的固定 Harness 提交，避免可变标签在无人复核时改变发行内容。同步结果写入当前构建专用的 `target/generated/harness-lock.json`。Harness 使用该 lock 组装生产依赖闭包、下载并校验 Node.js 官方归档后生成 sidecar；每个平台制品同时包含确定性 Harness manifest、完整许可证清单和 SPDX 2.3 SBOM。
 
-相关仓库及边界如下：
+版本分为 DeepSeek 官方 Harness、本团队维护的 DeepSeek 社区版，以及同一团队面向客户推出的 NebulaSeek 专版；NebulaSeek 的中文名称为“星云寻知”。完整仓库列表与同步关系见 [项目关系](../../README.md#项目关系)。
 
-- [DeepSeek Harness（官方版）](https://github.com/deepseek-ai/deepseek-harness.git) 是 DeepSeek 官方上游。
-- [DeepSeek Harness（社区版）](https://github.com/deepseek-desktop/deepseek-harness.git) 是本团队维护、面向大众用户的 Harness 社区版。
-- [NebulaSeek（星云寻知） Harness](https://github.com/nebulaseek/nebulaseek-harness.git) 是本桌面专版默认使用并锁定的 Harness 来源。
-- [DeepSeek Desktop（社区版）](https://github.com/deepseek-desktop/deepseek-desktop.git) 是本团队维护、面向大众用户的 Desktop 社区版，也是专版同步的代码基线。
-- [NebulaSeek（星云寻知） Desktop](https://github.com/nebulaseek/nebulaseek-desktop.git) 是当前专版发行仓库。
-
-星云寻知发行版不代表 DeepSeek 官方发行；实际内核来源和 commit 以 Desktop 工具链 lock 为准。
+NebulaSeek 发行版不代表 DeepSeek 官方发行；实际内核来源和 commit 以 Desktop 工具链 lock 为准。
 
 ## 支持平台
 
@@ -31,7 +25,7 @@ NebulaSeek（星云寻知） Desktop 是由 DeepSeek Desktop 社区版维护团�
 
 ## 开始使用
 
-1. 启动星云寻知。主程序会自动启动本地 Harness，在 `127.0.0.1` 上申请随机端口，并在就绪后直接进入当前窗口中的工作台。
+1. 启动 NebulaSeek。主程序会自动启动本地 Harness，在 `127.0.0.1` 上申请随机端口，并在就绪后直接进入当前窗口中的工作台。
 2. 无需点击启动、预先选择目录、填写端口或打开第二个窗口；界面语言可随时在同一窗口的“设置”中切换。
 3. 打开工作台的模型设置，选择 Provider，并写入 API Key 或 OAuth grant。
 4. 在工作台中按会话需要添加或切换项目目录，再创建会话并开始任务。模型未配置或外部 Provider 不可用时，Harness 仍可进入设置和诊断页面，但真实模型请求不会被伪造成成功。
@@ -84,7 +78,7 @@ Harness 状态包括 `idle`、`starting`、`ready`、`stopping`、`recovering` �
 
 ## 数据目录
 
-星云寻知使用系统应用数据目录，不向安装目录写运行数据：
+NebulaSeek 使用系统应用数据目录，不向安装目录写运行数据：
 
 | 内容 | 说明 |
 | --- | --- |
@@ -123,7 +117,7 @@ macOS 默认位于 `~/Library/Application Support/deepseek.desktop/`；Windows �
 
 Harness 更新可在“设置 → 更新 → Harness 独立更新”中选择“自动下载并在下次启动安装”“发现后提醒”或“仅手动检查”，也可以固定当前版本。设置页默认显示官方 Harness 仓库；用户可替换为自己的兼容 fork，不需要配置额外清单、公钥或发布者。Desktop 会在应用数据目录使用内置 Node/pnpm/npm 与 Node-API 头文件准备候选，并执行真实启动 smoke；当前官方原生包还要求 macOS 系统提供 C 编译器，Linux 提供 `cc` 与 `musl-gcc`。通过后才在下次启动切换；缺少前置工具、构建失败或启动失败都会保留当前版本，用户也可随时恢复安装包内置 Harness。更详细的行为与离线恢复说明见 [Harness 独立更新指南](harness-updates.md)。
 
-卸载应用不会自动删除 Harness 工作台管理的项目目录或应用数据。需要完全清理时，先卸载 星云寻知，再由用户主动删除系统应用数据目录。新版只使用社区版内置的本地加密凭据库，不访问系统钥匙串。
+卸载应用不会自动删除 Harness 工作台管理的项目目录或应用数据。需要完全清理时，先卸载 NebulaSeek，再由用户主动删除系统应用数据目录。新版只使用社区版内置的本地加密凭据库，不访问系统钥匙串。
 
 ## 开发者验证
 

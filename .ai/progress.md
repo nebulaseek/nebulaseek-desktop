@@ -1,6 +1,6 @@
 # 当前交付摘要
 
-- NebulaSeek（星云寻知）专版 `v0.1.6.3` 已发布；它与社区上游 `v0.1.6.2` 使用相同 `0.1.6` Harness 基线，第四段因失败 Tag 不可移动而递增。
+- NebulaSeek 专版 `v0.1.6.3` 已发布；它与社区上游 `v0.1.6.2` 使用相同 `0.1.6` Harness 基线，第四段因失败 Tag 不可移动而递增。
 - 历史首发标签归档为 `v0.0.0`、`v0.0.1`、`v0.0.2`，仅 `v0.0.2` 保留原安装包的预发布 Release。
 - 发行版本采用 Harness 对齐的四段数字：前三段等于锁定 Harness 的正式版本，第四段是 Desktop 修订号。当前锁定 Harness `0.1.6`，已发布 Desktop 修订号为 `3`；`v0.1.6.2` 只保留失败 Tag，没有 Release。
 - Harness 默认来源为 `https://github.com/nebulaseek/nebulaseek-harness.git`，锁定专版 commit `ad90bbafb7b6505d3b1ce7d0d8980c49b755b12a`（`dsh-v0.1.6-alpha.2.nebulaseek.2`）；其代码基线为社区版 `ddefc45fbc7f8e46dd73185e68295696d1297887`（`0.1.6-alpha.2`），核心行为保持一致。

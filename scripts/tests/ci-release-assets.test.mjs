@@ -31,7 +31,7 @@ function hash(value) {
 }
 
 test("public artifacts omit the bilingual display suffix", () => {
-  assert.equal(publicArtifactProductName("NebulaSeek（星云寻知）"), "NebulaSeek");
+  assert.equal(publicArtifactProductName("Example（示例）"), "Example");
   assert.equal(publicArtifactProductName("DeepSeek Desktop"), "DeepSeek.Desktop");
 });
 

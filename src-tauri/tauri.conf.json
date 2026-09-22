@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "NebulaSeek（星云寻知）",
+  "productName": "NebulaSeek",
   "version": "0.1.6",
   "identifier": "deepseek.desktop",
   "build": {
@@ -16,7 +16,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "NebulaSeek（星云寻知）",
+        "title": "NebulaSeek",
         "width": 1120,
         "height": 720,
         "minWidth": 760,
@@ -37,7 +37,7 @@
     "icon": ["icons/icon.png"],
     "category": "DeveloperTool",
     "shortDescription": "Local AI agent workspace",
-    "longDescription": "NebulaSeek（星云寻知） dedicated desktop edition of the community DeepSeek Desktop.",
+    "longDescription": "NebulaSeek dedicated desktop edition of the community DeepSeek Desktop.",
     "externalBin": ["binaries/node"],
     "resources": {
       "../harness/staging/": "harness/staging/"
