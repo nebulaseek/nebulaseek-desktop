@@ -6,6 +6,45 @@
 - Harness `309b9a92569c7f4074c75057d76c57f4ec5e4bda`：6 项品牌组件检查、4 项实际构建插件图装配检查通过，其中官方构建实际渲染简中/英文侧栏品牌。普通及 official 构建、类型检查、完整 lint、41 项 doc-sync 检查通过。hygiene 的其余 15 项通过；constraints 最初被历史删除包的残留生成目录阻断，将确认未跟踪且仅有 ignored lib/node_modules 的目录移至临时备份后该项通过。
 - Desktop 137 项配置检查和应用配置生成通过，确认窗口标题仍由既有 `NebulaSeek` 产品名与版本组成；尚未重新编译安装包或执行原生 GUI 语言切换验收。现有 `v0.1.6.4` Release 和本机已安装应用未改变，不能声称新的侧栏显示已经在安装版生效。
 
+## NebulaSeek v0.1.5.2 发布验收
+
+2026-09-22：[v0.1.5.2](https://github.com/nebulaseek/nebulaseek-desktop/releases/tag/v0.1.5.2) 已发布，`draft=false`、`prerelease=true`，不占 Latest。annotated Tag 对象 `1f5d29e93d207ab7dcc734a9e0899e1f232b7997` 指向 `b37ecb9ad09e29a1ff560710a22903c9105ae81e`。内置专版 Harness 为 `31fac98ac0a3546959be2a87b19eb6ae31bfd911`（Tag `dsh-v0.1.5-rc.2.nebulaseek.1`），实际 CLI `0.1.5-rc.2`，代码基线为社区 `fb2c4b9e698e30edb738bca4cf0618587db7d203`。
+
+### 品牌 Harness 重建
+
+品牌覆盖层原建立在 `0.1.6-alpha.2` 之上，无法机械重放到 RC（`apps/desktop` 安装器资源与图标、CLI help 快照、`ui-plugin-manager` 与 office 预览 locales 在 RC 中不存在），按 RC 实际结构重建。`nebulaseek-harness` 本机实测：类型检查通过、`verify-client-catalog` 通过、790 组翻译配对一致、12 个测试文件 255 项测试通过、5 项 pre-commit 钩子通过。旧 alpha 品牌历史保留在 `master-alpha-0.1.6`（`7b94734f31`）。
+
+### 本机验证（macOS arm64）
+
+`app:sync --check` 报 `NebulaSeek 0.1.5.2`；`harness:sync --check` 报 `validated Harness 0.1.5-rc.2 (31fac98ac0a3)`。`verify` 与 `test:e2e` 真实退出码为 0：配置/发行 141 项、前端 33 项、搜索 45 项、Rust 113 项通过（2 项显式联网测试默认忽略），三语 157 个 key 对齐，Clippy 通过，E2E 6 项通过。`release:smoke` 27 项、`build-config` 16 项通过。
+
+`harness:smoke` 与 `desktop:package` 在 `0.1.5.1` 轮次执行并通过（含插件列表、搜索保存/重载、WebKit 模型与推理等级选择、父进程退出清理；本机包 `NebulaSeek_0.1.5.1_aarch64.dmg`，SHA-256 `d2d92507619da32135e689d1457f9246174b82c99703f39478c6f0f965511936`）。`0.1.5.2` 只改版本字符串、Harness pin 与字节不变，未重复执行这两项。
+
+### 四平台矩阵与公开资产
+
+[Run 35735526275](https://github.com/nebulaseek/nebulaseek-desktop/actions/runs/35735526275) 六个 Job 全部成功。公开资产恰好 5 个安装包与 `SHA256SUMS`。六个文件已实际下载；GitHub 元数据 digest、`SHA256SUMS` 内容与下载后实算 SHA-256 三者逐项一致，`shasum -c` 五项 OK。Release 正文六条直达链接与当前 Tag、版本和文件名逐项一致。
+
+| 公开资产 | 字节 | 实算 SHA-256 |
+| --- | ---: | --- |
+| `NebulaSeek_0.1.5.2_aarch64.dmg` | 264,023,493 | `ec6a87a1f98b3da38ef0ef04c05a061263492eb2a8cee96fe92813b1f5407def` |
+| `NebulaSeek_0.1.5.2_x64.dmg` | 213,592,625 | `49b0ad7aaad76b3fb6a3232e0f9a4f2287a2d41590b52069c6b356b83bcfd0a9` |
+| `NebulaSeek_0.1.5.2_x64-setup.exe` | 59,349,405 | `f13f093b63d8074f55ef97b28f15f8a7f9f993188e862f319f25c28f53f72d7c` |
+| `NebulaSeek_0.1.5.2_amd64.AppImage` | 178,465,272 | `4f937a6f1641a414eb9124b470c51213e36ba27b3617caeb70dc679ff62b9a80` |
+| `NebulaSeek_0.1.5.2_amd64.deb` | 109,253,384 | `26d2d05ba2cbc3b84d3d32db002a92c015cd1e6416231bb71c0f33b0aa679639` |
+| `SHA256SUMS` | 484 | `55ef7b0f336412c5553a57fd47679c64ab27f3c2c6e920a40e52360d8ba4dcb5` |
+
+公开 ARM64 DMG 已挂载检查：应用名 `NebulaSeek`、版本 `0.1.5` build `2`、主程序 arm64、内置 Harness `0.1.5-rc.2`、二进制内 pin 为 `31fac98ac0a3546959be2a87b19eb6ae31bfd911`，`codesign --verify --deep --strict` 通过。**未启动公开安装包**，也未覆盖安装到 `/Applications`；本轮没有真实模型推理验收，不沿用旧版本的推理记录。
+
+### 前一轮失败与撤下
+
+`v0.1.5.1` 的 [Run 35716024147](https://github.com/nebulaseek/nebulaseek-desktop/actions/runs/35716024147) 中 Windows x64 失败于 `verify-windows-install.ps1:227`：新装应用检查 Desktop 更新时发现仍在线且四段版本更高的 `v0.1.6.4`，弹出更新窗口盖住工作台，脚本只识别首次运行引导弹窗而超时。应用本身已就绪。`publish-release` 按门禁跳过，未产生 Release。按用户要求撤下 `v0.1.6.4` 的 Release、6 个公开资产与远端/本地 Tag 后改发 `v0.1.5.2` 通过。失败 Tag `v0.1.5.1` 保留且无 Release。
+
+该轮另有一次误推 Tag：`git fetch upstream --tags` 带入的社区同名 `v0.1.5.1` 被推到专版仓库，触发 Run 35715913023 构建社区代码，已在 19 秒内取消，未产生 Release 或公开资产，错误 Tag 已从远端与本地删除。
+
+### 签名与人工验收边界
+
+macOS 为 ad-hoc 完整性签名，无 Apple Developer ID、公证或 Windows Authenticode。Windows x64 的安装交互门禁由矩阵自动执行；Linux x64 的人工 GUI 验收、真实模型推理、以及内核从 `0.1.6-alpha.2` 降级到 `0.1.5-rc.2` 的升级路径均未验证。
+
 ## NebulaSeek v0.1.6.4 发布验收
 
 2026-09-22：[v0.1.6.4](https://github.com/nebulaseek/nebulaseek-desktop/releases/tag/v0.1.6.4) 已发布，Release `393520015`，`draft=false`、`prerelease=true`，不占 Latest。Tag 对象 `5bcb39846689fba4c8425c5295e5a3c13bf5aa13` 指向 `624b6c2494d5b3f63974bb5267194642e2805730`；内置专版 Harness 为 `0096f4a28fe7fb3a1cac44fc2b8761dbdd691b97`，实际 CLI `0.1.6-alpha.2`。

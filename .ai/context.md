@@ -16,6 +16,8 @@ README 面向安装与使用，开发、构建和架构细节集中到 `CONTRIBU
 
 - 侧栏字标按简体、繁体、英文显示“星云寻知” / “星雲尋知” / `NebulaSeek`；窗口标题、安装包名称和路径保持 `NebulaSeek`。源码锁定专版 Harness `31fac98ac0a3546959be2a87b19eb6ae31bfd911`（Tag `dsh-v0.1.5-rc.2.nebulaseek.1`）。本对话仅维护专版，不向社区版对话派发任务或修改社区仓库。
 
+- 专版当前发布 `v0.1.5.2`，源码为 `b37ecb9ad09e29a1ff560710a22903c9105ae81e`，同步社区 Desktop `9ae0b13`，证据见[当前验收](memory/verification.md#nebulaseek-v0152-发布验收)。
+
 - 专版内核已切到真实 RC：品牌覆盖层在社区 `dsh-v0.1.5-rc.2`（`fb2c4b9e`）之上重建为 `31fac98ac0a3`，专版版本随锁定 Harness 回到 `0.1.5.<修订号>`，这不是版本回退错误。原覆盖层建立在 `0.1.6-alpha.2` 上，因 RC 缺少 `apps/desktop` 安装器资源、图标、CLI help 快照与部分 locales，无法机械重放，按 RC 实际结构重建；WebKit 模型菜单点击聚焦修复改由桌面补丁层交付。`nebulaseek-harness` 的 `master` 已随 RC 前移，旧 alpha 品牌历史保留在 `master-alpha-0.1.6`。
 
 - `v0.1.6.4`（内置 `0.1.6-alpha.2`）与 `v0.1.6.3` 的 Release、公开资产及远端/本地 Tag 均已按用户要求撤下，历史验收记录保留。撤下 `v0.1.6.4` 的直接原因是它作为更高四段版本的在线候选，会让新装的 `0.1.5.x` 弹出 Desktop 更新窗口并阻塞 Windows 安装验收。`v0.1.6.2` 是保留的失败 Tag，未创建专版 Release；历史首发标签为 `v0.0.0`、`v0.0.1`、`v0.0.2`，其中仅 `v0.0.2` 保留原安装包的历史预发布 Release。防复发规则见 [发布手册](skills/release-workflow.md#最短反馈路径)。

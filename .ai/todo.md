@@ -2,7 +2,7 @@
 
 ## 验收范围
 
-当前发布及已解决门禁见 [验证基线](memory/verification.md#nebulaseek-v0164-发布验收)；本文件只列未验证范围与外部条件，不再保留旧失败版本为待发布候选。F01–F24 各自的实测、Mock 和平台边界以 [审计修复验收](memory/audit-remediation.md) 为准，不能用发行成功统一标记全平台全功能通过。
+当前发布及已解决门禁见 [验证基线](memory/verification.md#nebulaseek-v0152-发布验收)；本文件只列未验证范围与外部条件，不再保留旧失败版本为待发布候选。F01–F24 各自的实测、Mock 和平台边界以 [审计修复验收](memory/audit-remediation.md) 为准，不能用发行成功统一标记全平台全功能通过。
 
 Harness 默认来源使用 `nebulaseek/nebulaseek-harness` 的不可变品牌提交；其代码基线跟随 `deepseek-desktop/deepseek-harness`。RC 基线适配已完成：品牌层重建在 `dsh-v0.1.5-rc.2` 之上，专版版本随之为 `0.1.5.<修订号>`。版本前三段继续取实际锁定 Harness 的基础版本。
 
