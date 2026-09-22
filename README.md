@@ -85,7 +85,7 @@ Get-FileHash ".\安装包文件名.exe" -Algorithm SHA256
 
 **版本规则：** 使用 `v主版本.次版本.修订版本.Desktop修订号`。前三段取自 Harness 版本，第四段从 `1` 开始，例如 Harness `v0.1.6` 对应 Desktop `v0.1.6.1`、`v0.1.6.2`。实际内核的完整版本及 commit 由 [工具链 lock](harness/toolchain-lock.json)记录，具体发行以对应 Tag 的 lock 为准。
 
-> 本次名称规范调整只进入源码，不重新发布。当前 `v0.1.6.3` 安装包仍显示原来的双语名称；DSH Market 自动同步已包含在该版本中。
+> 应用显示名称已统一为 `NebulaSeek`。当前 `v0.1.6.3` 安装包仍显示原来的双语名称；DSH Market 自动同步已包含在该版本中。
 
 ## 常见问题
 

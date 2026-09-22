@@ -2,8 +2,9 @@
 
 - NebulaSeek 专版 `v0.1.6.3` 已发布；它与社区上游 `v0.1.6.2` 使用相同 `0.1.6` Harness 基线，第四段因失败 Tag 不可移动而递增。
 - 历史首发标签归档为 `v0.0.0`、`v0.0.1`、`v0.0.2`，仅 `v0.0.2` 保留原安装包的预发布 Release。
-- 发行版本采用 Harness 对齐的四段数字：前三段等于锁定 Harness 的正式版本，第四段是 Desktop 修订号。当前锁定 Harness `0.1.6`，已发布 Desktop 修订号为 `3`；`v0.1.6.2` 只保留失败 Tag，没有 Release。
+- 发行版本采用 Harness 对齐的四段数字：前三段等于锁定 Harness 的前三段版本号，第四段是 Desktop 修订号。当前锁定 Harness `0.1.6`，已发布 Desktop 修订号为 `3`；`v0.1.6.2` 只保留失败 Tag，没有 Release。
 - Harness 默认来源为 `https://github.com/nebulaseek/nebulaseek-harness.git`，锁定专版 commit `0096f4a28fe7fb3a1cac44fc2b8761dbdd691b97`（含名称规范与 WebKit 模型菜单修复，尚未重新发布）；其代码基线为社区版 `303d39dab4a88bcd957221d88b663e72e03bf7ee`（`0.1.6-alpha.2`），核心行为保持一致。
+- 已同步社区 Desktop `1cc8638903d1b0122fe5b46eb52b1220d4e9cdb4` 的 alpha/beta 候选过滤；源码默认版本为 `0.1.6.4`，专版 Harness 来源和品牌不变，尚未发布。
 - 插件配置、插件管理器和只读插件清单使用当前 Harness 机制；Desktop 不保留旧市场 UI 或强制装配逻辑。DSH Market 随首次使用的新 Harness commit 通过官方 `dsh plugin --profile desktop-web add dshmarket@latest` 同步，失败可重试；详见 ADR-028。
 - 独立联网搜索扩展通过公开 Agent 上下文、模型目录、搜索 Provider 和设置插槽接入；官方搜索插件保持默认启用，三种模式互斥，Desktop 不补丁改写官方搜索界面或核心路由。
 - Desktop 采用单窗口 Tauri Shell，Harness 工作台运行在隔离 WebView；原生生命周期、加密凭据、诊断、更新和菜单由 Rust 管理，工作台不获得通用 Tauri IPC、文件系统或 shell 权限。
