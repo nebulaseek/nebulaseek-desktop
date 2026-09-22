@@ -12,7 +12,7 @@ Harness 默认来源使用 `nebulaseek/nebulaseek-harness` 的不可变品牌提
 
 - `v0.1.5.1` 的 Windows x64 安装验收失败：新装应用启动后检查 Desktop 更新，发现仍在线且四段版本更高的 `v0.1.6.4`，弹出「发现 Desktop 0.1.6.4」窗口盖住工作台；`scripts/verify-windows-install.ps1` 只识别首次运行引导弹窗，等不到工作台就绪而超时（证据：Run 35716024147 的 UIA 快照与 `[surface] show settings view=update`）。
 - 已按用户决定撤下 `v0.1.6.4` 的 Release、资产与 Tag，移除该候选，`v0.1.5.2` 据此重发。
-- 未做的加固：`verify-windows-install.ps1` 仍不会关闭更新窗口。只要仓库里出现比在发版本更高的候选（例如将来回到 `0.1.6.x` 后又发 `0.1.5.x` 修订），同样会卡住。需要时再让该脚本识别并关闭更新窗口。
+- 该加固已同步社区 `3f2e9cb`：`verify-windows-install.ps1` 按三语把 `update.later` 加入可关闭控件，只隐藏本次提示，仍禁止 `update.download` 与 `update.ignoreVersion`；回归在 `scripts/tests/release-safety.test.mjs` 按 `src/i18n/messages.ts` 实际文案比对。专版三条文案与社区一致；若将来改动这三条文案，该回归会失败，那是提醒同步改 ps1 名单，不是误报。Windows 实机路径要等下一次 Tag 矩阵才会真正跑到。
 
 ## 品牌 Harness 仓库的未决项
 
