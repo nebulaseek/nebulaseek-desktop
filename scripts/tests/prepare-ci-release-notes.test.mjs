@@ -8,6 +8,14 @@ import {
 } from "../prepare-ci-release-notes.mjs";
 
 test("community release notes expose direct links for every public asset", () => {
+  assert.deepEqual(communityReleaseAssetNames("0.1.6.3"), [
+    "NebulaSeek_0.1.6.3_aarch64.dmg",
+    "NebulaSeek_0.1.6.3_x64.dmg",
+    "NebulaSeek_0.1.6.3_x64-setup.exe",
+    "NebulaSeek_0.1.6.3_amd64.AppImage",
+    "NebulaSeek_0.1.6.3_amd64.deb",
+    "SHA256SUMS"
+  ]);
   const notes = prepareCommunityReleaseNotes({
     template: "# Community\n\n<!-- release-downloads -->\n\n<!-- release-changes -->\n",
     repository: "example/desktop",

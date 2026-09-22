@@ -45,6 +45,12 @@ function parseChecksums(text) {
   return checksums;
 }
 
+export function publicArtifactProductName(productName) {
+  const name = productName.replace(/（[^）]*）$/u, "").trim().replaceAll(" ", ".");
+  if (!name) throw new Error("public artifact product name is empty");
+  return name;
+}
+
 // The Harness closure digest is host-specific — native prebuilds are compiled by
 // the building platform — so the four targets legitimately report different
 // `harness.sha256`. Each BUILD-INFO still carries its own digest; it just cannot
@@ -193,8 +199,14 @@ export async function prepareCiReleaseAssets({ inputRoot, outputRoot, version, c
   await mkdir(output, { recursive: true });
   const published = [];
   const names = new Set();
+  const publicProductName = publicArtifactProductName(releaseIdentity.application.productName);
   for (const installer of installers.sort()) {
-    const name = basename(installer).replaceAll(" ", ".");
+    const sourceName = basename(installer);
+    const productPrefix = `${releaseIdentity.application.productName}_`;
+    if (!sourceName.startsWith(productPrefix)) {
+      throw new Error(`release installer product name mismatch: ${sourceName}`);
+    }
+    const name = `${publicProductName}_${sourceName.slice(productPrefix.length)}`;
     if (names.has(name)) throw new Error(`duplicate public release asset: ${name}`);
     names.add(name);
     const destination = join(output, name);

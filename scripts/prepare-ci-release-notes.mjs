@@ -2,7 +2,10 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import { basename, join, resolve } from "node:path";
 import process from "node:process";
 
+import { DEFAULT_CONFIG } from "./lib/build-config.mjs";
+import { desktopArtifactName } from "./lib/desktop-artifacts.mjs";
 import { parseReleaseTag } from "./lib/release-tag.mjs";
+import { publicArtifactProductName } from "./prepare-ci-release-assets.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 const DOWNLOADS_MARKER = "<!-- release-downloads -->";
@@ -12,13 +15,14 @@ function downloadUrl(repository, tag, name) {
   return `https://github.com/${repository}/releases/download/${encodeURIComponent(tag)}/${encodeURIComponent(name)}`;
 }
 
-export function communityReleaseAssetNames(version) {
+export function communityReleaseAssetNames(version, productName = DEFAULT_CONFIG.DESKTOP_APP_NAME) {
+  const publicProductName = publicArtifactProductName(productName);
   return [
-    `DeepSeek.Desktop_${version}_aarch64.dmg`,
-    `DeepSeek.Desktop_${version}_x64.dmg`,
-    `DeepSeek.Desktop_${version}_x64-setup.exe`,
-    `DeepSeek.Desktop_${version}_amd64.AppImage`,
-    `DeepSeek.Desktop_${version}_amd64.deb`,
+    desktopArtifactName({ productName: publicProductName, version, target: "aarch64-apple-darwin", extension: ".dmg" }),
+    desktopArtifactName({ productName: publicProductName, version, target: "x86_64-apple-darwin", extension: ".dmg" }),
+    desktopArtifactName({ productName: publicProductName, version, target: "x86_64-pc-windows-msvc", extension: ".exe" }),
+    desktopArtifactName({ productName: publicProductName, version, target: "x86_64-unknown-linux-gnu", extension: ".AppImage" }),
+    desktopArtifactName({ productName: publicProductName, version, target: "x86_64-unknown-linux-gnu", extension: ".deb" }),
     "SHA256SUMS"
   ];
 }
