@@ -145,6 +145,7 @@ Release 只保留 5 个安装包和 `SHA256SUMS`。矩阵内部可上传 `BUILD-
 | `harness:sync` 报 `hardlink different from source` | 本地 clone 默认硬链接 `.git/objects`，与镜像自身的 commit-graph 维护竞争。`harness-sync.mjs` 的缓存检出必须带 `--no-hardlinks`；该失败与平台无关，不要当作单个 Runner 的抖动重试了事 |
 | Linux 原生平台包 prepack 报缺少 `landlock-run` 或安装后无法执行 | `build:official` 只生成当前 libc 的 host addon；在打包当前平台包前执行原生 workspace 的完整 `build:native`，Linux Runner 安装 `musl-tools`。平台包沿用官方 `npm pack` 保留执行位，其余 workspace 包使用 pnpm；安装后复核声明载荷与权限，不能跳过 prepack 或删除 optional 平台包。 |
 | Rust 初始化并行导致组件丢失 | `with-rust.mjs` 用仓库私有工具链锁串行执行；确认无残留构建进程后恢复不完整工具链，不能并发重复运行 rustup。 |
+| Windows 安装验收报 `workbench did not become ready (dismissed 0 first-run dialog(s))` | 先看 UIA 快照里有没有「发现 Desktop <版本>」窗口。仓库中存在四段版本更高且资产完整的在线 Release 时，新装应用会弹出 Desktop 更新窗口盖住工作台，而 `verify-windows-install.ps1` 只识别首次运行引导弹窗。确认应用本身已就绪（日志有 Harness 端口与市场同步）后，撤下那个更高版本的 Release，或让验收脚本识别并关闭更新窗口；不要靠延长超时 |
 | 上传失败 | 不修改已有 Tag；确认权限和资产后用新版本重新闭环 |
 | 推送 Tag 后触发的 Run 构建的是社区代码 | `git fetch upstream --tags` 会把社区同名发行 Tag 带进本地。下游与上游版本号可能重合（例如同为 `v0.1.5.1`），此时 `git tag -a` 因重名失败，而随后的 `git push origin <tag>` 推送的是上游 Tag，指向社区 commit。创建发行 Tag 前先确认该名字在本地不存在，创建后必须断言 `git rev-parse <tag>^{}` 等于待发布 commit，再推送；不要用 `git push --tags`。已推错时立即取消 Run，确认没有产生 Release 和公开资产，再删除远端与本地 Tag |
 

@@ -1,10 +1,10 @@
 # 当前交付摘要
 
-- NebulaSeek 专版内核已切到真实 RC：品牌覆盖层重建在社区 `dsh-v0.1.5-rc.2` 之上，专版版本随锁定 Harness 回到 `0.1.5.<修订号>`。`v0.1.6.4`（内置 `0.1.6-alpha.2`）的 Release 与资产仍在线，其验收记录保留，但不作为后续发行基线。旧 `v0.1.6.3` Release、资产及 Tag 已按用户要求撤下，未重标或混用其安装包。
+- NebulaSeek 专版内核已切到真实 RC：品牌覆盖层重建在社区 `dsh-v0.1.5-rc.2` 之上，专版版本随锁定 Harness 回到 `0.1.5.<修订号>`。`v0.1.6.4`（内置 `0.1.6-alpha.2`）与 `v0.1.6.3` 的 Release、资产及 Tag 均已按用户要求撤下，验收记录保留，未重标或混用其安装包。
 - 历史首发标签归档为 `v0.0.0`、`v0.0.1`、`v0.0.2`，仅 `v0.0.2` 保留原安装包的预发布 Release。
 - 发行版本采用 Harness 对齐的四段数字：前三段等于锁定 Harness 的前三段版本号，第四段是 Desktop 修订号。当前锁定 Harness `0.1.5`，源码默认 Desktop 修订号为 `1`；内核换基线时四段版本可能低于上一次发行，这不是回退错误。`v0.1.6.2` 只保留失败 Tag，没有 Release。
 - Harness 默认来源为 `https://github.com/nebulaseek/nebulaseek-harness.git`，源码锁定专版 commit `31fac98ac0a3546959be2a87b19eb6ae31bfd911`（Tag `dsh-v0.1.5-rc.2.nebulaseek.1`）；其代码基线为社区版 `fb2c4b9e698e30edb738bca4cf0618587db7d203`（`0.1.5-rc.2`），核心行为保持一致。该仓库 `master` 已随 RC 前移，旧 alpha 品牌历史保留在 `master-alpha-0.1.6`。
-- 已同步社区 Desktop `9ae0b131bfb4d88b2d00f9915f2e0735202cd46d` 的 RC 内核切换与稳定频道打包规则；源码默认版本为 `0.1.5.1`，专版 Harness 来源和品牌不变。
+- 已同步社区 Desktop `9ae0b131bfb4d88b2d00f9915f2e0735202cd46d` 的 RC 内核切换与稳定频道打包规则；源码默认版本为 `0.1.5.2`，专版 Harness 来源和品牌不变。
 - 插件配置、插件管理器和只读插件清单使用当前 Harness 机制；Desktop 不保留旧市场 UI 或强制装配逻辑。DSH Market 随首次使用的新 Harness commit 通过官方 `dsh plugin --profile desktop-web add dshmarket@latest` 同步，失败可重试；详见 ADR-028。
 - 独立联网搜索扩展通过公开 Agent 上下文、模型目录、搜索 Provider 和设置插槽接入；官方搜索插件保持默认启用，三种模式互斥，Desktop 不补丁改写官方搜索界面或核心路由。
 - Desktop 采用单窗口 Tauri Shell，Harness 工作台运行在隔离 WebView；原生生命周期、加密凭据、诊断、更新和菜单由 Rust 管理，工作台不获得通用 Tauri IPC、文件系统或 shell 权限。
