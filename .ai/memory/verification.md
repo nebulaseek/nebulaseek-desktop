@@ -1,5 +1,13 @@
 # 验证基线
 
+## WebKit 模型菜单点击修复（未重新发布）
+
+- macOS 视频中的模型菜单可展开，但点击其他选项不生效。使用真实暂存 Harness 与隔离 profile 对照：旧版 Chromium 点击成功；WebKit 在 `mousedown` 后把已选行焦点移到页面，`relatedTarget=null` 触发菜单卸载，因此收不到选项的 `click`。旧版用方向键选择后按 Enter 可绕过。
+- 修复由社区 Harness `303d39dab4a88bcd957221d88b663e72e03bf7ee` 提供，专版合入为 `0096f4a28fe7fb3a1cac44fc2b8761dbdd691b97`；Desktop 工具链 lock 已指向该专版提交。仅在鼠标主键按下时显式聚焦可用菜单按钮并阻止默认失焦，保留键盘、外部失焦关闭和模型选择协议；专版未增加独有的模型逻辑。
+- 新增 owner 回归在修复前因选择回调未调用而失败，修复后该包 39 项测试通过；文档门禁、lint 和两仓库推送 typecheck 通过。
+- 固定新提交构建后，真实暂存 Harness 页面在 Chromium 与 macOS 上的 Playwright WebKit 中通过鼠标模型切换、推理等级切换、刷新保持、方向键加 Enter 选择及 Escape 关闭，页面无未捕获错误，父进程消亡清理通过。刷新前等待网络请求完成，避免将页面卸载取消请求误记为选择失败；重新加载后的首次配置提示按正常按钮关闭。此证据不是原生安装包或真实供应商调用验收。
+- Desktop 完整 `verify` 通过，包括配置、前端、三语、Harness 装配与 manifest、搜索扩展、Rust 和 Clippy；`harness:sync --check`、26 项 `release:smoke`、6 项 `test:e2e` 与真实 `harness:smoke` 均通过。既有 `v0.1.6.3` Tag、Release、安装包及已安装应用未改变；用户可通过 Harness 独立更新准备新提交并在重启后切换。
+
 ## NebulaSeek 名称规范与社区文档同步（未重新发布）
 
 - 两个专版仓库当前跟踪文本均无旧拼音组织名。应用标题、三语原生菜单、Harness 字标、浏览器元数据和安装器统一显示 `NebulaSeek`；项目介绍明确官方、社区与专版的五仓库关系，中文名称仅用于解释品牌。内部兼容标识和核心行为不变。
