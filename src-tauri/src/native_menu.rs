@@ -129,6 +129,7 @@ pub(crate) struct CloseConfirmationLabels {
 
 #[cfg(target_os = "macos")]
 pub fn install(app: &AppHandle, locale: &str) -> DesktopResult<()> {
+    update_window_title(app, locale)?;
     let labels = labels(locale);
     let quit = item(app, QUIT_MENU_ID, labels.quit, Some("CmdOrCtrl+Q"))?;
     let undo = PredefinedMenuItem::undo(app, Some(labels.undo)).map_err(desktop_error)?;
@@ -229,6 +230,7 @@ fn hide_app_menu_edit_shortcuts() -> DesktopResult<()> {
 
 #[cfg(not(target_os = "macos"))]
 pub fn install(app: &AppHandle, locale: &str) -> DesktopResult<()> {
+    update_window_title(app, locale)?;
     let labels = labels(locale);
     let shortcuts = SubmenuBuilder::new(app, APP_NAME)
         .item(&item(
@@ -432,6 +434,28 @@ fn item(
         builder = builder.accelerator(accelerator);
     }
     builder.build(app).map_err(desktop_error)
+}
+
+fn update_window_title(app: &AppHandle, locale: &str) -> DesktopResult<()> {
+    if let Some(window) = app.get_window("main") {
+        window
+            .set_title(&format!(
+                "{} v{}",
+                display_name(locale),
+                env!("DEEPSEEK_DESKTOP_APP_VERSION")
+            ))
+            .map_err(desktop_error)?;
+    }
+    Ok(())
+}
+
+/// Visible brand only; packaging names and filesystem paths remain unchanged.
+fn display_name(locale: &str) -> &'static str {
+    match locale {
+        "zh-CN" => "星云寻知",
+        "zh-TW" => "星雲尋知",
+        _ => APP_NAME,
+    }
 }
 
 fn labels(locale: &str) -> MenuLabels {

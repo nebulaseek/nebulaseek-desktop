@@ -1,5 +1,11 @@
 # 验证基线
 
+## 中文品牌显示调整（未重新打包）
+
+- 仅修改专版：Desktop 通过既有语言设置初始化/保存路径更新原生窗口标题，Harness 品牌插件通过既有语言插槽显示侧栏名称。简体为“星云寻知”、繁体为“星雲尋知”、英文为 `NebulaSeek`；Harness 的繁体字典供已有语言包注册的 `zh-TW` 使用，不新增语言或修改核心设置。安装包和路径、Bundle Identifier、模型协议保持不变。
+- Harness `309b9a92569c7f4074c75057d76c57f4ec5e4bda`：6 项品牌组件检查、4 项实际构建插件图装配检查通过，其中官方构建实际渲染简中/英文侧栏品牌。普通及 official 构建、类型检查、完整 lint、41 项 doc-sync 检查通过。hygiene 的其余 15 项通过；constraints 最初被历史删除包的残留生成目录阻断，将确认未跟踪且仅有 ignored lib/node_modules 的目录移至临时备份后该项通过。
+- Desktop 137 项配置检查、应用配置生成和原生窗口标题改动的 Rust 格式检查通过；尚未重新编译安装包或执行原生 GUI 语言切换验收。现有 `v0.1.6.4` Release 和本机已安装应用保持发布时的英文名称，不能声称新显示已经在安装版生效。
+
 ## NebulaSeek v0.1.6.4 发布验收
 
 2026-09-22：[v0.1.6.4](https://github.com/nebulaseek/nebulaseek-desktop/releases/tag/v0.1.6.4) 已发布，Release `393520015`，`draft=false`、`prerelease=true`，不占 Latest。Tag 对象 `5bcb39846689fba4c8425c5295e5a3c13bf5aa13` 指向 `624b6c2494d5b3f63974bb5267194642e2805730`；内置专版 Harness 为 `0096f4a28fe7fb3a1cac44fc2b8761dbdd691b97`，实际 CLI `0.1.6-alpha.2`。

@@ -8,7 +8,7 @@
 
 NebulaSeek Desktop 由 DeepSeek Desktop 社区版维护团队推出，持续同步 `deepseek-desktop/deepseek-desktop` 社区版，并只在用户可见层维护专版品牌：应用和窗口名称、三语菜单文案、图标、浏览器元数据、安装与发布文案、公开仓库链接，以及默认锁定的 NebulaSeek Harness 来源。
 
-应用内名称、窗口标题、原生菜单、侧栏字标与安装包应用名统一使用 `NebulaSeek`。中文名称“星云寻知”只用于项目介绍等合适的说明位置，不拼接进应用名；项目组件称为 `NebulaSeek Harness` 与 `NebulaSeek Desktop`。
+窗口标题与侧栏字标按界面语言显示：简体中文为“星云寻知”，繁体中文为“星雲尋知”，英文为 `NebulaSeek`。安装包、应用文件名、安装路径及内部技术标识继续使用 `NebulaSeek` 或原有兼容值；项目组件称为 `NebulaSeek Harness` 与 `NebulaSeek Desktop`。窗口标题复用已有设置语言更新链路，品牌组件复用 Harness 语言插槽，不改模型或会话行为。
 
 内部兼容标识保持上游值，包括 npm 包名、Rust crate/bin 名、`deepseek.desktop` Bundle Identifier、`deepseek-desktop` slug、`DEEPSEEK_DESKTOP_*` 环境变量、IPC、应用数据目录、服务名、加密和更新协议。DeepSeek 模型名、社区上游名称和历史技术证据也保留真实名称。
 
