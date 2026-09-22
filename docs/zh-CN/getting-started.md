@@ -64,6 +64,14 @@ open "/Applications/NebulaSeek.app"
 
 不要关闭 macOS 的全局 Gatekeeper、SIP 或 XProtect，也不要对“下载”目录批量移除隔离标记；这些操作会降低整台 Mac 的安全性。
 
+## Windows 安装时提示无法写入文件
+
+如果安装器提示 `Error opening file for writing`，且失败位置是多层 `node_modules` 下的长文件名，先检查**完整目标路径长度**。Windows 传统路径上限为 260 个字符（包含结尾空字符）；中文和中文括号本身是合法名称，不能仅凭路径含中文就判定为编码错误。长路径支持还取决于系统设置和应用声明，不能假定所有电脑都已启用。参见 [Microsoft 路径长度说明](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation)。
+
+已发布 `v0.1.6.3` 的安装目录仍包含双语产品名，遇到较长的用户目录和依赖路径时可能达到上限。可点击“中止”，重新运行安装器，将安装目录选为有写入权限的短路径，例如 `C:\NebulaSeek`。不要点击“忽略”跳过文件后继续使用不完整安装。若短路径仍然失败，再核查目录写权限、文件占用或安全软件拦截。
+
+当前源码的应用名称已缩短为 `NebulaSeek`，但这不会改变已下载的旧安装包，也不代表任意长度的自定义安装目录都已验证可用。
+
 ## 开始使用
 
 1. 启动 NebulaSeek。主程序会自动启动本地 Harness，在 `127.0.0.1` 上申请随机端口，并在就绪后直接进入当前窗口中的工作台。

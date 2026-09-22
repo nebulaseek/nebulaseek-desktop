@@ -27,6 +27,8 @@ Harness `0.1.6-alpha.2` 源码升级的本机验证范围见[升级验证](memor
 
 ## 平台验证
 
+- Windows 安装长路径回归：用户提供的双语名称安装器在深层 OpenTelemetry 文件写入处失败，截图路径约 260 个字符；短安装目录是当前排查/绕过方法，尚未在用户机器复验。现有 Runner 默认安装成功不覆盖更长用户目录或关闭长路径支持的机器；下次发行前应验证此组合，不能仅凭源码缩短产品名宣称已全面修复。
+
 以下是四平台原生 Runner 的现有 `package:community` 自动门禁，后续发行仍须实际运行成功；当前成功证据见验证基线：
 
 - `verify` 全链（含 Rust 单元测试）在 macOS ARM64/x64、Windows x64、Linux x64 各跑一次；诊断脱敏的 `USERPROFILE` 与 `HOMEDRIVE` + `HOMEPATH` 解析由注入环境的用例覆盖，四个平台都会执行。
